@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro</title>
+</head>
+
+<body>
+    <h2>Simulador Financeiro</h2>
+    Insira o consumo energético mensal dos LED's (kWh): <input type="text" id="iptConsumoEnergia"><br>
+    Insira o preço da energia em kWh: <input type="text" id="iptPrecoEnergia"><br>
+    Insira a quantidade média mensal de tomates produzidos: <input type="text" id="iptProducao"><br>
+
+    <button onclick="simular()">Simule já!</button>
+    <br><br>
+    <div id="msg"></div>
+</body>
+<script>
+    function simular() {
+        var qtdProducao = Number(iptProducao.value)
+        var consumoEnergia = Number(iptConsumoEnergia.value)
+        var precoEnergia = Number(iptPrecoEnergia.value)
+
+        var porcentagemReducaoEnergia = 0.3
+        var porcentagemAumentoProducao = 0.15
+
+        var contaMensalEnergia = consumoEnergia * precoEnergia
+        var consumoEnergiaReduzido = consumoEnergia * (1 - porcentagemReducaoEnergia)
+        var contaMensalEnergiaReduzida = consumoEnergiaReduzido * precoEnergia
+        var qtdProducaoAumentada = qtdProducao * (1 + porcentagemAumentoProducao)
+
+        msg.innerHTML = `
+            Você produz <b>${qtdProducao}</b> tomates por mês gastando <b>R$${contaMensalEnergia.toFixed(2)}</b> mensais no consumo energético dos LED's.
+            <br>
+            Com o uso do nosso monitoramento de luminosidade em conjunto dos seus LED's, você passará a produzir cerca de 15% a mais, passando para uma quantidade de <b>${qtdProducaoAumentada.toFixed()}</b> tomates por mês, e com uma redução estimada de 30% no consumo energético dos LED's, passando a gastar <b>R$${contaMensalEnergiaReduzida.toFixed(2)}</b> mensais no valor de energia dos LED's.
+        `
+    }
+</script>
+
+</html>
