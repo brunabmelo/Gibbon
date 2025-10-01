@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2><b>Simula aqui</b></h2>
+    <i>Informe o nome da empresa:</i> <input type="text" id="ipt_nome" style="color: blue;"><br><br>
+    <i>Informe o faturamento anual:</i> <input type="text" id="ipt_faturamento" style="color: blue;"><br><br>
+    <button onclick="Simular()">Simule agora!!</button><br>
+    <div id="div_msg"></div>
+<script>
+    function Simular() {
+        var ax_nome = ipt_nome.value
+        var ax_fatu = Number(ipt_faturamento.value)
+       var ax_perda = ax_fatu * 0.40
+       var ax_recupera = ax_perda * 0.20
+
+       div_msg.innerHTML = `Sem um monitoramento de luminosidade adequado no cultivo de tomate, a perda da empresa <u>${ax_nome}</u> pode chegar a <b>40%</b> que é ${ax_perda.toFixed(2)} reais por amo <br>` +
+       `nossa empresa visa reduzir para <b>20%</b> sobre o que é perdido, proporcionando uma recuperação de ${ax_recupera.toFixed(2)} no faturamento da empresa`
+    }
+</script>
+</html>
