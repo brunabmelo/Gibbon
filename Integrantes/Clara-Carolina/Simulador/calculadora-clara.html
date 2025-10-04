@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibbon</title>
+</head>
+
+<body>
+    <h1>Gibbon</h1>
+    <h3><i>Simulador financeiro</i></h3>
+
+    Consumo energético médio das estufas (kWh)<br>
+    <input id="ipt_energia"><br><br>
+
+    Produção por ciclo de cultivo (toneladas por hectare)<br>
+    <input id="ipt_producao"><br><br>
+
+    <button onclick="simular()">Calcular melhora!</button>
+    <div id="div_simular"></div>
+
+</body>
+<script>
+    function simular() {
+        let energia = Number(ipt_energia.value);
+        let producaoInicial = Number(ipt_producao.value);
+
+        let producaoFinal = producaoInicial * 1.15;
+        let ecoProducao = producaoFinal - producaoInicial;
+
+        let energiaInicial;
+        if (producaoInicial > 5) {
+            energiaInicial = energia * 0.41;
+        } else {
+            energiaInicial = energia * 1.47;
+        }
+
+        let ecoEnergia = energiaInicial * 0.3;
+        let energiaFinal = energiaInicial - ecoEnergia;
+
+
+
+        div_simular.innerHTML =
+            `<br><br>Em um ciclo de plantio você <br><br>
+        Aumenta em 30% a eficiência energética <br>
+        Valor sem a Gibbon: R$${energiaInicial.toFixed(2)} <br>
+        Valor com a Gibbon: R$${energiaFinal.toFixed(2)} <br>
+        Economia de R$${ecoEnergia.toFixed(2)} <br><br>
+
+        Aumenta em 15% a produtividade em toneladas por hectare<br>
+        Produção atual: ${producaoInicial} <br>
+        Produção com a Gibbon: ${producaoFinal} <br>
+        Aumento de ${ecoProducao.toFixed(2)}<br><br><br><br><br>
+        
+        Dados de pesquisas Esalq-USP <br>
+        Valor de energia referencial da projeção ANEEL 2025`
+
+    }
+</script>
+
+</html>
