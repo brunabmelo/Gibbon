@@ -68,19 +68,18 @@ INSERT INTO cliente (nome, cnpj, email, fkEndereco, fkLogin) VALUES
 	('Empresa', '12345678901234', 'empresa@contato.com', 1, 1),
 	('profissional', '43210987654321', 'profissional@contato,com', 2, 2);
     
-INSERT INTO sensor (estufa, sensor, fkCliente) VALUES
+INSERT INTO sensor (estufa, setor, fkCliente) VALUES
 	('Estufa grande', 'Setor A', 1),
 	('Estufa grande', 'Setor A', 1),
 	('Estufa profissional', 'Setor 01', 2);
     
-INSERT INTO registro VALUES
+INSERT INTO registro (idRegistro, fkSensor, nivelLuminosidade, estadoLuminosidade) VALUES
 	(1, 1, 22, 1),
 	(2, 1, 21, 1),
 	(3, 1, 23, 1),
 	(1, 2, 1, 0),
 	(2, 2, 3, 0),
 	(3, 2, 2, 0),
-	(1, 3, 28, 0),
+	(1, 3, 28, 1),
 	(2, 3, 30, 1),
 	(3, 3, 31, 1);
-    
