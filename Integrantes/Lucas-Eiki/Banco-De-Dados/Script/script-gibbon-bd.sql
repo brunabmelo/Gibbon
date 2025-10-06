@@ -55,3 +55,32 @@ CREATE TABLE registro (
     estadoLuminosidade TINYINT NOT NULL,
     dataHora DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
+
+INSERT INTO endereco (cep, numero) VALUES
+	('12345123', '100'),
+	('54321321', '200');
+    
+INSERT INTO login (email, senha) VALUES
+	('empresa@empresa.com', '123456'),
+	('oficial@profissional.com', '123');
+    
+INSERT INTO cliente (nome, cnpj, email, fkEndereco, fkLogin) VALUES
+	('Empresa', '12345678901234', 'empresa@contato.com', 1, 1),
+	('profissional', '43210987654321', 'profissional@contato,com', 2, 2);
+    
+INSERT INTO sensor (estufa, sensor, fkCliente) VALUES
+	('Estufa grande', 'Setor A', 1),
+	('Estufa grande', 'Setor A', 1),
+	('Estufa profissional', 'Setor 01', 2);
+    
+INSERT INTO registro VALUES
+	(1, 1, 22, 1),
+	(2, 1, 21, 1),
+	(3, 1, 23, 1),
+	(1, 2, 1, 0),
+	(2, 2, 3, 0),
+	(3, 2, 2, 0),
+	(1, 3, 28, 0),
+	(2, 3, 30, 1),
+	(3, 3, 31, 1);
+    
