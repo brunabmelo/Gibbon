@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gibbon – Simulador Financeiro</title>
+</head>
+
+<body>
+    <h1>Gibbon</h1>
+    <h3><i>Simulador Financeiro Unificado</i></h3>
+
+
+<label>Consumo energético mensal (kWh):</label><br>
+<input type="number" id="ipt_energia"><br><br>
+
+<label>Preço da energia (R$/kWh):</label><br>
+<input type="number" id="ipt_preco"><br><br>
+
+<label>Produção mensal (em toneladas):</label><br>
+<input type="number" id="ipt_producao"><br><br>
+
+<button onclick="simular()">Simular</button>
+<div id="div_resultado"></div>
+
+<script>
+    function simular() {
+        let energia = Number(ipt_energia.value);
+        let preco = Number(ipt_preco.value);
+        let producao = Number(ipt_producao.value);
+
+        if (energia <= 0 || preco <= 0 || producao <= 0) {
+            alert("Preencha todos os campos corretamente!");
+            return;
+        }
+
+        let reducaoEnergia = 0.30;  // 30%
+        let aumentoProducao = 0.15; // 15%
+
+        // Cálculos de energia
+        let energiaComGibbon = energia * (1 - reducaoEnergia);
+        let custoSemGibbon = energia * preco;
+        let custoComGibbon = energiaComGibbon * preco;
+        let economia = custoSemGibbon - custoComGibbon;
+
+        // Cálculos de produção
+        let producaoComGibbon = producao * (1 + aumentoProducao);
+        let aumento = producaoComGibbon - producao;
+
+        div_resultado.innerHTML = `
+            <br><b>Resultados da Simulação:</b><br><br>
+            <b>Eficiência Energética</b><br>
+            - Consumo atual: ${energia.toFixed(2)} kWh<br>
+            - Consumo com Gibbon: ${energiaComGibbon.toFixed(2)} kWh<br>
+            - Economia: <b>${(reducaoEnergia * 100).toFixed(0)}%</b> ou <b>R$${economia.toFixed(2)}</b><br><br>
+
+            <b>Produtividade</b><br>
+            - Produção atual: ${producao.toFixed(2)} toneladas<br>
+            - Produção com Gibbon: ${producaoComGibbon.toFixed(2)} toneladas<br>
+            - Aumento de <b>${(aumentoProducao * 100).toFixed(0)}%</b> (${aumento.toFixed(2)} toneladas)<br><br>
+
+            <i>Simulação baseada em dados de eficiência energética e produtividade média de sistemas inteligentes de iluminação e monitoramento.</i>
+        `;
+    }
+</script>
+
+
+</body>
+
+</html>
