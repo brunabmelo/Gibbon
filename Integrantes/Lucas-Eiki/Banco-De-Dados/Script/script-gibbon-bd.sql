@@ -44,7 +44,7 @@ CREATE TABLE sensor (
 );
 
 CREATE TABLE registro (
-	idRegistro INT,
+	idRegistro INT AUTO_INCREMENT,
     fkSensor INT,
     CONSTRAINT pkComposta
 		PRIMARY KEY(idRegistro, fkSensor),
@@ -83,3 +83,12 @@ INSERT INTO registro (idRegistro, fkSensor, nivelLuminosidade, estadoLuminosidad
 	(1, 3, 28, 1),
 	(2, 3, 30, 1),
 	(3, 3, 31, 1);
+
+-- OU inserindo o idRegistro automaticamente
+-- INSERT INTO registro (fkSensor, nivelLuminosidade, estadoLuminosidade) VALUES 
+-- 	(1, 2, 0),
+-- 	(1, 5, 0),
+-- 	(2, 22, 1),
+-- 	(2, 32, 1),
+-- 	(3, 100, 1),
+-- 	(3, 120, 1);
