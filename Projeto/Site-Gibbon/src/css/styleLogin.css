@@ -31,7 +31,6 @@ body {
 }
 
 .login-card {
-    background: var(--cor-card);
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
@@ -51,6 +50,7 @@ form {
 label {
     font-size: 0.9rem;
     color: var(--cor-texto);
+    font-weight: 600;
 }
 
 input {
@@ -61,21 +61,15 @@ input {
     width: 100%;
 }
 
-input:focus {
-    outline: none;
-    border-color: var(--cor-botao);
-    box-shadow: 0 0 0.25rem rgba(91, 108, 255, 0.3);
-}
 
 /* Botão */
 button {
     background-color: var(--cor-botao);
-    color: #fff;
+    color: #000000;
     border: none;
     border-radius: var(--radius);
     padding: 0.9rem 1rem;
     font-size: 1rem;
-    font-weight: 600;
     cursor: pointer;
     margin-top: 0.5rem;
     transition: 0.3s;
@@ -88,27 +82,24 @@ button:hover {
 /* Texto final */
 .registro {
     margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--cor-secundaria);
     text-align: center;
 }
 
 .registro a {
-    color: var(--cor-botao);
+    background-color: var(--cor-botao);
     text-decoration: none;
 }
 
 .registro a:hover {
     text-decoration: underline;
 }
-
-/* Responsivo */
-@media(max-width:600px) {
-    .login-card {
-        padding: 1.5rem;
-    }
-
-    .logo {
-        width: 5rem;
-    }
+.recuperar {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    color: #828282;
+    text-decoration: underline;
+    cursor: pointer;
 }
