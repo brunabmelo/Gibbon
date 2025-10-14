@@ -8,25 +8,26 @@
 
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/responsive.css">
 </head>
 
 <body>
     <header>
-        <div class="logo-container">
+        <a class="logo-container" href="./index.html">
             <img src="./assets/images/logos/gibbon-logo.png" alt="logo Gibbon">
-        </div>
-        <ul class="nav">
-            <li class="btn-cta"><a href="">Home</a></li>
-            <li class="btn-cta"><a href="">Simulador</a></li>
-            <li class="btn-cta"><a href="">Sobre nós</a></li>
-            <li class="btn-cta"><a href="">Princípios</a></li>
-            <li class="btn-cta"><a href="">Contate-nos</a></li>
-            <li class="btn-cta"><a href="./login.html">Entre</a></li>
-        </ul>
+        </a>
+        <nav>
+            <ul class="links-header">
+                <li class="btn-cta"><a href="#home">Home</a></li>
+                <li class="btn-cta"><a href="#simulador">Simulador</a></li>
+                <li class="btn-cta"><a href="#sobre-nos">Sobre nós</a></li>
+                <li class="btn-cta"><a href="#principios">Princípios</a></li>
+                <li class="btn-cta"><a href="#contate-nos">Contate-nos</a></li>
+                <li class="btn-cta btn-entre"><a href="./login.html">Entre</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
+    <main id="home">
 
         <section>
             <h1>Inovação que conecta sensores, produtores e resultados.</h1>
@@ -37,35 +38,46 @@
 
         <section class="como-funciona"></section>
 
-        <section class="simulador"></section>
+        <section id="simulador"></section>
 
         <section class="beneficios"></section>
+
+        <section id="sobre-nos"></section>
+
+        <section id="principios"></section>
+
+        <div></div>
+
+        <section id="contate-nos"></section>
 
     </main>
 
     <footer>
-        <div>
-            <img src="./assets/images/logos/gibbon-logo.png" alt="logo Gibbon">
-            <ul class="redes-socias">
-                <li><img src="" alt="logo do facebook"></li>
-                <li><img src="" alt="logo do linkedin"></li>
-                <li><img src="" alt="logo do youtube"></li>
-                <li><img src="" alt="logo do instagram"></li>
+        <div class="logo-redes-sociais">
+            <a class="logo-container" href="./index.html">
+                <img src="./assets/images/logos/gibbon-logo.png" alt="logo Gibbon">
+            </a>
+            <ul class="redes-sociais">
+                <li><a href=""><img src="./assets/images/logos/facebook.png" alt="logo do facebook"></a></li>
+                <li><a href=""><img src="./assets/images/logos/linkedin.png" alt="logo do linkedin"></a></li>
+                <li><a href=""><img src="./assets/images/logos/youtube.png" alt="logo do youtube"></a></li>
+                <li><a href=""><img src="./assets/images/logos/instagram.png" alt="logo do instagram"></a></li>
             </ul>
         </div>
-        <div>
-            <ul class="nav">
-                <li class="btn-cta">Home</li>
-                <li class="btn-cta">Simulador</li>
-                <li class="btn-cta">Sobre nós</li>
-                <li class="btn-cta">Princípios</li>
-                <li class="btn-cta">Contate-nos</li>
-                <li class="btn-cta">Entre</li>
-            </ul>
+        <div class="footer-info">
+            <nav>
+                <ul class="links-footer">
+                    <li class="btn-cta"><a href="#home">Home</a></li>
+                    <li class="btn-cta"><a href="#simulador">Simulador</a></li>
+                    <li class="btn-cta"><a href="#sobre-nos">Sobre nós</a></li>
+                    <li class="btn-cta"><a href="#principios">Princípios</a></li>
+                    <li class="btn-cta"><a href="#contate-nos">Contate-nos</a></li>
+                </ul>
+            </nav>
             <div class="contatos">
                 <h4>Fale com Gibbon</h4>
                 <span>Sac 0800 987 6543</span>
-                <span>Email gibbon@gibbon.com</span>
+                <span>Email <br>gibbon@gibbon.com</span>
             </div>
         </div>
     </footer>
