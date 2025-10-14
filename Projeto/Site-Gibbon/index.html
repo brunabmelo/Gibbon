@@ -29,28 +29,174 @@
 
     <main id="home">
 
-        <section>
-            <h1>Inovação que conecta sensores, produtores e resultados.</h1>
-            <p>Combinando tecnologia de monitoramento e automação, nossa solução traz vantagens diretas para o produtor.
+        <section class="hero">
+            <h2>Inovação que conecta sensores, produtores e resultados.</h2>
+            <p>
+                Combinando tecnologia de monitoramento e automação, nossa solução traz vantagens diretas para o
+                produtor.
             </p>
-            <button>Saiba mais!</button>
+            <div class="button-container">
+                <a href="#sobre-nos">Saiba mais!</a>
+            </div>
         </section>
 
-        <section class="como-funciona"></section>
+        <section class="como-funciona">
+            <h2>Como Funciona</h2>
+            <p>
+                O sistema é composto por sensores de luminosidade LDR, conectados a placas Arduino, que coletam dados
+                continuamente e enviam para um banco de dados. Essas informações são processadas e disponibilizadas em
+                uma plataforma web de fácil acesso, onde o produtor pode visualizar gráficos, relatórios e indicadores
+                em tempo real.
+            </p>
+        </section>
 
-        <section id="simulador"></section>
+        <section id="simulador">
+            <div class="simulador-info">
+                <div class="linha-estilo"></div>
+                <h2>Simulador</h2>
+                <div id="resposta-simulador">
+                    <p>
+                        Veja quanto seu dinheiro pode ser economizado ao utilizar nossos equipamentos.
+                    </p>
+                </div>
+            </div>
+            <div class="simulador-inputs">
+                <div class="inputs">
+                    <div class="input-container">
+                        <label>Consumo energético mensal</label>
+                        <div class="input">
+                            <input type="text">
+                            <span class="unidade-medida">kWh</span>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label>Preço da energia</label>
+                        <div class="input">
+                            <input type="text">
+                            <span class="unidade-medida">R$/kWh</span>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label>Produção por ciclo produtivo (5 -7 meses)</label>
+                        <div class="input">
+                            <input type="text">
+                            <span class="unidade-medida">Ton</span>
+                        </div>
+                    </div>
+                </div>
 
-        <section class="beneficios"></section>
+                <div class="botoes">
+                    <button id="btn-simular">Simular</button>
+                    <button id="btn-limpar">Limpar</button>
+                </div>
+            </div>
+        </section>
 
-        <section id="sobre-nos"></section>
+        <section class="beneficios">
+            <h2>Benefícios</h2>
+            <div class="lista-beneficios">
+                <div class="beneficio">
+                    <img src="./assets/images/reducao-energia.png" alt="Mãos segurando uma lâmpada com planta dentro">
+                    <h3>Redução de custos energéticos</h3>
+                    <p>
+                        Controle eficiente do uso de LEDs, diminuindo o consumo energético em até 30%.
+                    </p>
+                </div>
+                <div class="beneficio">
+                    <img src="./assets/images/tomates-na-mao.png" alt="Mãos segurando vários tomates">
+                    <h3>Aumento de produtividade</h3>
+                    <p>
+                        Maior equilíbrio no desenvolvimento da planta, podendo gerar até 15% mais frutos por ciclo.
+                    </p>
+                </div>
+                <div class="beneficio">
+                    <img src="./assets/images/dados-estrategicos.png" alt="Pessoa usando notebook">
+                    <h3>Dados estratégicos</h3>
+                    <p>
+                        Histórico de informações para análises preditivas e melhores decisões no campo.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-        <section id="principios"></section>
+        <section id="sobre-nos">
+            <div class="sobre-info">
+                <h2>Sobre Nós</h2>
+                <p>
+                    Somos uma equipe que une tecnologia e agricultura para transformar o cultivo de alimentos.
+                    Oferecemos soluções inovadoras com foco em eficiência, sustentabilidade e inteligência no campo.
+                </p>
+                <p>
+                    Desenvolvemos ferramentas que monitoram em tempo real as condições de cultivo, auxiliando na tomada
+                    de decisões e no controle do ambiente. Nosso compromisso é apoiar os produtores em todas as etapas,
+                    promovendo uma agricultura mais moderna, produtiva e conectada às exigências do mercado atual.
+                </p>
+            </div>
+            <img src="./assets/images/tomates-com-led.png" alt="Tomates com LEDs">
+        </section>
 
-        <div></div>
-
-        <section id="contate-nos"></section>
-
+        <section id="principios">
+            <h2>Princípios</h2>
+            <div class="lista-principios">
+                <div class="principio">
+                    <img src="./assets/images/colhendo-tomate.png" alt="Mãos colhendo tomate">
+                    <h3>Inovação Sustentável</h3>
+                    <p>
+                        Utilizamos tecnologia para otimizar recursos, reduzir custos e promover uma agricultura mais
+                        responsável e eficiente.
+                    </p>
+                </div>
+                <div class="principio">
+                    <img src="./assets/images/high-five.png" alt="Duas pessoas fazendo high five sorrindo">
+                    <h3>Valorização do Produtor</h3>
+                    <p>
+                        Colocamos o agricultor no centro de nossas soluções, oferecendo ferramentas que fortalecem sua
+                        produtividade e competitividade.
+                    </p>
+                </div>
+                <div class="principio">
+                    <img src="./assets/images/aperto-de-mao.png" alt="Aperto de mão">
+                    <h3>Transparência e Confiança</h3>
+                    <p>
+                        Construímos relações sólidas com base na clareza das informações e no compromisso com resultados
+                        reais.
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <div class="cta-comecar-a-monitorar">
+        <h2>Começar a Monitorar</h2>
+        <a href="./login.html">Entre</a>
+    </div>
+
+    <section id="contate-nos">
+        <div class="contate-nos-info">
+            <h3>Contate-nos</h3>
+            <div class="inputs-contato">
+                <div class="input-contato">
+                    <label>Nome</label>
+                    <input type="text" placeholder="Nome">
+                </div>
+                <div class="input-contato">
+                    <label>Sobrenome</label>
+                    <input type="text" placeholder="Sobrenome">
+                </div>
+                <div class="input-contato">
+                    <label>Endereço de e-mail</label>
+                    <input type="text" placeholder="gibbon@gibbon.com">
+                </div>
+                <div class="input-contato">
+                    <label>Sua mensagem</label>
+                    <textarea placeholder="Digite sua pergunta ou mensagem"></textarea>
+                </div>
+            </div>
+            <button>Enviar</button>
+        </div>
+        <img src="./assets/images/tomate-e-celular.png" alt="Pessoa usando celular com tomate na mão">
+    </section>
+
 
     <footer>
         <div class="logo-redes-sociais">

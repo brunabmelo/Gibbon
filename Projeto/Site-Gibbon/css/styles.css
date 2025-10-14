@@ -1,3 +1,7 @@
+html {
+    scrollbar-gutter: stable;
+}
+
 body {
     font-family: sans-serif;
 }
@@ -25,24 +29,331 @@ nav .links-header {
     font-size: 18px;
 }
 
-.btn-cta a:hover{
+.btn-cta a:hover {
     text-decoration: underline;
 }
 
-.btn-entre a{
+.btn-entre a {
     background-color: #FBB03B;
     padding: 8px 20px;
     border-radius: 8px;
     font-size: 18px;
 }
 
-.btn-cta.btn-entre a:hover{
+.btn-cta.btn-entre a:hover {
     text-decoration: none;
     background-color: #ffce7f;
 }
 
 
+main {
+    margin: 0 160px;
+}
 
+h2 {
+    font-size: 48px;
+}
+
+.hero {
+    background-image: url(../assets/images/background/hero-background.png);
+    height: 325px;
+    padding: 24px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hero h2 {
+    color: #fff;
+}
+
+.hero p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 26px;
+}
+
+.hero .button-container {
+    display: flex;
+    justify-content: end;
+}
+
+.hero a {
+    background-color: #FBB03B;
+    color: #fff;
+    padding: 20px 32px;
+    font-size: 24px;
+    border-radius: 8px;
+}
+
+.hero a:hover {
+    background-color: #ffce7f;
+}
+
+.como-funciona h2 {
+    margin-top: 34px;
+}
+
+.como-funciona p {
+    font-size: 21px;
+    margin-top: 13px;
+}
+
+#simulador {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 109px;
+}
+
+.simulador-info {
+    width: 50%;
+}
+
+.simulador-info .linha-estilo {
+    background-color: #FBB03B;
+    width: 189px;
+    height: 7px;
+}
+
+.simulador-info h2 {
+    margin-top: 39px;
+}
+
+.simulador-info #resposta-simulador {
+    margin-top: 11px;
+}
+
+.simulador-info #resposta-simulador p {
+    color: #3C3C3C;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.simulador-inputs {
+    background-color: #FBB03B;
+    border-radius: 14px;
+    padding: 41px 31px;
+}
+
+.simulador-inputs .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+.input-container label {
+    color: #454545;
+    font-size: 19px;
+}
+
+.input-container .input {
+    width: 415px;
+    height: 68px;
+    display: flex;
+    margin-top: 5px;
+}
+
+.input-container .input input {
+    height: 100%;
+    width: 70%;
+    border: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.input-container .input .unidade-medida {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #454545;
+    font-size: 20px;
+    height: 100%;
+    width: 30%;
+    background-color: #FFEBCB;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.simulador-inputs .botoes {
+    margin-top: 42px;
+    width: 100%;
+    display: flex;
+    gap: 31px;
+    justify-content: center;
+}
+
+.simulador-inputs .botoes button {
+    padding: 20px 32px;
+    border-radius: 8px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.simulador-inputs .botoes #btn-simular {
+    color: #fff;
+    background-color: #6C802A;
+}
+
+.simulador-inputs .botoes #btn-simular:hover {
+    background-color: #5a6b22;
+}
+
+.simulador-inputs .botoes #btn-limpar {
+    color: #454545;
+    background-color: #E0E0E0;
+}
+
+.simulador-inputs .botoes #btn-limpar:hover {
+    background-color: #c2c1c1;
+}
+
+.beneficios {
+    margin-top: 80px;
+}
+
+.beneficios .lista-beneficios {
+    display: flex;
+    gap: 33px;
+    margin-top: 33px;
+}
+
+.beneficios .lista-beneficios .beneficio {
+    width: 33.33%;
+    font-size: 24px;
+    line-height: 150%;
+}
+
+.beneficio h3 {
+    font-weight: 500;
+}
+
+.beneficio p {
+    color: #828282;
+}
+
+#sobre-nos {
+    margin-top: 85px;
+    display: flex;
+    gap: 70px;
+}
+
+#sobre-nos .sobre-info p {
+    text-align: justify;
+    line-height: 150%;
+    font-size: 21px;
+    margin-top: 23px;
+    text-indent: 2rem;
+}
+
+#principios {
+    margin-top: 74px;
+}
+
+#principios .lista-principios {
+    display: flex;
+    gap: 26px;
+    margin-top: 31px;
+}
+
+#principios .lista-principios .principio {
+    font-size: 21px;
+    line-height: 150%;
+}
+
+#principios .lista-principios .principio h3 {
+    font-weight: 600;
+    margin-top: 24px;
+}
+
+#principios .lista-principios .principio p {
+    font-size: 23px;
+    color: #828282;
+    margin-top: 4px;
+}
+
+.principio img {
+    height: 405px;
+}
+
+.cta-comecar-a-monitorar {
+    margin-top: 53px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F7F7F7;
+    padding: 72px 160px;
+}
+
+.cta-comecar-a-monitorar a {
+    background-color: #FBB03B;
+    padding: 20px 32px;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 24px;
+    transition: .2s ease-in-out;
+}
+
+.cta-comecar-a-monitorar a:hover {
+    background-color: #ffce7f;
+}
+
+#contate-nos {
+    display: flex;
+    justify-content: space-between;
+    margin: 63px 160px;
+}
+
+.contate-nos-info h3 {
+    font-size: 32px;
+}
+
+.contate-nos-info .inputs-contato {
+    margin-top: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 540px;
+}
+
+.inputs-contato .input-contato {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-contato input,
+.input-contato textarea {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    margin-top: 8px;
+}
+
+.input-contato textarea {
+    height: 192px;
+    resize: none;
+}
+
+.contate-nos-info button {
+    width: 100%;
+    background-color: #FBB03B;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 8px;
+    margin-top: 24px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.contate-nos-info button:hover {
+    background-color: #ffce7f;
+    color: #3C3C3C;
+}
+
+#contate-nos img {
+    width: 470px;
+}
 
 
 footer {
