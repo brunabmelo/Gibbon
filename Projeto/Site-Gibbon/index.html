@@ -63,31 +63,31 @@
             <div class="simulador-inputs">
                 <div class="inputs">
                     <div class="input-container">
-                        <label>Consumo energético mensal</label>
+                        <label for="ipt_consumo_energetico">Consumo energético mensal</label>
                         <div class="input">
-                            <input type="text">
+                            <input type="number" id="ipt_consumo_energetico">
                             <span class="unidade-medida">kWh</span>
                         </div>
                     </div>
                     <div class="input-container">
-                        <label>Preço da energia</label>
+                        <label for="ipt_preco_energia">Preço da energia</label>
                         <div class="input">
-                            <input type="text">
+                            <input type="number" id="ipt_preco_energia">
                             <span class="unidade-medida">R$/kWh</span>
                         </div>
                     </div>
                     <div class="input-container">
-                        <label>Produção por ciclo produtivo (5 -7 meses)</label>
+                        <label for="ipt_producao">Produção por ciclo produtivo (5 -7 meses)</label>
                         <div class="input">
-                            <input type="text">
+                            <input type="number" id="ipt_producao">
                             <span class="unidade-medida">Ton</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="botoes">
-                    <button id="btn-simular">Simular</button>
-                    <button id="btn-limpar">Limpar</button>
+                    <button id="btn-simular" onclick="simular()">Simular</button>
+                    <button id="btn-limpar" onclick="limpar()">Limpar</button>
                 </div>
             </div>
         </section>
@@ -139,7 +139,6 @@
             <h2>Princípios</h2>
             <div class="lista-principios">
                 <div class="principio">
-                    
                     <img src="./assets/images/colhendo-tomate.png" alt="Mãos colhendo tomate">
                     <h3>Inovação Sustentável</h3>
                     <p>
@@ -229,7 +228,7 @@
         </div>
     </footer>
 
-    <script type="module" src="./js/index.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 
 </html>

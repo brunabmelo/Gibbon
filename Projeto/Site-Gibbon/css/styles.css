@@ -168,6 +168,19 @@ h2 {
     border: none;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    appearance: textfield;
+    font-size: 20px;
+    padding: 0 16px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-container .input input:focus {
+    outline: none;
 }
 
 .input-container .input .unidade-medida {
