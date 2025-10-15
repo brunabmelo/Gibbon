@@ -63,6 +63,9 @@ h2 {
 
 .hero {
     background-image: url(../assets/images/background/hero-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 8px;
     height: 325px;
     padding: 24px 30px;
     display: flex;
@@ -250,7 +253,6 @@ h2 {
     line-height: 150%;
     font-size: 21px;
     margin-top: 23px;
-    text-indent: 2rem;
 }
 
 #principios {
@@ -280,7 +282,13 @@ h2 {
 }
 
 .principio img {
+    border-radius: 8px;
     height: 405px;
+    object-fit: cover;
+}
+
+.principio:nth-child(2) img {
+    object-position: top;
 }
 
 .cta-comecar-a-monitorar {
@@ -309,6 +317,11 @@ h2 {
     display: flex;
     justify-content: space-between;
     margin: 63px 160px;
+    gap: 88px;
+}
+
+.contate-nos-info {
+    width: 100%;
 }
 
 .contate-nos-info h3 {
@@ -320,7 +333,6 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 540px;
 }
 
 .inputs-contato .input-contato {
