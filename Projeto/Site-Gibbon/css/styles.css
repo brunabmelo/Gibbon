@@ -1,5 +1,6 @@
 html {
-    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    scroll-margin-top: 164px;
 }
 
 body {
@@ -44,7 +45,6 @@ nav .links-header {
     text-decoration: none;
     background-color: #ffce7f;
 }
-
 
 main {
     margin: 0 160px;
