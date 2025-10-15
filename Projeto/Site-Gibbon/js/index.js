@@ -62,3 +62,10 @@ function limpar() {
         </p>
     `;
 }
+
+function enviarMensagem() {
+    document.getElementById('ipt_nome').value = ''
+    document.getElementById('ipt_sobrenome').value = ''
+    document.getElementById('ipt_email').value = ''
+    document.getElementById('ipt_mensagem').value = ''
+}
