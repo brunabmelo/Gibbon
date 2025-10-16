@@ -36,8 +36,33 @@
         </div>
         <button onclick="sair()">Sair</button>
     </nav>
-    <main>
-
+    <main class="cadastro-form">
+        <section class="cadastro-card">
+            <div class="img-container">
+                <img src="../assets/images/generic-avatar.png" alt="Foto de perfil genérica">
+            </div>
+            <div class="ipt-container">
+                <label for="nome-completo">Nome Completo</label>
+                <input type="text" id="nome-completo" placeholder="Nome" disabled>
+            </div>
+            <div class="ipt-container">
+                <label for="e-mail">E-mail</label>
+                <input type="text" id="e-mail" placeholder="email@email.com" inputmode="numeric" disabled>
+            </div>
+            <div class="ipt-container">
+                <label for="senha-atual">Senha atual</label>
+                <input type="password" id="senha-atual" placeholder="Senha atual" required>
+            </div>
+            <div class="ipt-container">
+                <label for="nova-senha">Nova senha</label>
+                <input type="password" id="nova-senha" placeholder="Nova senha" required>
+            </div>
+            <div class="ipt-container">
+                <label for="confirmacao-senha">Confirmação da Senha</label>
+                <input type="password" id="confirmacao-senha" placeholder="Nova senha" required>
+            </div>
+            <button onclick="atualizarPerfil()">Atualizar</button>
+        </section>
     </main>
 
     <script src="../js/dashboard.js"></script>
