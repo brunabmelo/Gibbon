@@ -413,4 +413,9 @@ nav .links-footer,
     display: flex;
     flex-direction: column;
     gap: 8px;
+    color: #454545;
+}
+
+nav .links-footer a {
+    color: #454545;
 }
