@@ -32,17 +32,17 @@
     <main class="container">
         <section class="login-card">
             <h3>Login</h3>
-            <form>
+            <div class="login-form">
                 <div>
-                    <label for="E-mail">E-mail</label>
-                    <input type="text" id="E-mail" name="login" placeholder="e-mail" inputmode="numeric" required>
+                    <label for="e-mail">E-mail</label>
+                    <input type="text" id="e-mail" name="login" placeholder="e-mail" inputmode="numeric" required>
                 </div>
                 <div>
                     <label for="senha">Senha</label>
                     <input type="password" id="senha" placeholder="Senha" required>
                 </div>
-                <button type="submit">Entrar</button>
-            </form>
+                <button onclick="login()">Entrar</button>
+            </div>
             <a href="">Esqueci minha senha</a>
         </section>
     </main>
@@ -76,7 +76,7 @@
         </div>
     </footer>
 
-    <script src="/js/login.js"></script>
+    <script src="./js/login.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,30 @@
+body {
+    min-height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    background-color: #FBB03B;
+    width: 254px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+}
+
+.sidebar .perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar .perfil .perfil-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar-icon {
+    width: 114px;
+}
