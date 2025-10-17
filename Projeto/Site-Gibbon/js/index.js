@@ -38,14 +38,14 @@ function simular() {
             - Consumo atual: ${consumoEnergetico.toFixed(2)} kWh - R$${custoSemGibbon.toFixed(2)}<br>
             - Consumo com Gibbon: ${energiaComGibbon.toFixed(2)} kWh - R$${custoComGibbon.toFixed(2)}<br>
             - Economia em torno de: <b>${(reducaoEnergia * 100).toFixed(0)}%</b> - <b>R$${economia.toFixed(2)}</b>
-            <p style="font-size: 12px;"><i> Segundo dados publicados pela ESALQ </i></p><br><br>
+            <br><br>
 
             <b>Produtividade</b><br>
             - Produção atual: ${producao.toFixed(2)} toneladas<br>
             - Produção com Gibbon: ${producaoComGibbon.toFixed(2)} toneladas<br>
-            - Aumento em torno de <b>${(aumentoProducao * 100).toFixed(0)}%</b> (${aumento.toFixed(2)} toneladas)<br><br>
+            - Aumento em torno de <b>${(aumentoProducao * 100).toFixed(0)}%</b> (${aumento.toFixed(2)} toneladas)<br><br><br>
 
-            <i>Simulação baseada em dados de eficiência energética e produtividade média de sistemas inteligentes de iluminação e monitoramento.</i>
+            <p style="font-size: 12px;"><i> Simulação baseada em dados publicados pela ESALQ-USP</i></p>
         `;
 
     divRespostaSimulador.innerHTML = resultado;
