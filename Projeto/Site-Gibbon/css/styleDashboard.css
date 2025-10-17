@@ -2,6 +2,7 @@ body {
     min-height: 100vh;
     display: flex;
     font-family: 'Inter', sans-serif;
+    background-color: #F1F0F5;
 }
 
 .sidebar {
@@ -97,7 +98,6 @@ body {
 }
 
 main {
-    background-color: #F1F0F5;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -156,4 +156,41 @@ main {
 .cadastro-card button:hover {
     background-color: #ffce7f;
     color: #3C3C3C;
+}
+
+.notificacoes-card {
+    width: 80%;
+    height: 80%;
+}
+
+.notificacoes {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 16px;
+}
+
+.notificacao {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.notificacao .titulo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 16px;
+}
+
+.notificacao .titulo-container h2 {
+    font-size: 18px;
+}
+
+.notificacao .titulo-container span {
+    color: #777;
+}
+
+.notificacao p {
+    padding: 8px 16px;
 }
