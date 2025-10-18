@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Gibbon</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -36,12 +38,212 @@
         </div>
         <button onclick="sair()">Sair</button>
     </nav>
-    
-    <main>
 
+    <main>
+        <section class="dashboard-container">
+
+            <div class="seletores">
+                Informe o setor:
+                <select id="sltsetor" onchange="atualizarGraficos()">
+                    <option value="">SELECIONE↓</option>
+                    <option value="1s">PRODUÇÃO DE MUDAS</option>
+                    <option value="2s">FASE VEGETATIVA</option>
+                    <option value="3s">FASE REPRODUTIVA</option>
+                    <option value="4s">FASE DE MATURAÇÃO</option>
+                </select>
+                Informe o sensor:
+                <select id="sltsensor" onchange="atualizarGraficos()">
+                    <option value="">SELECIONE↓</option>
+                    <option value="1sn">SENSOR A INFERIOR</option>
+                    <option value="2sn">SENSOR A SUPERIOR</option>
+                    <option value="3sn">SENSOR B INFERIOR</option>
+                    <option value="4sn">SENSOR B SUPERIOR</option>
+                    <option value="5sn">SENSOR C INFERIOR</option>
+                    <option value="6sn">SENSOR C SUPERIOR</option>
+                    <option value="7sn">SENSOR D INFERIOR</option>
+                    <option value="8sn">SENSOR D SUPERIOR</option>
+                </select>
+            </div>
+
+            <div class="kpi-container">
+                <div class="kpi-box kpi1" id="kpi1">
+                    <h5>Quantidade ideal mol/m²/dia:</h5>
+                    <i></i>
+                </div>
+
+                <div class="kpi-box kpi2" id="kpi2">
+                    <h5>Quantidade mol/m²/dia (dia anterior):</h5>
+                    <i></i>
+                </div>
+
+                <div class="kpi-box kpi3" id="kpi3">
+                    <h5>Horas iluminadas por dia ideais:</h5>
+                    <i></i>
+                </div>
+
+                <div class="kpi-box kpi4" id="kpi4">
+                    <h5>Média de horas iluminado por dia (últimos 7 dias):</h5>
+                    <i></i>
+                </div>
+
+                <div class="kpi-box kpi5" id="kpi5">
+                    <h5>Quantidade ideal de µmol/m²/s:</h5>
+                    <i></i>
+                </div>
+            </div>
+
+            <div class="graficos">
+                <div class="grafico-item">
+                    <canvas id="myChart1"></canvas>
+                </div>
+                <div class="grafico-item">
+                    <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script src="../js/dashboard.js"></script>
+    <script>
+        let chart1, chart2;
+
+        const kpiDados = {
+            "1s": {
+                kpi1: "6 - 8 mol/m²/dia",
+                kpi2: "7 mol/m²/dia",
+                kpi3: "8h - 10h",
+                kpi4: "8h",
+                kpi5: "166 - 277 µmol/m²/s"
+            },
+            "2s": {
+                kpi1: "14 - 16 mol/m²/dia",
+                kpi2: "25 mol/m²/dia",
+                kpi3: "8h - 10h",
+                kpi4: "8h",
+                kpi5: "388 - 555 µmol/m²/s"
+            },
+            "3s": {
+                kpi1: "22 - 30 mol/m²/dia",
+                kpi2: "25 mol/m²/dia",
+                kpi3: "8h - 10h",
+                kpi4: "6h",
+                kpi5: "611 - 1041 µmol/m²/s"
+            },
+            "4s": {
+                kpi1: "22 - 30 mol/m²/dia",
+                kpi2: "25 mol/m²/dia",
+                kpi3: "8h - 10h",
+                kpi4: "6h",
+                kpi5: "611 - 1041 µmol/m²/s"
+            }
+        };
+
+        const dadosPorSetor = {
+            "1s": {
+                barData: [8, 6, 7, 10, 9, 8, 8],
+                lineData: [243, 230, 220, 200, 260, 243, 243]
+            },
+            "2s": {
+                barData: [8, 7, 6, 10, 9, 8, 8],
+                lineData: [500, 520, 600, 480, 520, 522, 520]
+            },
+            "3s": {
+                barData: [9, 7, 5, 5, 6, 4, 6],
+                lineData: [850, 800, 1000, 900, 902, 905, 902]
+            },
+            "4s": {
+                barData: [9, 7, 5, 5, 6, 4, 6],
+                lineData: [850, 800, 1000, 900, 902, 905, 902]
+            }
+        };
+
+        function atualizarKPIs(setor) {
+            const kpis = kpiDados[setor];
+            if (!kpis) return;
+
+            document.getElementById('kpi1').querySelector('i').innerText = kpis.kpi1;
+            document.getElementById('kpi2').querySelector('i').innerText = kpis.kpi2;
+            document.getElementById('kpi3').querySelector('i').innerText = kpis.kpi3;
+            document.getElementById('kpi4').querySelector('i').innerText = kpis.kpi4;
+            document.getElementById('kpi5').querySelector('i').innerText = kpis.kpi5;
+        }
+
+        function atualizarGraficos() {
+            const setor = document.getElementById("sltsetor").value;
+            const sensor = document.getElementById("sltsensor").value;
+
+            if (setor === "" || sensor === "") {
+                document.querySelector('.kpi-container').style.display = 'none';
+                document.querySelector('.graficos').style.display = 'none';
+                return;
+            }
+
+            document.querySelector('.kpi-container').style.display = 'flex';
+            document.querySelector('.graficos').style.display = 'flex';
+            atualizarKPIs(setor);
+
+            const novosDados = dadosPorSetor[setor];
+            const ctx1 = document.getElementById('myChart1').getContext('2d');
+            const ctx2 = document.getElementById('myChart2').getContext('2d');
+
+            if (!chart1) {
+                chart1 = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['DIA-01', 'DIA-02', 'DIA-03', 'DIA-04', 'DIA-05', 'DIA-06', 'DIA-07'],
+                        datasets: [{
+                            label: 'Horas iluminadas por dia',
+                            data: novosDados.barData,
+                            backgroundColor: '#3498db',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+
+                chart1.data.datasets[0].data = novosDados.barData;
+                chart1.update();
+            }
+
+
+            if (!chart2) {
+                chart2 = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['09:01:01', '09:01:02', '09:01:03', '09:01:04', '09:01:05', '09:01:06', '09:01:07'],
+                        datasets: [{
+                            label: 'µmol/m²/s',
+                            data: novosDados.lineData,
+                            borderColor: 'red',
+                            backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+
+                chart2.data.datasets[0].data = novosDados.lineData;
+                chart2.update(); // Atualiza o gráfico
+            }
+        }
+    </script>
 </body>
 
 </html>
