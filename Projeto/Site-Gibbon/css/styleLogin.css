@@ -42,6 +42,10 @@ body {
     font-size: 1.1rem;
 }
 
+.login-card a:hover {
+    text-decoration: underline;
+}
+
 .login-form {
     width: 100%;
     display: flex;

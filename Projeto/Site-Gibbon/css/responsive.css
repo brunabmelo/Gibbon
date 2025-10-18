@@ -1,0 +1,23 @@
+@media (max-width: 1366px) {
+
+    header,
+    footer {
+        padding: 27px 40px;
+    }
+
+    .login-card h3 {
+        font-size: 24px;
+    }
+
+    .login-card a {
+        font-size: .9rem;
+    }
+
+    .login-form input {
+        padding: 8px 12px;
+    }
+
+    .login-form button {
+        padding: 12px 28px;
+    }
+}
