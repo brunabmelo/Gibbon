@@ -104,21 +104,32 @@ main {
     align-items: center;
 }
 
+.perfil-section, 
 .cadastro-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 626px;
+    justify-content: center;
+    width: 50%;
+    height: 85%;
+}
+
+.perfil-form,
+.cadastro-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     gap: 24px;
 }
 
-.cadastro-card .img-container {
+.perfil-section .img-container {
     width: 114px;
     position: relative;
     cursor: pointer;
 }
 
-.cadastro-card .img-container::after {
+.perfil-section .img-container::after {
     content: url(../assets/images/icons/edit-icon.png);
     background-color: #BF6A02;
     padding: 7px 7px 3px 7px;
@@ -128,7 +139,7 @@ main {
     right: 0;
 }
 
-.cadastro-card .ipt-container {
+.ipt-container {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -142,7 +153,8 @@ main {
     font-size: 16px;
 }
 
-.cadastro-card button {
+.perfil-section button,
+.cadastro-form button {
     width: 100%;
     background-color: #FBB03B;
     border: none;
@@ -153,10 +165,30 @@ main {
     transition: .2s ease-in-out;
 }
 
-.cadastro-card button:hover {
+.perfil-section button:hover,
+.cadastro-form button:hover {
     background-color: #ffce7f;
     color: #3C3C3C;
 }
+
+.perfil-section {
+    gap: 21px;
+}
+
+.cadastro-card {
+    gap: 32px;
+}
+
+.cadastro-card h3 {
+    font-size: 32px;
+}
+
+.cadastro-form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
 
 .notificacoes-card {
     width: 80%;
@@ -203,7 +235,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 100px 50px;
+    padding: 100px 50px 0 50px;
 }
 
 .seletores {
