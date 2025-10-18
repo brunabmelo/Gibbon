@@ -112,6 +112,7 @@ h2 {
     display: flex;
     justify-content: space-between;
     margin-top: 109px;
+    gap: 100px;
 }
 
 .simulador-info {

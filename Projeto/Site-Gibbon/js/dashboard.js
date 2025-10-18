@@ -19,5 +19,7 @@ function atualizarPerfil() {
         iptSenhaAtual.value = ''
         iptNovaSenha.value = ''
         iptConfirmacaoSenha.value = ''
+
+        alert('Senha atualizada com sucesso')
     }
 }
