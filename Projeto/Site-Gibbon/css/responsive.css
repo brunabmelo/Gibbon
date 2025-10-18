@@ -20,4 +20,16 @@
     .login-form button {
         padding: 12px 28px;
     }
+
+    .avatar-icon {
+        width: 100px;
+    }
+
+    .perfil-card h2 {
+        font-size: 24px;
+    }
+
+    .sidebar .navbar ul li a {
+        padding: 25px;
+    }
 }
