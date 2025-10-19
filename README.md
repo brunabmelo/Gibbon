@@ -7,6 +7,6 @@ Utilizando **Arduino** e um **sensor de luz (LDR)**, o sistema coleta dados sobr
 ---
 
 ### 🎯 Objetivos
-- Monitorar a intensidade de luz solar recebida pelos tomates.  
+- Monitorar a intensidade luminosa incidida em tomates.  
 - Prevenir perdas por exposição inadequada à luz.  
 - Aumentar a produtividade e qualidade da plantação. 
