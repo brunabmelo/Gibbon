@@ -159,7 +159,8 @@ main {
     border: 1px solid #E0E0E0;
     border-radius: 8px;
     font-size: 16px;
-    font-weight: 10;
+    font-family: 'Inter', sans-serif;
+    color: #757575;
 }
 
 .perfil-section button,
