@@ -56,13 +56,19 @@
                     <input type="text" id="email" name="e-mail" placeholder="email@email.com" inputmode="text" required>
                 </div>
                 <div class="ipt-container">
+                    <label for="nivel-acesso">Nível de acesso*</label>
+                    <select name="NivelAcesso" id="sel_NivelAcesso">
+                        <option value="0">Selecione</option>
+                    </select>
+                </div>
+                <div class="ipt-container">
                     <label for="senha">Senha*</label>
                     <input type="password" id="senha" name="senha" placeholder="Senha" inputmode="text" required>
                 </div>
                 <div class="ipt-container">
                     <label for="confirmacao-senha">Confirmação da Senha*</label>
-                    <input type="password" id="confirmacao-senha" name="confirmacao-senha" placeholder="Confirme sua senha" inputmode="text"
-                        required>
+                    <input type="password" id="confirmacao-senha" name="confirmacao-senha"
+                        placeholder="Confirme sua senha" inputmode="text" required>
                 </div>
                 <button onclick="cadastrar()">Cadastrar</button>
             </div>

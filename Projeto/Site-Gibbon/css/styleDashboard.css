@@ -104,7 +104,7 @@ main {
     align-items: center;
 }
 
-.perfil-section, 
+.perfil-section,
 .cadastro-card {
     display: flex;
     flex-direction: column;
@@ -112,6 +112,7 @@ main {
     justify-content: center;
     width: 50%;
     height: 85%;
+    margin: 5%;
 }
 
 .perfil-form,
@@ -151,6 +152,14 @@ main {
     border: 1px solid #E0E0E0;
     border-radius: 8px;
     font-size: 16px;
+}
+
+.ipt-container select {
+    padding: 12px 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 10;
 }
 
 .perfil-section button,
