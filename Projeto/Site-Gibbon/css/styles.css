@@ -233,7 +233,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .beneficios {
-    margin-top: 80px;
+    margin-top: 160px;
 }
 
 .beneficios .lista-beneficios {
@@ -257,7 +257,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #sobre-nos {
-    margin-top: 85px;
+    margin-top: 170px;
     display: flex;
     gap: 70px;
 }
@@ -270,7 +270,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #principios {
-    margin-top: 74px;
+    margin-top: 150px;
 }
 
 #principios .lista-principios {
@@ -306,7 +306,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .cta-comecar-a-monitorar {
-    margin-top: 53px;
+    margin-top: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -330,7 +330,7 @@ input[type=number]::-webkit-outer-spin-button {
 #contate-nos {
     display: flex;
     justify-content: space-between;
-    margin: 63px 160px;
+    margin: 120px 160px;
     gap: 88px;
 }
 
