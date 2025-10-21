@@ -12,8 +12,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    border-top-right-radius: 35px;
-    border-bottom-right-radius: 35px;
 }
 
 .sidebar .perfil {
