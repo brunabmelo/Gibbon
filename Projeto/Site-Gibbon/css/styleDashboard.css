@@ -44,7 +44,7 @@ body {
 
 .perfil-card h2 {
     text-align: center;
-    color: #fff;
+    color: #000;
     font-size: 32px;
     font-weight: 500;
     margin-top: 10px;
@@ -62,7 +62,7 @@ body {
 
 .sidebar .navbar ul li a {
     display: block;
-    color: #fff;
+    color: #000;
     font-size: 16px;
     font-weight: 500;
     padding: 35px;
@@ -70,11 +70,11 @@ body {
 }
 
 .sidebar .navbar ul li a:hover {
-    background-color: #dd9a2e;
+    background-color: #ffbf58;
 }
 
 .sidebar .navbar ul li a.selecionado {
-    background-color: #C27F18;
+    background-color: #FFD38E;
 }
 
 .sidebar button {
