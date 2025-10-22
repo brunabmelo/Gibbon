@@ -64,8 +64,22 @@ function limpar() {
 }
 
 function enviarMensagem() {
-    document.getElementById('ipt_nome').value = ''
-    document.getElementById('ipt_sobrenome').value = ''
-    document.getElementById('ipt_email').value = ''
-    document.getElementById('ipt_mensagem').value = ''
+    var iptNome = document.getElementById('ipt_nome')
+    var iptSobrenome = document.getElementById('ipt_sobrenome')
+    var iptEmail = document.getElementById('ipt_email')
+    var iptMensagem = document.getElementById('ipt_mensagem')
+
+    if (
+        iptNome.value == '' ||
+        iptSobrenome.value == '' ||
+        iptEmail.value == '' ||
+        iptMensagem.value == ''
+    ) {
+        alert('Preencha todos os campos')
+    } else {
+        iptNome.value = ''
+        iptSobrenome.value = ''
+        iptEmail.value = ''
+        iptMensagem.value = ''
+    }
 }
