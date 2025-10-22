@@ -197,6 +197,10 @@ main {
     font-weight: 600;
 }
 
+.cadastro-form select {
+    background-color: #fff;
+}
+
 
 
 .notificacoes-card {
