@@ -44,25 +44,24 @@
         <section class="dashboard-container">
 
             <div class="seletores">
-                Informe o setor:
                 <select id="sltsetor" onchange="atualizarGraficos()">
-                    <option value="">SELECIONE↓</option>
-                    <option value="1s">PRODUÇÃO DE MUDAS</option>
-                    <option value="2s">FASE VEGETATIVA</option>
-                    <option value="3s">FASE REPRODUTIVA</option>
-                    <option value="4s">FASE DE MATURAÇÃO</option>
+                    <option value="">Selecione o setor</option>
+                    <option value="1s">Produção de mudas</option>
+                    <option value="2s">Fase vegetativa</option>
+                    <option value="3s">Fase reprodutiva</option>
+                    <option value="4s">Fase de maturação</option>
                 </select>
-                Informe o sensor:
+                <select id="sltlocal" onchange="atualizarGraficos()">
+                    <option value="">Selecione o local</option>
+                    <option value="1sn">Inferior</option>
+                    <option value="2sn">Superior</option>
+                </select>
                 <select id="sltsensor" onchange="atualizarGraficos()">
-                    <option value="">SELECIONE↓</option>
-                    <option value="1sn">SENSOR A INFERIOR</option>
-                    <option value="2sn">SENSOR A SUPERIOR</option>
-                    <option value="3sn">SENSOR B INFERIOR</option>
-                    <option value="4sn">SENSOR B SUPERIOR</option>
-                    <option value="5sn">SENSOR C INFERIOR</option>
-                    <option value="6sn">SENSOR C SUPERIOR</option>
-                    <option value="7sn">SENSOR D INFERIOR</option>
-                    <option value="8sn">SENSOR D SUPERIOR</option>
+                    <option value="">Selecione o sensor</option>
+                    <option value="1sn">Sensor A</option>
+                    <option value="2sn">Sensor B</option>
+                    <option value="3sn">Sensor C</option>
+                    <option value="4sn">Sensor D</option>
                 </select>
             </div>
 
