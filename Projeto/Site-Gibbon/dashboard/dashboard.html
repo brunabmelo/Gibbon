@@ -41,52 +41,103 @@
     </nav>
 
     <main>
-        <section class="dashboard-container">
+        <section class="dashboard-section">
 
             <div class="seletores">
                 <select id="sltsetor" onchange="atualizarGraficos()">
                     <option value="">Selecione o setor</option>
-                    <option value="1s">Produção de mudas</option>
-                    <option value="2s">Fase vegetativa</option>
-                    <option value="3s">Fase reprodutiva</option>
-                    <option value="4s">Fase de maturação</option>
-                </select>
-                <select id="sltlocal" onchange="atualizarGraficos()">
-                    <option value="">Selecione o local</option>
-                    <option value="1sn">Inferior</option>
-                    <option value="2sn">Superior</option>
+                    <option value="1setor">Produção de mudas</option>
+                    <option value="2setor">Fase vegetativa</option>
+                    <option value="3setor">Fase reprodutiva</option>
+                    <option value="4setor">Fase de maturação</option>
                 </select>
                 <select id="sltsensor" onchange="atualizarGraficos()">
                     <option value="">Selecione o sensor</option>
-                    <option value="1sn">Sensor A</option>
-                    <option value="2sn">Sensor B</option>
-                    <option value="3sn">Sensor C</option>
-                    <option value="4sn">Sensor D</option>
+                    <option value="1sensor">Sensor A</option>
+                    <option value="2sensor">Sensor B</option>
+                    <option value="3sensor">Sensor C</option>
+                    <option value="4sensor">Sensor D</option>
                 </select>
             </div>
 
-            <div class="kpi-container">
-                <div class="kpi-box kpi1" id="kpi1">
+            <div>
+                <div class="dashboard-container">
+                    <h3>Densidade de fluxo de luz</h3>
+                    <div class="metricas-container">
+                        <div class="metrica" id="metrica1">
+                            <span class="medida"></span>
+                            <span class="unidade-medida"></span>
+                            <span class="legenda"></span>
+                        </div>
+                        <div class="metrica" id="metrica2">
+                            <span class="medida"></span>
+                            <span class="unidade-medida"></span>
+                            <span class="legenda"></span>
+                        </div>
+                    </div>
+                    <div class="kpi-container">
+                        <div class="kpi box" id="kpi1">
+                            <span class="medida"></span>
+                            <span class="unidade-medida"></span>
+                            <span class="legenda"></span>
+                        </div>
+                        <div class="kpi box" id="kpi2">
+                            <span class="medida"></span>
+                            <span class="unidade-medida"></span>
+                            <span class="legenda"></span>
+                        </div>
+                    </div>
+                    <h4>Valor atual</h4>
+                    <canvas id="myChart2"></canvas>
+                </div>
+
+                <div class="dashboard-container">
+                    <h3>Horas iluminadas</h3>
+                    <div class="metricas-container">
+                        <div class="metrica" id="metrica3">
+                            <span class="medida"></span>
+                            <span class="unidade-medida"></span>
+                            <span class="legenda"></span>
+                        </div>
+                    </div>
+                    <div class="kpi-container">
+                        <div class="kpi box" id="kpi3">
+                            <span class="medida"></span>
+                            <span class="unidade-medida"></span>
+                            <span class="legenda"></span>
+                        </div>
+                    </div>
+                    <h4>Valor atual</h4>
+                    <canvas id="myChart1"></canvas>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- <div class="kpi-container">
+                <div class="box kpi1" id="kpi1">
                     <h5>Quantidade ideal mol/m²/dia:</h5>
                     <i></i>
                 </div>
 
-                <div class="kpi-box kpi2" id="kpi2">
+                <div class="box kpi2" id="kpi2">
                     <h5>Quantidade mol/m²/dia (dia anterior):</h5>
                     <i></i>
                 </div>
 
-                <div class="kpi-box kpi3" id="kpi3">
+                <div class="box kpi3" id="kpi3">
                     <h5>Horas iluminadas por dia ideais:</h5>
                     <i></i>
                 </div>
 
-                <div class="kpi-box kpi4" id="kpi4">
+                <div class="box kpi4" id="kpi4">
                     <h5>Média de horas iluminado por dia (últimos 7 dias):</h5>
                     <i></i>
                 </div>
 
-                <div class="kpi-box kpi5" id="kpi5">
+                <div class="box kpi5" id="kpi5">
                     <h5>Quantidade ideal de µmol/m²/s:</h5>
                     <i></i>
                 </div>
@@ -99,7 +150,7 @@
                 <div class="grafico-item">
                     <canvas id="myChart2"></canvas>
                 </div>
-            </div>
+            </div> -->
         </section>
     </main>
 
@@ -157,15 +208,185 @@
             }
         };
 
-        function atualizarKPIs(setor) {
-            const kpis = kpiDados[setor];
+
+
+        const dadosSetores = {
+            "1setor": {
+                "metricas": {
+                    metrica1: "166 - 277",
+                    metrica2: "6 - 8",
+                    metrica3: "8h - 10h",
+                },
+                "sensores": {
+                    "1sensor": {
+                        kpi1: "243",
+                        kpi2: "7",
+                        kpi3: "8",
+                        barData: [8, 6, 7, 10, 9, 8, 8],
+                        lineData: [243, 230, 220, 200, 260, 243, 243]
+                    },
+                    "2sensor": {
+                        kpi1: "243",
+                        kpi2: "7",
+                        kpi3: "8",
+                        barData: [8, 6, 7, 10, 9, 8, 8],
+                        lineData: [243, 230, 220, 200, 260, 243, 243]
+                    },
+                    "3sensor": {
+                        kpi1: "243",
+                        kpi2: "7",
+                        kpi3: "8",
+                        barData: [8, 6, 7, 10, 9, 8, 8],
+                        lineData: [243, 230, 220, 200, 260, 243, 243]
+                    },
+                    "4sensor": {
+                        kpi1: "243",
+                        kpi2: "7",
+                        kpi3: "8",
+                        barData: [8, 6, 7, 10, 9, 8, 8],
+                        lineData: [243, 230, 220, 200, 260, 243, 243]
+                    }
+                }
+            },
+            "2setor": {
+                "metricas": {
+                    metrica1: "388 - 555",
+                    metrica2: "14 - 16",
+                    metrica3: "8h - 10h",
+                },
+                "sensores": {
+                    "1sensor": {
+                        kpi1: "520",
+                        kpi2: "25",
+                        kpi3: "8",
+                        barData: [8, 7, 6, 10, 9, 8, 8],
+                        lineData: [500, 520, 600, 480, 520, 522, 520]
+                    },
+                    "2sensor": {
+                        kpi1: "520",
+                        kpi2: "25",
+                        kpi3: "8",
+                        barData: [8, 7, 6, 10, 9, 8, 8],
+                        lineData: [500, 520, 600, 480, 520, 522, 520]
+                    },
+                    "3sensor": {
+                        kpi1: "520",
+                        kpi2: "25",
+                        kpi3: "8",
+                        barData: [8, 7, 6, 10, 9, 8, 8],
+                        lineData: [500, 520, 600, 480, 520, 522, 520]
+                    },
+                    "4sensor": {
+                        kpi1: "520",
+                        kpi2: "25",
+                        kpi3: "8",
+                        barData: [8, 7, 6, 10, 9, 8, 8],
+                        lineData: [500, 520, 600, 480, 520, 522, 520]
+                    }
+                }
+            },
+            "3setor": {
+                "metricas": {
+                    metrica1: "611 - 1041",
+                    metrica2: "22 - 30",
+                    metrica3: "8h - 10h",
+                },
+                "sensores": {
+                    "1sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    },
+                    "2sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    },
+                    "3sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    },
+                    "4sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    }
+                }
+            },
+            "4setor": {
+                "metricas": {
+                    metrica1: "611 - 1041",
+                    metrica2: "22 - 30",
+                    metrica3: "8h - 10h",
+                },
+                "sensores": {
+                    "1sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    },
+                    "2sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    },
+                    "3sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    },
+                    "4sensor": {
+                        kpi1: "902",
+                        kpi2: "25",
+                        kpi3: "6",
+                        barData: [9, 7, 5, 5, 6, 4, 6],
+                        lineData: [850, 800, 1000, 900, 902, 905, 902]
+                    }
+                }
+            }
+        }
+
+
+
+
+        function atualizarKPIs(setor, sensor) {
+            // const kpis = kpiDados[setor];
+            // if (!kpis) return;
+
+            // document.getElementById('kpi1').querySelector('i').innerText = kpis.kpi1;
+            // document.getElementById('kpi2').querySelector('i').innerText = kpis.kpi2;
+            // document.getElementById('kpi3').querySelector('i').innerText = kpis.kpi3;
+            // document.getElementById('kpi4').querySelector('i').innerText = kpis.kpi4;
+            // document.getElementById('kpi5').querySelector('i').innerText = kpis.kpi5;
+
+            const kpis = dadosSetores[setor].sensores[sensor];
             if (!kpis) return;
 
-            document.getElementById('kpi1').querySelector('i').innerText = kpis.kpi1;
-            document.getElementById('kpi2').querySelector('i').innerText = kpis.kpi2;
-            document.getElementById('kpi3').querySelector('i').innerText = kpis.kpi3;
-            document.getElementById('kpi4').querySelector('i').innerText = kpis.kpi4;
-            document.getElementById('kpi5').querySelector('i').innerText = kpis.kpi5;
+            const metricas = dadosSetores[setor].metricas
+            if (!metricas) return;
+            
+            document.getElementById('kpi1').querySelector('.medida').innerHTML = kpis.kpi1
+            document.getElementById('kpi2').querySelector('.medida').innerHTML = kpis.kpi2
+            document.getElementById('kpi3').querySelector('.medida').innerHTML = kpis.kpi3
+            
+            document.getElementById('metrica1').querySelector('.medida').innerHTML = metricas.metrica1
+            document.getElementById('metrica2').querySelector('.medida').innerHTML = metricas.metrica2
+            document.getElementById('metrica3').querySelector('.medida').innerHTML = metricas.metrica3
         }
 
         function atualizarGraficos() {
@@ -173,16 +394,17 @@
             const sensor = document.getElementById("sltsensor").value;
 
             if (setor === "" || sensor === "") {
-                document.querySelector('.kpi-container').style.display = 'none';
-                document.querySelector('.graficos').style.display = 'none';
+                // document.querySelector('.kpi-container').style.display = 'none';
+                // document.querySelector('.graficos').style.display = 'none';
                 return;
             }
 
-            document.querySelector('.kpi-container').style.display = 'flex';
-            document.querySelector('.graficos').style.display = 'flex';
-            atualizarKPIs(setor);
+            // document.querySelector('.kpi-container').style.display = 'flex';
+            // document.querySelector('.graficos').style.display = 'flex';
+            atualizarKPIs(setor, sensor);
 
-            const novosDados = dadosPorSetor[setor];
+            // const novosDados = dadosPorSetor[setor];
+            const novosDados = dadosSetores[setor].sensores[sensor]
             const ctx1 = document.getElementById('myChart1').getContext('2d');
             const ctx2 = document.getElementById('myChart2').getContext('2d');
 
@@ -240,7 +462,7 @@
             } else {
 
                 chart2.data.datasets[0].data = novosDados.lineData;
-                chart2.update(); // Atualiza o gráfico
+                chart2.update();
             }
         }
     </script>

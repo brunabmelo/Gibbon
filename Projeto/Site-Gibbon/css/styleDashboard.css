@@ -242,7 +242,7 @@ main {
 
 
 
-.dashboard-container {
+.dashboard-section {
     width: 100%;
     height: 100%;
     display: flex;
@@ -259,7 +259,7 @@ main {
 
 .seletores select {
     font-size: 20px;
-    padding: 8px 16px;
+    padding: 8px 64px 8px 16px;
     border-radius: 8px;
     border: 1px solid #E0E0E0;
     color: #828282;
@@ -295,7 +295,7 @@ main {
     width: 100%;
 }
 
-.kpi-box {
+.box {
     background-color: white;
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -308,13 +308,13 @@ main {
     justify-content: space-between;
 }
 
-.kpi-box h5 {
+.box h5 {
     font-size: 16px;
     font-weight: 500;
     max-width: 300px;
 }
 
-.kpi-box i {
+.box i {
     font-size: 24px;
     font-weight: 600;
 }

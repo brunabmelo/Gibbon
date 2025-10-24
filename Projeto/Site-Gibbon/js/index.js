@@ -33,19 +33,18 @@ function simular() {
     let aumento = producaoComGibbon - producao;
 
     resultado = `
-            <br><b>Resultados da Simulação:</b><br><br>
-            <b>Eficiência Energética</b><br>
-            - Consumo atual: ${consumoEnergetico.toFixed(2)} kWh - R$${custoSemGibbon.toFixed(2)}<br>
-            - Consumo com Gibbon: ${energiaComGibbon.toFixed(2)} kWh - R$${custoComGibbon.toFixed(2)}<br>
-            - Economia em torno de: <b>${(reducaoEnergia * 100).toFixed(0)}%</b> - <b>R$${economia.toFixed(2)}</b>
-            <br><br>
+            <h3>Resultados da Simulação:</h3>
+            <h4>Eficiência Energética</h4>
+            <span> Consumo atual: ${consumoEnergetico.toFixed(2)} kWh - R$${custoSemGibbon.toFixed(2)}</span>
+            <span>- Consumo com Gibbon: ${energiaComGibbon.toFixed(2)} kWh - R$${custoComGibbon.toFixed(2)}</span>
+            <span>- Economia em torno de: <b>${(reducaoEnergia * 100).toFixed(0)}%</b> - <b>R$${economia.toFixed(2)}</span></b>
 
-            <b>Produtividade</b><br>
-            - Produção atual: ${producao.toFixed(2)} toneladas<br>
-            - Produção com Gibbon: ${producaoComGibbon.toFixed(2)} toneladas<br>
-            - Aumento em torno de <b>${(aumentoProducao * 100).toFixed(0)}%</b> (${aumento.toFixed(2)} toneladas)<br><br><br>
+            <h3>Produtividade</h3>
+            <span>- Produção atual: ${producao.toFixed(2)} toneladas</span>
+            <span>- Produção com Gibbon: ${producaoComGibbon.toFixed(2)} toneladas</span>
+            <span>- Aumento em torno de <b>${(aumentoProducao * 100).toFixed(0)}%</b> (${aumento.toFixed(2)} toneladas)</span>
 
-            <p style="font-size: 12px;"><i> Simulação baseada em dados publicados pela ESALQ-USP</i></p>
+            <p class="fonte">Simulação baseada em dados publicados pela ESALQ-USP</p>
         `;
 
     divRespostaSimulador.innerHTML = resultado;
