@@ -80,15 +80,15 @@ const serial = async (
 
             await poolBancoDados.execute(
                 'INSERT INTO registro (fkSensor, nivelLuz, estadoLuz, dataHora) VALUES (?, ?, ?, ?)',
-                [2, sensorAnalogico + 20, , sensorDigital, dataFormatada]
+                [2, sensorAnalogico + 20, , 1, dataFormatada]
             );
-            console.log("valores inseridos no banco: ", sensorAnalogico + 20, sensorDigital, dataFormatada);
+            console.log("valores inseridos no banco: ", sensorAnalogico + 20, 1, dataFormatada);
 
             await poolBancoDados.execute(
                 'INSERT INTO registro (fkSensor, nivelLuz, estadoLuz, dataHora) VALUES (?, ?, ?, ?)',
-                [3, sensorAnalogico + 40, sensorDigital, dataFormatada]
+                [3, sensorAnalogico + 40, 1, dataFormatada]
             );
-            console.log("valores inseridos no banco: ", sensorAnalogico + 40, sensorDigital, dataFormatada);
+            console.log("valores inseridos no banco: ", sensorAnalogico + 40, 1, dataFormatada);
         }
 
     });
