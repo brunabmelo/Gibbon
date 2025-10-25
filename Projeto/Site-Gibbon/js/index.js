@@ -78,8 +78,8 @@ function enviarMensagem() {
     } else {
         let isEmail = false
         for (let i = 0; i < iptEmail.value.length; i++) {
-            let indice = iptEmail.value[i].indexOf('@')
-            if(indice != -1) {
+            let temArroba = iptEmail.value[i] == '@'
+            if(temArroba) {
                 isEmail = true
                 break
             }
