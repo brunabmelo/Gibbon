@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador</title>
+</head>
+<body> 
+    <!-- a calculadora vai receber o valor que o cliente gasta com contas de luz e através de uma redução de 30% devido ao monitoramento -->
+    <h1>Simulador financeiro</h1><br>
+    Insira aqui o valor total do seu consumo em energia <input type="number" id="iptConta"><br>
+    <button onclick="validar()">Canetar</button>
+    <div id="divMsg"></div>
+
+
+</body>
+<script>
+   function validar(){
+    let conta = Number(iptConta.value);
+
+    if (conta > 0) {
+            economia()
+        }else{
+            alert('Preencha com um valor válido')
+        }
+    }
+
+    function economia() {
+        let conta = Number(iptConta.value);
+        let valorEconomia = (conta * 0.3);
+        let resultado = (conta - valorEconomia)
+        divMsg.innerHTML = 'Esse é o valor reduzido da sua conta: R$' + resultado.toFixed(2) + ', e com a economia de: R$' + valorEconomia.toFixed(2) + '.' 
+    }
+</script>
+</html>
