@@ -76,10 +76,23 @@ function enviarMensagem() {
     ) {
         alert('Preencha todos os campos')
     } else {
-        alert('Mensagem enviada com sucesso')
-        iptNome.value = ''
-        iptSobrenome.value = ''
-        iptEmail.value = ''
-        iptMensagem.value = ''
+        let isEmail = false
+        for (let i = 0; i < iptEmail.value.length; i++) {
+            let indice = iptEmail.value[i].indexOf('@')
+            if(indice != -1) {
+                isEmail = true
+                break
+            }
+        }
+
+        if (isEmail) {
+            alert('Mensagem enviada com sucesso')
+            iptNome.value = ''
+            iptSobrenome.value = ''
+            iptEmail.value = ''
+            iptMensagem.value = ''
+        } else {
+            alert('Insira um e-mail')
+        }
     }
 }
