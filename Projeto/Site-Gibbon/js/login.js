@@ -8,6 +8,6 @@ function login() {
     if (email == emailUsuario && senha == senhaUsuario) {
         window.location.href = './dashboard/dashboard.html'
     } else {
-        alert('E-mail ou senha errados')
+        alert('E-mail ou senha inválidos')
     }
 }
