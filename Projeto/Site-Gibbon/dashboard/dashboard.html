@@ -46,45 +46,45 @@
             <div class="seletores">
                 <select id="sltsetor" onchange="atualizarGraficos()">
                     <option value="">Selecione o setor</option>
-                    <option value="1setor">Produção de mudas</option>
-                    <option value="2setor">Fase vegetativa</option>
-                    <option value="3setor">Fase reprodutiva</option>
-                    <option value="4setor">Fase de maturação</option>
+                    <option value=0>Produção de mudas</option>
+                    <option value=1>Fase vegetativa</option>
+                    <option value=2>Fase reprodutiva</option>
+                    <option value=3>Fase de maturação</option>
                 </select>
                 <select id="sltsensor" onchange="atualizarGraficos()">
                     <option value="">Selecione o sensor</option>
-                    <option value="1sensor">Sensor A</option>
-                    <option value="2sensor">Sensor B</option>
-                    <option value="3sensor">Sensor C</option>
-                    <option value="4sensor">Sensor D</option>
+                    <option value=0>Sensor A</option>
+                    <option value=1>Sensor B</option>
+                    <option value=2>Sensor C</option>
+                    <option value=3>Sensor D</option>
                 </select>
             </div>
 
-            <div>
+            <div class="dashboards-container">
                 <div class="dashboard-container">
                     <h3>Densidade de fluxo de luz</h3>
-                    <div class="metricas-container">
-                        <div class="metrica" id="metrica1">
+                    <div class="boxes-container metricas-container">
+                        <div class="metrica box" id="metrica1">
                             <span class="medida"></span>
-                            <span class="unidade-medida"></span>
-                            <span class="legenda"></span>
+                            <span class="unidade-medida">µmol/m²/s</span>
+                            <span class="legenda">Quantidade ideal por segundo</span>
                         </div>
-                        <div class="metrica" id="metrica2">
+                        <div class="metrica box" id="metrica2">
                             <span class="medida"></span>
-                            <span class="unidade-medida"></span>
-                            <span class="legenda"></span>
+                            <span class="unidade-medida">mol/m²/dia</span>
+                            <span class="legenda">Quantidade ideal por dia</span>
                         </div>
                     </div>
-                    <div class="kpi-container">
+                    <div class="boxes-container kpi-container">
                         <div class="kpi box" id="kpi1">
                             <span class="medida"></span>
-                            <span class="unidade-medida"></span>
-                            <span class="legenda"></span>
+                            <span class="unidade-medida">µmol/m²/s</span>
+                            <span class="legenda">Média por horas iluminadas do dia anterior</span>
                         </div>
                         <div class="kpi box" id="kpi2">
                             <span class="medida"></span>
-                            <span class="unidade-medida"></span>
-                            <span class="legenda"></span>
+                            <span class="unidade-medida">mol/m²/dia</span>
+                            <span class="legenda">Quantidade do dia anterior</span>
                         </div>
                     </div>
                     <h4>Valor atual</h4>
@@ -93,21 +93,19 @@
 
                 <div class="dashboard-container">
                     <h3>Horas iluminadas</h3>
-                    <div class="metricas-container">
-                        <div class="metrica" id="metrica3">
+                    <div class="boxes-container metricas-container">
+                        <div class="metrica box" id="metrica3">
                             <span class="medida"></span>
-                            <span class="unidade-medida"></span>
-                            <span class="legenda"></span>
+                            <span class="legenda">Iluminação ideal por dia</span>
                         </div>
                     </div>
-                    <div class="kpi-container">
+                    <div class="boxes-container kpi-container">
                         <div class="kpi box" id="kpi3">
                             <span class="medida"></span>
-                            <span class="unidade-medida"></span>
-                            <span class="legenda"></span>
+                            <span class="legenda">Média da última semana</span>
                         </div>
                     </div>
-                    <h4>Valor atual</h4>
+                    <h4>Horas iluminadas da última semana</h4>
                     <canvas id="myChart1"></canvas>
                 </div>
             </div>
@@ -158,214 +156,224 @@
     <script>
         let chart1, chart2;
 
-        const kpiDados = {
-            "1s": {
-                kpi1: "6 - 8 mol/m²/dia",
-                kpi2: "7 mol/m²/dia",
-                kpi3: "8h - 10h",
-                kpi4: "8h",
-                kpi5: "166 - 277 µmol/m²/s"
-            },
-            "2s": {
-                kpi1: "14 - 16 mol/m²/dia",
-                kpi2: "25 mol/m²/dia",
-                kpi3: "8h - 10h",
-                kpi4: "8h",
-                kpi5: "388 - 555 µmol/m²/s"
-            },
-            "3s": {
-                kpi1: "22 - 30 mol/m²/dia",
-                kpi2: "25 mol/m²/dia",
-                kpi3: "8h - 10h",
-                kpi4: "6h",
-                kpi5: "611 - 1041 µmol/m²/s"
-            },
-            "4s": {
-                kpi1: "22 - 30 mol/m²/dia",
-                kpi2: "25 mol/m²/dia",
-                kpi3: "8h - 10h",
-                kpi4: "6h",
-                kpi5: "611 - 1041 µmol/m²/s"
-            }
-        };
+        // let kpiDados = {
+        //     "1s": {
+        //         kpi1: "6 - 8 mol/m²/dia",
+        //         kpi2: "7 mol/m²/dia",
+        //         kpi3: "8h - 10h",
+        //         kpi4: "8h",
+        //         kpi5: "166 - 277 µmol/m²/s"
+        //     },
+        //     "2s": {
+        //         kpi1: "14 - 16 mol/m²/dia",
+        //         kpi2: "25 mol/m²/dia",
+        //         kpi3: "8h - 10h",
+        //         kpi4: "8h",
+        //         kpi5: "388 - 555 µmol/m²/s"
+        //     },
+        //     "3s": {
+        //         kpi1: "22 - 30 mol/m²/dia",
+        //         kpi2: "25 mol/m²/dia",
+        //         kpi3: "8h - 10h",
+        //         kpi4: "6h",
+        //         kpi5: "611 - 1041 µmol/m²/s"
+        //     },
+        //     "4s": {
+        //         kpi1: "22 - 30 mol/m²/dia",
+        //         kpi2: "25 mol/m²/dia",
+        //         kpi3: "8h - 10h",
+        //         kpi4: "6h",
+        //         kpi5: "611 - 1041 µmol/m²/s"
+        //     }
+        // };
 
-        const dadosPorSetor = {
-            "1s": {
-                barData: [8, 6, 7, 10, 9, 8, 8],
-                lineData: [243, 230, 220, 200, 260, 243, 243]
-            },
-            "2s": {
-                barData: [8, 7, 6, 10, 9, 8, 8],
-                lineData: [500, 520, 600, 480, 520, 522, 520]
-            },
-            "3s": {
-                barData: [9, 7, 5, 5, 6, 4, 6],
-                lineData: [850, 800, 1000, 900, 902, 905, 902]
-            },
-            "4s": {
-                barData: [9, 7, 5, 5, 6, 4, 6],
-                lineData: [850, 800, 1000, 900, 902, 905, 902]
-            }
-        };
+        // let dadosPorSetor = {
+        //     "1s": {
+        //         barData: [8, 6, 7, 10, 9, 8, 8],
+        //         lineData: [243, 230, 220, 200, 260, 243, 243]
+        //     },
+        //     "2s": {
+        //         barData: [8, 7, 6, 10, 9, 8, 8],
+        //         lineData: [500, 520, 600, 480, 520, 522, 520]
+        //     },
+        //     "3s": {
+        //         barData: [9, 7, 5, 5, 6, 4, 6],
+        //         lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //     },
+        //     "4s": {
+        //         barData: [9, 7, 5, 5, 6, 4, 6],
+        //         lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //     }
+        // };
 
 
 
-        const dadosSetores = {
-            "1setor": {
-                "metricas": {
-                    metrica1: "166 - 277",
-                    metrica2: "6 - 8",
-                    metrica3: "8h - 10h",
-                },
-                "sensores": {
-                    "1sensor": {
-                        kpi1: "243",
-                        kpi2: "7",
-                        kpi3: "8",
-                        barData: [8, 6, 7, 10, 9, 8, 8],
-                        lineData: [243, 230, 220, 200, 260, 243, 243]
-                    },
-                    "2sensor": {
-                        kpi1: "243",
-                        kpi2: "7",
-                        kpi3: "8",
-                        barData: [8, 6, 7, 10, 9, 8, 8],
-                        lineData: [243, 230, 220, 200, 260, 243, 243]
-                    },
-                    "3sensor": {
-                        kpi1: "243",
-                        kpi2: "7",
-                        kpi3: "8",
-                        barData: [8, 6, 7, 10, 9, 8, 8],
-                        lineData: [243, 230, 220, 200, 260, 243, 243]
-                    },
-                    "4sensor": {
-                        kpi1: "243",
-                        kpi2: "7",
-                        kpi3: "8",
-                        barData: [8, 6, 7, 10, 9, 8, 8],
-                        lineData: [243, 230, 220, 200, 260, 243, 243]
-                    }
-                }
-            },
-            "2setor": {
-                "metricas": {
-                    metrica1: "388 - 555",
-                    metrica2: "14 - 16",
-                    metrica3: "8h - 10h",
-                },
-                "sensores": {
-                    "1sensor": {
-                        kpi1: "520",
-                        kpi2: "25",
-                        kpi3: "8",
-                        barData: [8, 7, 6, 10, 9, 8, 8],
-                        lineData: [500, 520, 600, 480, 520, 522, 520]
-                    },
-                    "2sensor": {
-                        kpi1: "520",
-                        kpi2: "25",
-                        kpi3: "8",
-                        barData: [8, 7, 6, 10, 9, 8, 8],
-                        lineData: [500, 520, 600, 480, 520, 522, 520]
-                    },
-                    "3sensor": {
-                        kpi1: "520",
-                        kpi2: "25",
-                        kpi3: "8",
-                        barData: [8, 7, 6, 10, 9, 8, 8],
-                        lineData: [500, 520, 600, 480, 520, 522, 520]
-                    },
-                    "4sensor": {
-                        kpi1: "520",
-                        kpi2: "25",
-                        kpi3: "8",
-                        barData: [8, 7, 6, 10, 9, 8, 8],
-                        lineData: [500, 520, 600, 480, 520, 522, 520]
-                    }
-                }
-            },
-            "3setor": {
-                "metricas": {
-                    metrica1: "611 - 1041",
-                    metrica2: "22 - 30",
-                    metrica3: "8h - 10h",
-                },
-                "sensores": {
-                    "1sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    },
-                    "2sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    },
-                    "3sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    },
-                    "4sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    }
-                }
-            },
-            "4setor": {
-                "metricas": {
-                    metrica1: "611 - 1041",
-                    metrica2: "22 - 30",
-                    metrica3: "8h - 10h",
-                },
-                "sensores": {
-                    "1sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    },
-                    "2sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    },
-                    "3sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    },
-                    "4sensor": {
-                        kpi1: "902",
-                        kpi2: "25",
-                        kpi3: "6",
-                        barData: [9, 7, 5, 5, 6, 4, 6],
-                        lineData: [850, 800, 1000, 900, 902, 905, 902]
-                    }
-                }
-            }
-        }
+        // let dadosSetores = {
+        //     "1setor": {
+        //         "metricas": {
+        //             metrica1: "166 - 277",
+        //             metrica2: "6 - 8",
+        //             metrica3: "8h - 10h",
+        //         },
+        //         "sensores": {
+        //             "1sensor": {
+        //                 kpi1: "243",
+        //                 kpi2: "7",
+        //                 kpi3: "8",
+        //                 barData: [8, 6, 7, 10, 9, 8, 8],
+        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
+        //             },
+        //             "2sensor": {
+        //                 kpi1: "243",
+        //                 kpi2: "7",
+        //                 kpi3: "8",
+        //                 barData: [8, 6, 7, 10, 9, 8, 8],
+        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
+        //             },
+        //             "3sensor": {
+        //                 kpi1: "243",
+        //                 kpi2: "7",
+        //                 kpi3: "8",
+        //                 barData: [8, 6, 7, 10, 9, 8, 8],
+        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
+        //             },
+        //             "4sensor": {
+        //                 kpi1: "243",
+        //                 kpi2: "7",
+        //                 kpi3: "8",
+        //                 barData: [8, 6, 7, 10, 9, 8, 8],
+        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
+        //             }
+        //         }
+        //     },
+        //     "2setor": {
+        //         "metricas": {
+        //             metrica1: "388 - 555",
+        //             metrica2: "14 - 16",
+        //             metrica3: "8h - 10h",
+        //         },
+        //         "sensores": {
+        //             "1sensor": {
+        //                 kpi1: "520",
+        //                 kpi2: "25",
+        //                 kpi3: "8",
+        //                 barData: [8, 7, 6, 10, 9, 8, 8],
+        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
+        //             },
+        //             "2sensor": {
+        //                 kpi1: "520",
+        //                 kpi2: "25",
+        //                 kpi3: "8",
+        //                 barData: [8, 7, 6, 10, 9, 8, 8],
+        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
+        //             },
+        //             "3sensor": {
+        //                 kpi1: "520",
+        //                 kpi2: "25",
+        //                 kpi3: "8",
+        //                 barData: [8, 7, 6, 10, 9, 8, 8],
+        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
+        //             },
+        //             "4sensor": {
+        //                 kpi1: "520",
+        //                 kpi2: "25",
+        //                 kpi3: "8",
+        //                 barData: [8, 7, 6, 10, 9, 8, 8],
+        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
+        //             }
+        //         }
+        //     },
+        //     "3setor": {
+        //         "metricas": {
+        //             metrica1: "611 - 1041",
+        //             metrica2: "22 - 30",
+        //             metrica3: "8h - 10h",
+        //         },
+        //         "sensores": {
+        //             "1sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             },
+        //             "2sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             },
+        //             "3sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             },
+        //             "4sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             }
+        //         }
+        //     },
+        //     "4setor": {
+        //         "metricas": {
+        //             metrica1: "611 - 1041",
+        //             metrica2: "22 - 30",
+        //             metrica3: "8h - 10h",
+        //         },
+        //         "sensores": {
+        //             "1sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             },
+        //             "2sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             },
+        //             "3sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             },
+        //             "4sensor": {
+        //                 kpi1: "902",
+        //                 kpi2: "25",
+        //                 kpi3: "6",
+        //                 barData: [9, 7, 5, 5, 6, 4, 6],
+        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
+        //             }
+        //         }
+        //     }
+        // }
 
+        let metrica1 = ["166 - 277", "388 - 555", "611 - 1041", "611 - 1041"]
+        let metrica2 = ["6 - 8", "14 - 16", "22 - 30", "22 - 30"]
+        let metrica3 = ["8<span>h</span> - 10<span>h</span>", "8<span>h</span> - 10<span>h</span>", "8<span>h</span> - 10<span>h</span>", "8<span>h</span> - 10<span>h</span>"]
+
+        let kpi1 = ["243", "520", "902", "902"]
+        let kpi2 = ["7", "25", "25", "25"]
+        let kpi3 = ["8<span>h</span>", "8<span>h</span>", "6<span>h</span>", "6<span>h</span>"]
+
+        let barDatas = [[8, 6, 7, 10, 9, 8, 8], [8, 7, 6, 10, 9, 8, 8], [9, 7, 5, 5, 6, 4, 6], [9, 7, 5, 5, 6, 4, 6]]
+        let lineDatas = [[243, 230, 220, 200, 260, 243, 243], [500, 520, 600, 480, 520, 522, 520], [850, 800, 1000, 900, 902, 905, 902], [850, 800, 1000, 900, 902, 905, 902]]
 
 
 
         function atualizarKPIs(setor, sensor) {
-            // const kpis = kpiDados[setor];
+            // let kpis = kpiDados[setor];
             // if (!kpis) return;
 
             // document.getElementById('kpi1').querySelector('i').innerText = kpis.kpi1;
@@ -374,39 +382,43 @@
             // document.getElementById('kpi4').querySelector('i').innerText = kpis.kpi4;
             // document.getElementById('kpi5').querySelector('i').innerText = kpis.kpi5;
 
-            const kpis = dadosSetores[setor].sensores[sensor];
-            if (!kpis) return;
+            // let kpis = dadosSetores[setor].sensores[sensor];
+            // if (!kpis) return;
 
-            const metricas = dadosSetores[setor].metricas
-            if (!metricas) return;
-            
-            document.getElementById('kpi1').querySelector('.medida').innerHTML = kpis.kpi1
-            document.getElementById('kpi2').querySelector('.medida').innerHTML = kpis.kpi2
-            document.getElementById('kpi3').querySelector('.medida').innerHTML = kpis.kpi3
-            
-            document.getElementById('metrica1').querySelector('.medida').innerHTML = metricas.metrica1
-            document.getElementById('metrica2').querySelector('.medida').innerHTML = metricas.metrica2
-            document.getElementById('metrica3').querySelector('.medida').innerHTML = metricas.metrica3
+            // let metricas = dadosSetores[setor].metricas
+            // if (!metricas) return;
+
+            document.getElementById('kpi1').querySelector('.medida').innerHTML = kpi1[sensor]
+            document.getElementById('kpi2').querySelector('.medida').innerHTML = kpi2[sensor]
+            document.getElementById('kpi3').querySelector('.medida').innerHTML = kpi3[sensor]
+
+            document.getElementById('metrica1').querySelector('.medida').innerHTML = metrica1[setor]
+            document.getElementById('metrica2').querySelector('.medida').innerHTML = metrica2[setor]
+            document.getElementById('metrica3').querySelector('.medida').innerHTML = metrica3[setor]
         }
 
         function atualizarGraficos() {
-            const setor = document.getElementById("sltsetor").value;
-            const sensor = document.getElementById("sltsensor").value;
+            let setor = document.getElementById("sltsetor").value;
+            let sensor = document.getElementById("sltsensor").value;
 
             if (setor === "" || sensor === "") {
                 // document.querySelector('.kpi-container').style.display = 'none';
                 // document.querySelector('.graficos').style.display = 'none';
+                document.querySelector('.dashboards-container').style.display = 'none';
                 return;
             }
 
             // document.querySelector('.kpi-container').style.display = 'flex';
             // document.querySelector('.graficos').style.display = 'flex';
+            document.querySelector('.dashboards-container').style.display = 'flex';
             atualizarKPIs(setor, sensor);
 
-            // const novosDados = dadosPorSetor[setor];
-            const novosDados = dadosSetores[setor].sensores[sensor]
-            const ctx1 = document.getElementById('myChart1').getContext('2d');
-            const ctx2 = document.getElementById('myChart2').getContext('2d');
+            // let novosDados = dadosPorSetor[setor];
+            // let novosDados = dadosSetores[setor].sensores[sensor]
+            let novoBarData = barDatas[sensor]
+            let novoLineData = lineDatas[sensor]
+            let ctx1 = document.getElementById('myChart1').getContext('2d');
+            let ctx2 = document.getElementById('myChart2').getContext('2d');
 
             if (!chart1) {
                 chart1 = new Chart(ctx1, {
@@ -415,7 +427,8 @@
                         labels: ['DIA-01', 'DIA-02', 'DIA-03', 'DIA-04', 'DIA-05', 'DIA-06', 'DIA-07'],
                         datasets: [{
                             label: 'Horas iluminadas por dia',
-                            data: novosDados.barData,
+                            // data: novosDados.barData,
+                            data: novoBarData,
                             backgroundColor: '#3498db',
                             borderWidth: 1
                         }]
@@ -431,7 +444,8 @@
                 });
             } else {
 
-                chart1.data.datasets[0].data = novosDados.barData;
+                // chart1.data.datasets[0].data = novosDados.barData;
+                chart1.data.datasets[0].data = novoBarData;
                 chart1.update();
             }
 
@@ -443,7 +457,8 @@
                         labels: ['09:01:01', '09:01:02', '09:01:03', '09:01:04', '09:01:05', '09:01:06', '09:01:07'],
                         datasets: [{
                             label: 'µmol/m²/s',
-                            data: novosDados.lineData,
+                            // data: novosDados.lineData,
+                            data: novoLineData,
                             borderColor: 'red',
                             backgroundColor: 'rgba(255, 0, 0, 0.1)',
                             borderWidth: 2,
@@ -461,7 +476,8 @@
                 });
             } else {
 
-                chart2.data.datasets[0].data = novosDados.lineData;
+                // chart2.data.datasets[0].data = novosDados.lineData;
+                chart2.data.datasets[0].data = novoLineData;
                 chart2.update();
             }
         }

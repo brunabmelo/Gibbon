@@ -247,7 +247,8 @@ main {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 100px 50px 0 50px;
+    padding: 100px 40px 0 40px;
+    gap: 16px;
 }
 
 .seletores {
@@ -267,7 +268,26 @@ main {
     box-shadow: 0 1px 4px #ddd;
 }
 
-.graficos {
+.dashboards-container {
+    display: none;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.dashboard-container {
+    width: 50%;
+    background-color: #fff;
+    padding: 13px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+
+/* .metricas-container {
+    display: flex;
+} */
+
+
+/* .graficos {
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -282,33 +302,71 @@ main {
 
 .grafico canvas {
     height: 100%;
-}
+} */
 
-.kpi-container {
+.boxes-container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    margin-top: 50px;
-    display: none;
+    gap: 13px;
     width: 100%;
 }
 
+.metrica {
+    background-color: #E7EADD;
+}
+
+.kpi {
+    background-color: #F1F0F5;
+    margin-top: 11px;
+}
+
 .box {
-    background-color: white;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 10px 20px;
-    height: 150px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 2px;
+    padding: 20px 15px;
+    height: 140px;
+    width: 160px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    color: #C27F18;
 }
 
-.box h5 {
+.box .medida {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.box .medida span {
+    font-size: 18px;
+}
+
+.box .unidade-medida {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.box .legenda {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 9px;
+}
+
+.dashboard-container h3 {
+    margin-bottom: 6px;
+    font-weight: 400;
+    color: #474747;
+}
+
+.dashboard-container h4 {
+    margin-top: 30px;
+    margin-bottom: 4px;
+    font-weight: 400;
+    color: #474747;
+}
+
+/* .box h5 {
     font-size: 16px;
     font-weight: 500;
     max-width: 300px;
@@ -317,4 +375,4 @@ main {
 .box i {
     font-size: 24px;
     font-weight: 600;
-}
+} */
