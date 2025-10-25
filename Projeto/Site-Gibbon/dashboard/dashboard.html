@@ -109,255 +109,12 @@
                     <canvas id="myChart1"></canvas>
                 </div>
             </div>
-
-
-
-
-
-            <!-- <div class="kpi-container">
-                <div class="box kpi1" id="kpi1">
-                    <h5>Quantidade ideal mol/m²/dia:</h5>
-                    <i></i>
-                </div>
-
-                <div class="box kpi2" id="kpi2">
-                    <h5>Quantidade mol/m²/dia (dia anterior):</h5>
-                    <i></i>
-                </div>
-
-                <div class="box kpi3" id="kpi3">
-                    <h5>Horas iluminadas por dia ideais:</h5>
-                    <i></i>
-                </div>
-
-                <div class="box kpi4" id="kpi4">
-                    <h5>Média de horas iluminado por dia (últimos 7 dias):</h5>
-                    <i></i>
-                </div>
-
-                <div class="box kpi5" id="kpi5">
-                    <h5>Quantidade ideal de µmol/m²/s:</h5>
-                    <i></i>
-                </div>
-            </div>
-
-            <div class="graficos">
-                <div class="grafico-item">
-                    <canvas id="myChart1"></canvas>
-                </div>
-                <div class="grafico-item">
-                    <canvas id="myChart2"></canvas>
-                </div>
-            </div> -->
         </section>
     </main>
 
     <script src="../js/dashboard.js"></script>
     <script>
         let chart1, chart2;
-
-        // let kpiDados = {
-        //     "1s": {
-        //         kpi1: "6 - 8 mol/m²/dia",
-        //         kpi2: "7 mol/m²/dia",
-        //         kpi3: "8h - 10h",
-        //         kpi4: "8h",
-        //         kpi5: "166 - 277 µmol/m²/s"
-        //     },
-        //     "2s": {
-        //         kpi1: "14 - 16 mol/m²/dia",
-        //         kpi2: "25 mol/m²/dia",
-        //         kpi3: "8h - 10h",
-        //         kpi4: "8h",
-        //         kpi5: "388 - 555 µmol/m²/s"
-        //     },
-        //     "3s": {
-        //         kpi1: "22 - 30 mol/m²/dia",
-        //         kpi2: "25 mol/m²/dia",
-        //         kpi3: "8h - 10h",
-        //         kpi4: "6h",
-        //         kpi5: "611 - 1041 µmol/m²/s"
-        //     },
-        //     "4s": {
-        //         kpi1: "22 - 30 mol/m²/dia",
-        //         kpi2: "25 mol/m²/dia",
-        //         kpi3: "8h - 10h",
-        //         kpi4: "6h",
-        //         kpi5: "611 - 1041 µmol/m²/s"
-        //     }
-        // };
-
-        // let dadosPorSetor = {
-        //     "1s": {
-        //         barData: [8, 6, 7, 10, 9, 8, 8],
-        //         lineData: [243, 230, 220, 200, 260, 243, 243]
-        //     },
-        //     "2s": {
-        //         barData: [8, 7, 6, 10, 9, 8, 8],
-        //         lineData: [500, 520, 600, 480, 520, 522, 520]
-        //     },
-        //     "3s": {
-        //         barData: [9, 7, 5, 5, 6, 4, 6],
-        //         lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //     },
-        //     "4s": {
-        //         barData: [9, 7, 5, 5, 6, 4, 6],
-        //         lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //     }
-        // };
-
-
-
-        // let dadosSetores = {
-        //     "1setor": {
-        //         "metricas": {
-        //             metrica1: "166 - 277",
-        //             metrica2: "6 - 8",
-        //             metrica3: "8h - 10h",
-        //         },
-        //         "sensores": {
-        //             "1sensor": {
-        //                 kpi1: "243",
-        //                 kpi2: "7",
-        //                 kpi3: "8",
-        //                 barData: [8, 6, 7, 10, 9, 8, 8],
-        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
-        //             },
-        //             "2sensor": {
-        //                 kpi1: "243",
-        //                 kpi2: "7",
-        //                 kpi3: "8",
-        //                 barData: [8, 6, 7, 10, 9, 8, 8],
-        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
-        //             },
-        //             "3sensor": {
-        //                 kpi1: "243",
-        //                 kpi2: "7",
-        //                 kpi3: "8",
-        //                 barData: [8, 6, 7, 10, 9, 8, 8],
-        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
-        //             },
-        //             "4sensor": {
-        //                 kpi1: "243",
-        //                 kpi2: "7",
-        //                 kpi3: "8",
-        //                 barData: [8, 6, 7, 10, 9, 8, 8],
-        //                 lineData: [243, 230, 220, 200, 260, 243, 243]
-        //             }
-        //         }
-        //     },
-        //     "2setor": {
-        //         "metricas": {
-        //             metrica1: "388 - 555",
-        //             metrica2: "14 - 16",
-        //             metrica3: "8h - 10h",
-        //         },
-        //         "sensores": {
-        //             "1sensor": {
-        //                 kpi1: "520",
-        //                 kpi2: "25",
-        //                 kpi3: "8",
-        //                 barData: [8, 7, 6, 10, 9, 8, 8],
-        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
-        //             },
-        //             "2sensor": {
-        //                 kpi1: "520",
-        //                 kpi2: "25",
-        //                 kpi3: "8",
-        //                 barData: [8, 7, 6, 10, 9, 8, 8],
-        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
-        //             },
-        //             "3sensor": {
-        //                 kpi1: "520",
-        //                 kpi2: "25",
-        //                 kpi3: "8",
-        //                 barData: [8, 7, 6, 10, 9, 8, 8],
-        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
-        //             },
-        //             "4sensor": {
-        //                 kpi1: "520",
-        //                 kpi2: "25",
-        //                 kpi3: "8",
-        //                 barData: [8, 7, 6, 10, 9, 8, 8],
-        //                 lineData: [500, 520, 600, 480, 520, 522, 520]
-        //             }
-        //         }
-        //     },
-        //     "3setor": {
-        //         "metricas": {
-        //             metrica1: "611 - 1041",
-        //             metrica2: "22 - 30",
-        //             metrica3: "8h - 10h",
-        //         },
-        //         "sensores": {
-        //             "1sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             },
-        //             "2sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             },
-        //             "3sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             },
-        //             "4sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             }
-        //         }
-        //     },
-        //     "4setor": {
-        //         "metricas": {
-        //             metrica1: "611 - 1041",
-        //             metrica2: "22 - 30",
-        //             metrica3: "8h - 10h",
-        //         },
-        //         "sensores": {
-        //             "1sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             },
-        //             "2sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             },
-        //             "3sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             },
-        //             "4sensor": {
-        //                 kpi1: "902",
-        //                 kpi2: "25",
-        //                 kpi3: "6",
-        //                 barData: [9, 7, 5, 5, 6, 4, 6],
-        //                 lineData: [850, 800, 1000, 900, 902, 905, 902]
-        //             }
-        //         }
-        //     }
-        // }
 
         let metrica1 = ["166 - 277", "388 - 555", "611 - 1041", "611 - 1041"]
         let metrica2 = ["6 - 8", "14 - 16", "22 - 30", "22 - 30"]
@@ -373,20 +130,6 @@
 
 
         function atualizarKPIs(setor, sensor) {
-            // let kpis = kpiDados[setor];
-            // if (!kpis) return;
-
-            // document.getElementById('kpi1').querySelector('i').innerText = kpis.kpi1;
-            // document.getElementById('kpi2').querySelector('i').innerText = kpis.kpi2;
-            // document.getElementById('kpi3').querySelector('i').innerText = kpis.kpi3;
-            // document.getElementById('kpi4').querySelector('i').innerText = kpis.kpi4;
-            // document.getElementById('kpi5').querySelector('i').innerText = kpis.kpi5;
-
-            // let kpis = dadosSetores[setor].sensores[sensor];
-            // if (!kpis) return;
-
-            // let metricas = dadosSetores[setor].metricas
-            // if (!metricas) return;
 
             document.getElementById('kpi1').querySelector('.medida').innerHTML = kpi1[sensor]
             document.getElementById('kpi2').querySelector('.medida').innerHTML = kpi2[sensor]
@@ -402,19 +145,13 @@
             let sensor = document.getElementById("sltsensor").value;
 
             if (setor === "" || sensor === "") {
-                // document.querySelector('.kpi-container').style.display = 'none';
-                // document.querySelector('.graficos').style.display = 'none';
                 document.querySelector('.dashboards-container').style.display = 'none';
                 return;
             }
 
-            // document.querySelector('.kpi-container').style.display = 'flex';
-            // document.querySelector('.graficos').style.display = 'flex';
             document.querySelector('.dashboards-container').style.display = 'flex';
             atualizarKPIs(setor, sensor);
 
-            // let novosDados = dadosPorSetor[setor];
-            // let novosDados = dadosSetores[setor].sensores[sensor]
             let novoBarData = barDatas[sensor]
             let novoLineData = lineDatas[sensor]
             let ctx1 = document.getElementById('myChart1').getContext('2d');
@@ -427,7 +164,6 @@
                         labels: ['DIA-01', 'DIA-02', 'DIA-03', 'DIA-04', 'DIA-05', 'DIA-06', 'DIA-07'],
                         datasets: [{
                             label: 'Horas iluminadas por dia',
-                            // data: novosDados.barData,
                             data: novoBarData,
                             backgroundColor: '#3498db',
                             borderWidth: 1
@@ -444,7 +180,6 @@
                 });
             } else {
 
-                // chart1.data.datasets[0].data = novosDados.barData;
                 chart1.data.datasets[0].data = novoBarData;
                 chart1.update();
             }
@@ -457,7 +192,6 @@
                         labels: ['09:01:01', '09:01:02', '09:01:03', '09:01:04', '09:01:05', '09:01:06', '09:01:07'],
                         datasets: [{
                             label: 'µmol/m²/s',
-                            // data: novosDados.lineData,
                             data: novoLineData,
                             borderColor: 'red',
                             backgroundColor: 'rgba(255, 0, 0, 0.1)',
@@ -476,7 +210,6 @@
                 });
             } else {
 
-                // chart2.data.datasets[0].data = novosDados.lineData;
                 chart2.data.datasets[0].data = novoLineData;
                 chart2.update();
             }
