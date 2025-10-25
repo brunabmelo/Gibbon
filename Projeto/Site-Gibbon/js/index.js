@@ -76,6 +76,7 @@ function enviarMensagem() {
     ) {
         alert('Preencha todos os campos')
     } else {
+        alert('Mensagem enviada com sucesso')
         iptNome.value = ''
         iptSobrenome.value = ''
         iptEmail.value = ''
