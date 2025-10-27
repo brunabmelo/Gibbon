@@ -121,8 +121,10 @@
         let metrica3 = ["8<span>h</span> - 10<span>h</span>", "8<span>h</span> - 10<span>h</span>", "8<span>h</span> - 10<span>h</span>", "8<span>h</span> - 10<span>h</span>"]
 
         let kpi1 = ["243", "520", "902", "902"]
-        let kpi2 = ["7", "25", "25", "25"]
+        let kpi2 = ["7", "15", "25", "25"]
         let kpi3 = ["8<span>h</span>", "8<span>h</span>", "6<span>h</span>", "6<span>h</span>"]
+
+
 
         let barDatas = [[8, 6, 7, 10, 9, 8, 8], [8, 7, 6, 10, 9, 8, 8], [9, 7, 5, 5, 6, 4, 6], [9, 7, 5, 5, 6, 4, 6]]
         let lineDatas = [[243, 230, 220, 200, 260, 243, 243], [500, 520, 600, 480, 520, 522, 520], [850, 800, 1000, 900, 902, 905, 902], [850, 800, 1000, 900, 902, 905, 902]]
@@ -174,45 +176,62 @@
                         scales: {
                             y: {
                                 beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            } else {
-
-                chart1.data.datasets[0].data = novoBarData;
-                chart1.update();
-            }
-
-
-            if (!chart2) {
-                chart2 = new Chart(ctx2, {
-                    type: 'line',
-                    data: {
-                        labels: ['09:01:01', '09:01:02', '09:01:03', '09:01:04', '09:01:05', '09:01:06', '09:01:07'],
-                        datasets: [{
-                            label: 'µmol/m²/s',
-                            data: novoLineData,
-                            borderColor: 'red',
-                            backgroundColor: 'rgba(255, 0, 0, 0.1)',
-                            borderWidth: 2,
-                            tension: 0.4
-                        }]
+                }
+            },
+            plugins: {
+                tooltip: {
+                    titleFont: {
+                        size: 18 
                     },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
+                    bodyFont: {
+                        size: 16 
                     }
-                });
-            } else {
-
-                chart2.data.datasets[0].data = novoLineData;
-                chart2.update();
+                }
             }
+        }
+    });
+} else {
+    chart1.data.datasets[0].data = novoBarData;
+    chart1.update();
+}
+
+if (!chart2) {
+    chart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['09:01:01', '09:01:02', '09:01:03', '09:01:04', '09:01:05', '09:01:06', '09:01:07'],
+            datasets: [{
+                label: 'µmol/m²/s',
+                data: novoLineData,
+                borderColor: 'red',
+                backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                borderWidth: 2,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                tooltip: {
+                    titleFont: {
+                        size: 18 
+                    },
+                    bodyFont: {
+                        size: 16 
+                    }
+                }
+            }
+        }
+    });
+} else {
+    chart2.data.datasets[0].data = novoLineData;
+    chart2.update();
+}
         }
     </script>
 </body>
