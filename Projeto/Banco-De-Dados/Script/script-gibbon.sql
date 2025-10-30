@@ -33,8 +33,8 @@ idNivelAcesso INT PRIMARY KEY AUTO_INCREMENT,
 nivel VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE usuario (
-idUsuario INT, 
+CREATE TABLE Funcionario (
+idFuncionario INT, 
 fkEmpresa INT, CONSTRAINT pk_usuario_empresa PRIMARY KEY (idUsuario,fkEmpresa),
 nome VARCHAR(100) NOT NULL,
 sobrenome VARCHAR(100) NOT NULL,
