@@ -16,7 +16,7 @@ dtContratacao DATE NOT NULL
 CREATE TABLE estufa (
 idEstufa INT PRIMARY KEY AUTO_INCREMENT,
 localEstufa VARCHAR(100) NOT NULL,
-descricao TEXT,
+descricao VARCHAR(500),
 fkEmpresa INT, CONSTRAINT fk_estufa_empresa FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa) 
 );
 
@@ -48,25 +48,31 @@ CREATE TABLE setor (
 idSetor INT,
 fkEstufa INT, CONSTRAINT pk_setor_estufa PRIMARY KEY (idSetor,fkEstufa),
 CONSTRAINT fk_setor_estufa FOREIGN KEY (fkEstufa) REFERENCES estufa (idEstufa),
-nome VARCHAR(45)
+nome VARCHAR(45) NOT NULL,
+descricao VARCHAR(500)
 );
 
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45) NOT NULL,
-fkSetor INT, CONSTRAINT fk_sensor_setor FOREIGN KEY (fkSetor) REFERENCES setor (idSetor),
-fkEstufa INT, CONSTRAINT fk_sensor_estufa FOREIGN KEY (fkEstufa) REFERENCES setor (fkEstufa)
+fkSetor INT,
+fkEstufa INT,
+CONSTRAINT fk_sensor_setor_estufa FOREIGN KEY (fkSetor, fkEstufa) REFERENCES setor (idSetor, fkEstufa)
 );
 
 CREATE TABLE registro (
 idRegistro INT AUTO_INCREMENT,
 fkSensor INT, CONSTRAINT fk_registro_sensor FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor),
-nivelLuz DECIMAL(5,2) NOT NULL,
+nivelLuz DECIMAL(6,2) NOT NULL,
 estadoLuz TINYINT NOT NULL,
 dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT pk_registro_sensor PRIMARY KEY (idRegistro,fkSensor)
 );
 
+
+
+
+-- INSERTS
 INSERT INTO empresa (nome,email,cnpj,situacaoContrato,dtContratacao) VALUES
 ('Gibbon','oficial@gibbon.com','12345678901234',1,'2025-10-17');
 
@@ -80,9 +86,9 @@ INSERT INTO setor (idSetor,fkEstufa,nome) VALUES
 (1,1,'Setor de mudas');
 
 INSERT INTO sensor (idSensor,nome,fkEstufa,fkSetor) VALUES
-(1,'Sensor A superior',1,1),
-(2,'Sensor A inferior',1,1),
-(3,'Sensor B superior',1,1);
+(1,'Sensor A',1,1),
+(2,'Sensor B',1,1),
+(3,'Sensor C',1,1);
 
 INSERT INTO registro (fkSensor,nivelLuz,estadoLuz) VALUES
 (1,500,1),
@@ -92,11 +98,16 @@ INSERT INTO registro (fkSensor,nivelLuz,estadoLuz) VALUES
 
 INSERT INTO nivelAcesso (nivel) VALUES 
 ('Administrador'),
-('Funcionário');
+('Editor'),
+('Visualizador');
 
 INSERT INTO usuario (idUsuario,fkEmpresa,nome,sobrenome,email,senha,fkNivelAcesso) VALUES
 (1,1,'Robson','Freitas Gonçalo','robson.freitas@gibbon.com','robsonFG123',1);
 
+
+
+
+-- SELECTS
 
 SELECT 
     CONCAT(usuario.nome, ' ', usuario.sobrenome) AS 'Nome Completo',
@@ -130,7 +141,7 @@ FROM
     empresa ON estufa.fkEmpresa = idEmpresa;
     
     
-    SELECT 
+SELECT 
     empresa.nome AS 'Nome da empresa',
     cnpj AS 'CNPJ',
     empresa.email AS 'Email da empresa',
