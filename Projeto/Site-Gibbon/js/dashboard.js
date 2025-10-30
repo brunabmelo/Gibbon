@@ -48,7 +48,11 @@ function cadastrar() {
         iptConfirmacaoSenha.value == ''
     ) {
         alert('Preencha todos os campos')
-    } else {
+    }
+    else if(iptSenha.value != iptConfirmacaoSenha.value) {
+        alert('Senhas não correspondem')
+    }
+    else {
         let isEmail = false
         let i = 0
         while (i < iptEmail.value.length) {
