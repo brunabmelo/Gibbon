@@ -33,14 +33,14 @@ idNivelAcesso INT PRIMARY KEY AUTO_INCREMENT,
 nivel VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE Funcionario (
+CREATE TABLE funcionario (
 idFuncionario INT, 
-fkEmpresa INT, CONSTRAINT pk_usuario_empresa PRIMARY KEY (idUsuario,fkEmpresa),
+fkEmpresa INT, CONSTRAINT pk_funcionario_empresa PRIMARY KEY (idFuncionario,fkEmpresa),
 nome VARCHAR(100) NOT NULL,
 sobrenome VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
 senha VARCHAR(25) NOT NULL,
-fkNivelAcesso INT, CONSTRAINT fk_usuario_acesso FOREIGN KEY (fkNivelAcesso) REFERENCES nivelAcesso(idNivelAcesso),
+fkNivelAcesso INT, CONSTRAINT fk_funcionario_acesso FOREIGN KEY (fkNivelAcesso) REFERENCES nivelAcesso(idNivelAcesso),
 CONSTRAINT fk_cliente_empresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
 
@@ -101,7 +101,7 @@ INSERT INTO nivelAcesso (nivel) VALUES
 ('Editor'),
 ('Visualizador');
 
-INSERT INTO usuario (idUsuario,fkEmpresa,nome,sobrenome,email,senha,fkNivelAcesso) VALUES
+INSERT INTO funcionario (idFuncionario,fkEmpresa,nome,sobrenome,email,senha,fkNivelAcesso) VALUES
 (1,1,'Robson','Freitas Gonçalo','robson.freitas@gibbon.com','robsonFG123',1);
 
 
@@ -110,12 +110,12 @@ INSERT INTO usuario (idUsuario,fkEmpresa,nome,sobrenome,email,senha,fkNivelAcess
 -- SELECTS
 
 SELECT 
-    CONCAT(usuario.nome, ' ', usuario.sobrenome) AS 'Nome Completo',
-    usuario.email AS 'Email',
+    CONCAT(funcionario.nome, ' ', funcionario.sobrenome) AS 'Nome Completo',
+    funcionario.email AS 'Email',
     empresa.nome AS 'Empresa',
     nivelAcesso.nivel AS 'Nivel de Acesso'
 FROM
-    usuario
+    funcionario
         JOIN
     empresa ON fkEmpresa = idEmpresa
         JOIN
