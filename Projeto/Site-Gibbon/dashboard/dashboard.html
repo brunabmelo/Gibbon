@@ -120,14 +120,14 @@
         let metrica2 = ["6 - 8", "14 - 16", "22 - 30", "22 - 30"]
         let metrica3 = ["12<span>h</span> - 16<span>h</span>", "14<span>h</span> - 18<span>h</span>", "12<span>h</span> - 14<span>h</span>", "10<span>h</span> - 12<span>h</span>"]
 
-        let kpi1 = ["200", "420", "602", "702"]
+        let kpi1 = ["200", "320", "602", "697"]
         let kpi2 = ["7", "15", "25", "25"]
-        let kpi3 = ["8<span>h</span>", "12<span>h</span>", "12<span>h</span>", "10<span>h</span>"]
+        let kpi3 = ["16<span>h</span>", "15<span>h</span>", "12<span>h</span>", "12<span>h</span>"]
 
 
 
-        let barDatas = [[7, 8, 6, 10, 4, 8, 7], [17, 11, 13, 9, 7, 12, 15], [11, 13, 17, 12, 9, 7, 15], [9, 10, 11, 15, 13, 5, 7]]
-        let lineDatas = [[100, 150, 190, 200, 210, 250, 300], [620, 700, 600, 420, 300, 200, 100], [900, 1000, 700, 1200, 500, 1414, 300], [700, 690, 702, 704, 680, 728, 710]]
+        let barDatas = [[17, 18, 16, 15, 16, 14, 16], [14, 15, 14, 15, 17, 14, 16], [11, 13, 17, 12, 9, 7, 15], [11, 12, 10, 15, 12, 13, 11]]
+        let lineDatas = [[100, 150, 190, 200, 210, 220, 205], [320, 300, 290, 320, 300, 280, 300], [700, 550, 610, 700, 510, 500, 600], [690, 680, 697, 700, 680, 700, 698]]
 
 
 
@@ -140,6 +140,28 @@
             document.getElementById('metrica1').querySelector('.medida').innerHTML = metrica1[setor]
             document.getElementById('metrica2').querySelector('.medida').innerHTML = metrica2[setor]
             document.getElementById('metrica3').querySelector('.medida').innerHTML = metrica3[setor]
+
+            if (
+                setor == sensor ||
+                (setor == 2 && sensor == 3) ||
+                (setor == 3 && sensor == 2)
+            ) {
+                document.getElementById('kpi1').classList.remove('fora-ideal')
+                document.getElementById('kpi2').classList.remove('fora-ideal')
+                document.getElementById('kpi3').classList.remove('fora-ideal')
+            } else {
+                document.getElementById('kpi1').classList.add('fora-ideal')
+                document.getElementById('kpi2').classList.add('fora-ideal')
+                document.getElementById('kpi3').classList.add('fora-ideal')
+
+                if (
+                    (setor == 1 && sensor == 0) || 
+                    (setor == 0) 
+
+                ) {
+                    document.getElementById('kpi3').classList.remove('fora-ideal')
+                }
+            }
         }
 
         function atualizarGraficos() {
