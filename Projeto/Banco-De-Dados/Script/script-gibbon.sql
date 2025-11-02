@@ -108,6 +108,19 @@ INSERT INTO funcionario (idFuncionario,fkEmpresa,nome,sobrenome,email,senha,fkNi
 
 
 -- SELECTS
+SELECT 
+    empresa.nome AS 'Nome da empresa',
+    cnpj AS 'CNPJ',
+    empresa.email AS 'Email da empresa',
+    CASE
+        WHEN situacaoContrato = 1 THEN 'ATIVO'
+        ELSE 'INATIVO'
+    END AS 'Situação do contrato',
+    dtContratacao AS 'Data de contrato'
+FROM
+    empresa
+        JOIN
+    endereco ON fkEmpresa = idEmpresa; 
 
 SELECT 
     CONCAT(funcionario.nome, ' ', funcionario.sobrenome) AS 'Nome Completo',
@@ -139,19 +152,3 @@ FROM
     estufa ON setor.fkEstufa = idEstufa
         JOIN
     empresa ON estufa.fkEmpresa = idEmpresa;
-    
-    
-SELECT 
-    empresa.nome AS 'Nome da empresa',
-    cnpj AS 'CNPJ',
-    empresa.email AS 'Email da empresa',
-    CASE
-        WHEN situacaoContrato = 1 THEN 'ATIVO'
-        ELSE 'INATIVO'
-    END AS 'Situação do contrato',
-    dtContratacao AS 'Data de contrato'
-FROM
-    empresa
-        JOIN
-    endereco ON fkEmpresa = idEmpresa; 
-    
