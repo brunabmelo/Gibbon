@@ -37,12 +37,12 @@ function simular() {
             <h4>Eficiência Energética</h4>
             <span> Consumo atual: ${consumoEnergetico.toFixed(2)} kWh - R$${custoSemGibbon.toFixed(2)}</span>
             <span>- Consumo com Gibbon: ${energiaComGibbon.toFixed(2)} kWh - R$${custoComGibbon.toFixed(2)}</span>
-            <span>- Economia em torno de: <b>${(reducaoEnergia * 100).toFixed(0)}%</b> - <b>R$${economia.toFixed(2)}</span></b>
+            <span>- Economia em até: <b>${(reducaoEnergia * 100).toFixed(0)}%</b> - <b>R$${economia.toFixed(2)}</span></b>
 
             <h3>Produtividade</h3>
             <span>- Produção atual: ${producao.toFixed(2)} toneladas</span>
             <span>- Produção com Gibbon: ${producaoComGibbon.toFixed(2)} toneladas</span>
-            <span>- Aumento em torno de <b>${(aumentoProducao * 100).toFixed(0)}%</b> (${aumento.toFixed(2)} toneladas)</span>
+            <span>- Aumento em até <b>${(aumentoProducao * 100).toFixed(0)}%</b> (${aumento.toFixed(2)} toneladas)</span>
 
             <p class="fonte">Simulação baseada em dados publicados pela ESALQ-USP</p>
         `;
