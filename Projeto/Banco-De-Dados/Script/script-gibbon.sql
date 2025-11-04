@@ -72,6 +72,12 @@ CONSTRAINT pk_registro_sensor PRIMARY KEY (idRegistro,fkSensor)
 
 
 
+
+
+
+
+
+
 -- INSERTS
 INSERT INTO empresa (nome,email,cnpj,situacaoContrato,dtContratacao) VALUES
 ('Gibbon','oficial@gibbon.com','12345678901234',1,'2025-10-17');
@@ -103,6 +109,11 @@ INSERT INTO nivelAcesso (nivel) VALUES
 
 INSERT INTO funcionario (idFuncionario,fkEmpresa,nome,sobrenome,email,senha,fkNivelAcesso) VALUES
 (1,1,'Robson','Freitas Gonçalo','robson.freitas@gibbon.com','robsonFG123',1);
+
+
+
+
+
 
 
 
