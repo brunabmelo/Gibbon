@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gibbon</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/styleDashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+    <!--MENU-->
+    <nav class="sidebar">
+        <div>
+            <div class="perfil">
+                <div class="perfil-card">
+                    <img class="avatar-icon" src="../assets/images/generic-avatar.png" alt="Foto de perfil">
+                    <h2>Nome Usuário</h2>
+                </div>
+                <a href="./perfil.html">Perfil</a>
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li><a href="./dashboard.html">Gráficos</a></li>
+                    <li><a href="./funcionarios.html">Cadastrar Funcionário</a></li>
+                    <li><a class="selecionado" href="./notificacoes.html">Alertas</a></li>
+                </ul>
+            </div>
+        </div>
+        <button onclick="sair()">Sair</button>
+    </nav>
+    <!--FIM MENU-->
+    
+    <main>
+        <section class="alertas">
+            <h1>Painel de Alerta</h1>
+            <ul class="alerta-card">
+                <li class="alerta-bar">
+                    <div class="titulo-container">
+                        <h2>Sensor A</h2>
+                    </div>
+                    <p>
+                        Estufa Y                      
+                    </p>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+   
+</body>
+
+</html>

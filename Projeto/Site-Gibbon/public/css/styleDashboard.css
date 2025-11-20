@@ -384,6 +384,7 @@ main {
     height: 44px;
 }
 
+<<<<<<< HEAD
 .container-grafico {
     height: 10%;
 }
@@ -414,4 +415,40 @@ main {
     flex-direction: column;
 
     padding: 5%;
+=======
+/* Avisos */
+
+.alerta {
+    width: 80%;
+    height: 80%;
+}
+
+.alerta-card {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 16px;
+}
+
+.alerta-bar {
+    background-color: #fff;
+    border-radius: 8px;
+    padding-right: 500px;
+}
+
+.alerta-bar .titulo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+}
+
+.alerta-bar .titulo-container h2 {
+    font-size: 18px;
+}
+
+
+.alerta-bar p {
+    padding: 8px 16px;
+>>>>>>> 8db284b6a56aaa46f304d08a4e421587156f899f
 }
