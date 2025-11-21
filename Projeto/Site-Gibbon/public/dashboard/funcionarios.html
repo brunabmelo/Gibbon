@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
-<body>
+<body onload="listarFuncionarios()">
     <nav class="sidebar">
         <div>
             <div class="perfil">
@@ -54,3 +54,25 @@
 </body>
 
 </html>
+
+<script>
+    function listarFuncionarios() {
+        fetch('/funcionarios/listar').then(resposta => {
+            resposta.json().then(vt_funcionarios => {
+                const ul_lista_funcionarios = document.getElementById('lista-funcionarios')
+                for (let i = 0; i < vt_funcionarios.length; i++) {
+                    const funcionario = vt_funcionarios[i];
+                    ul_lista_funcionarios.innerHTML += `
+                        <li>
+                            <div class="funcionario-info">
+                                <h3>${funcionario.nome} ${funcionario.sobrenome}</h3>
+                                <p class="funcionario-email">${funcionario.email}</p>
+                                <ul class="lista-nivel-acesso"></ul>
+                            </div>
+                        </li>
+                    `
+                }
+            })
+        })
+    }
+</script>
