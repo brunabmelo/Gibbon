@@ -384,7 +384,6 @@ main {
     height: 44px;
 }
 
-<<<<<<< HEAD
 .container-grafico {
     height: 10%;
 }
@@ -415,7 +414,7 @@ main {
     flex-direction: column;
 
     padding: 5%;
-=======
+}
 /* Avisos */
 
 .alerta {
@@ -450,5 +449,4 @@ main {
 
 .alerta-bar p {
     padding: 8px 16px;
->>>>>>> 8db284b6a56aaa46f304d08a4e421587156f899f
 }
