@@ -1,4 +1,5 @@
-var funcionarioModel = require("../models/funcionarioModel")
+var funcionarioModel = require("../models/funcionarioModel");
+const { cadastrar } = require("./cadastrarController");
 
 function listar(req, res) {
     funcionarioModel.listar().then(function (resultado) {
@@ -15,5 +16,6 @@ function listar(req, res) {
 }
 
 module.exports = {
-    listar
+    listar,
+  
 }

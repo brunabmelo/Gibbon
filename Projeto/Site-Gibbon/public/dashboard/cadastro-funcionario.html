@@ -84,3 +84,38 @@
 </body>
 
 </html>
+<script>
+    function cadastrar() {
+    let nome = nome.value;
+    let sobrenome = sobrenome.value;
+    let email = email.value;
+    let nivelAcesso = sel_NivelAcesso.value;
+    let senha = senha.value;
+    let confirmacao = document.getElementById("confirmacao-senha").value;
+
+    if (senha !== confirmacao) {
+        alert("As senhas não conferem!");
+        return;
+    }
+
+    fetch("/funcionarios/cadastrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            nome,
+            sobrenome,
+            email,
+            nivelAcesso,
+            senha
+        })
+    })
+        .then(res => {
+            if (res.ok) {
+                alert("Funcionário cadastrado com sucesso!");
+                window.location = "./funcionarios.html";
+            } else {
+                alert("Erro ao cadastrar funcionário");
+            }
+        });
+}
+</script>

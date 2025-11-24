@@ -78,6 +78,30 @@
     </footer>
 
     <script src="./js/login.js"></script>
-</body>
+    <script>
+     function login() {
+            var email = document.getElementById("email").value;
+            var senha = document.getElementById("senha").value;
 
+            fetch("/empresa/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, senha })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.message === "Login realizado com sucesso!") {
+                    alert(data.message);
+                    window.location = "./dashboard.html"; 
+                } else {
+                    alert("Email ou senha inválidos");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Erro na requisição");
+            });
+        }
+    </script>
+</body>
 </html>
