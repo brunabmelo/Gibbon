@@ -1,11 +1,14 @@
 var database = require("../database/config");
 
-function listar() {
+function listar(id_empresa) {
     var instrucaoSql = `
         SELECT
-            nome,
-            fkEstufa
-        FROM sensor;
+            sensor.nome,
+            estufa.nome
+        FROM sensor
+        JOIN estufa
+            ON sensor.id = estufa.fkEmpresa
+        WHERE estufa.fkEmpresa = ${id_empresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

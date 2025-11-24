@@ -1,7 +1,9 @@
 var sensoresModel = require("../models/sensoresModel");
 
 function listar(req, res) {
-    sensoresModel.listar().then(function (resultado) {
+    let id_empresa = req.params.id_empresa;
+
+    sensoresModel.listar(id_empresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
