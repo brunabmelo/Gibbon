@@ -60,3 +60,22 @@
 </body>
 
 </html>
+
+<script>
+    fetch("/avisos/buscar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            
+        })
+    })
+        .then(res => {
+            if (res.ok) {
+                alert("Funcionário cadastrado com sucesso!");
+                window.location = "./funcionarios.html";
+            } else {
+                alert("Erro ao cadastrar funcionário");
+            }
+        });
+
+</script>
