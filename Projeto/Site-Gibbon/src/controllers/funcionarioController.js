@@ -1,5 +1,4 @@
 var funcionarioModel = require("../models/funcionarioModel");
-const { cadastrar } = require("./cadastrarController");
 
 function listar(req, res) {
     funcionarioModel.listar().then(function (resultado) {
@@ -10,12 +9,11 @@ function listar(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar os funcionários: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
 
 module.exports = {
-    listar,
-  
+    listar
 }
