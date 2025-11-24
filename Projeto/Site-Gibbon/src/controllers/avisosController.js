@@ -1,7 +1,8 @@
 var avisosModel = require("../models/avisosModel.js");
 
 function buscar(req, res) {
-    avisosModel.listar().then(function (resultado) {
+    let ID_EMPRESA = req.params.ID_EMPRESA
+    avisosModel.listar(ID_EMPRESA).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

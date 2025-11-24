@@ -12,12 +12,12 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
 
-     <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styleDashboard.css">
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
-<body>
+<body onload="buscarAvisos(sessionStorage.getItem(ID_EMPRESA))">
     <!--MENU-->
     <nav class="sidebar">
         <div>
@@ -39,43 +39,64 @@
         <button onclick="sair()">Sair</button>
     </nav>
     <!--FIM MENU-->
-    
+
     <main>
         <section class="alertas">
             <h1>Painel de Alerta</h1>
-            <ul class="alerta-card">
-                <li class="alerta-bar">
+            <ul id="avisos-sensor" class="alerta-card">
+                <!-- <li class="alerta-bar">
                     <div class="titulo-container">
                         <h2>Sensor A</h2>
                     </div>
                     <p>
-                        Estufa Y                      
+                        Estufa Y
                     </p>
-                </li>
+                </li> -->
             </ul>
         </section>
     </main>
 
-   
+
 </body>
 
 </html>
 
 <script>
-    fetch("/avisos/buscar", {
+    function buscarAvisos(ID_EMPRESA){
+    fetch(`/avisos/buscar/${ID_EMPRESA}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            
+
         })
     })
         .then(res => {
             if (res.ok) {
-                alert("Funcionário cadastrado com sucesso!");
-                window.location = "./funcionarios.html";
+
+                res.json().then(function (ul_aviso_sensor) {
+                    const ul_aviso_sensor = document.getElementById('avisos-sensor')
+                    for (let i = 0; i < ul_aviso_sensor.length; i++) {
+                        const sensor = ul_aviso_sensor[i];
+                        ul_lista_funcionarios.innerHTML += `
+                              <li class="alerta-bar">
+                                 <div class="titulo-container">
+                                     <h2>${sensor.Sensor}</h2>
+                                  </div>
+                                     <p>
+                                        Estufa ${sensor.LocaldaEstufa}                      
+                                    </p>
+                             </li>
+                             `
+
+                    }
+
+
+                })
+
+
             } else {
                 alert("Erro ao cadastrar funcionário");
             }
         });
-
+    }
 </script>
