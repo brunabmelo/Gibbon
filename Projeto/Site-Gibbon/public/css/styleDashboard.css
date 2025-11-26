@@ -3,11 +3,12 @@ body {
     display: flex;
     font-family: 'Inter', sans-serif;
     background-color: #F1F0F5;
+    overflow: hidden;
 }
 
 .sidebar {
     background-color: #FBB03B;
-    width: 254px;
+    width: 17%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,10 +53,6 @@ body {
     margin-top: 10px;
 }
 
-.avatar-icon {
-    width: 114px;
-}
-
 .sidebar .navbar {
     width: 100%;
     margin-top: 44px;
@@ -68,6 +65,7 @@ body {
     font-weight: 500;
     padding: 35px;
     transition: .2s ease-in-out;
+    text-align: center;
 }
 
 .sidebar .navbar ul li a:hover {
@@ -86,9 +84,9 @@ body {
     font-size: 17px;
     border: none;
     font-weight: 600;
-    margin-bottom: 61px;
     cursor: pointer;
     transition: .2s ease-in-out;
+    margin: 21px;
 }
 
 .sidebar button:hover {
@@ -97,7 +95,7 @@ body {
 }
 
 main {
-    width: 100%;
+    width: 83%;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -280,14 +278,13 @@ main {
     background-color: #fff;
     padding: 13px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
     height: 83vh;
 }
 
 .boxes-container {
     display: flex;
-    gap: 13px;
     width: 100%;
+    justify-content: space-between;
 }
 
 .metrica {
@@ -310,20 +307,6 @@ main {
     font-weight: 700;
     font-size: 14px;
     margin-bottom: 5px;
-}
-
-.box {
-    border: none;
-    border-radius: 2px;
-    padding: 20px 15px;
-    height: 140px;
-    width: 160px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: #C27F18;
 }
 
 .box .medida {
@@ -351,14 +334,12 @@ main {
 .dashboard-container h3 {
     margin-bottom: 6px;
     font-weight: 400;
-    color: #474747;
 }
 
 .dashboard-container h4 {
     margin-top: 30px;
     margin-bottom: 4px;
     font-weight: 400;
-    color: #474747;
 }
 
 
@@ -415,6 +396,7 @@ main {
 
     padding: 5%;
 }
+
 /* Avisos */
 
 .alerta {
@@ -449,4 +431,141 @@ main {
 
 .alerta-bar p {
     padding: 8px 16px;
+}
+
+.dashboard {
+    display: flex;
+    gap: 1%;
+}
+
+.dashboard-container-3-linhas {
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    width: 50%;
+    height: 84vh;
+}
+
+.container-menor {
+    display: flex;
+    width: 100%;
+    background-color: #FEEBCE;
+    padding: 13px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 28vh;
+    flex-direction: column;
+    color: #474747;
+}
+
+.valores-dia {
+    display: flex;
+    flex-direction: column;
+}
+
+.valores-dia {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 2px;
+    padding: 20px 15px;
+    height: 140px;
+    width: 264px;
+    gap: 10%;
+}
+
+.valores-dia img {
+    width: 17%;
+    height: 33%;
+}
+
+.valores-maior-menor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.valor {
+    font-size: 32px;
+    font-weight: bold;
+    color: #474747;
+}
+
+.maior-menor {
+    display: flex;
+}
+
+.container-menor-valores-maior-menor {
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    padding: 13px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 26vh;
+    flex-direction: column;
+    color: #474747;
+}
+
+.box-valores-ideais {
+    border: none;
+    border-radius: 2px;
+    padding: 20px 15px;
+    height: 140px;
+    width: 278px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #474747;
+    background: #C5BEB2;
+}
+
+.box-valores-ideais-PPFD {
+    border: none;
+    border-radius: 2px;
+    padding: 20px 15px;
+    height: 140px;
+    width: 264px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #474747;
+    background: #C5BEB2;
+}
+
+.metrica-legenda {
+    display: flex;
+    flex-direction: row;
+}
+
+.legenda {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.box-valores-reais {
+    border: none;
+    border-radius: 2px;
+    padding: 20px 15px;
+    height: 140px;
+    width: 278px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #474747;
+    background: #FFD38E;
+}
+
+.box-valores {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1%;
 }

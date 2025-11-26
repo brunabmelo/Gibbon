@@ -24,7 +24,6 @@
         <div>
             <div class="perfil">
                 <div class="perfil-card">
-                    <img class="avatar-icon" src="../assets/images/generic-avatar.png" alt="Foto de perfil">
                     <h2>Nome Usuário</h2>
                 </div>
                 <a href="./perfil.html">Perfil</a>
@@ -32,8 +31,11 @@
             <div class="navbar">
                 <ul>
                     <li><a class="selecionado" href="./dashboard.html">Gráficos</a></li>
-                    <li><a href="./funcionarios.html">Cadastrar Funcionário</a></li>
-                    <li><a href="./notificacoes.html">Notificação</a></li>
+                    <li><a href="./funcionarios.html">Funcionário</a></li>
+                    <li><a href="./notificacoes.html">Estufas</a></li>
+                    <li><a href="./funcionarios.html">Setores</a></li>
+                    <li><a href="./notificacoes.html">Sensores</a></li>
+
                 </ul>
             </div>
         </div>
@@ -42,7 +44,6 @@
 
     <main>
         <section class="dashboard-section">
-
             <div class="seletores">
                 <select id="sltsetor" onchange="atualizarGraficos()">
                     <option value="">Selecione o setor</option>
@@ -59,26 +60,94 @@
                     <option value=3>Sensor D</option>
                 </select>
             </div>
-
-            <div class="dashboards-container">
+            <div class="dashboard">
                 <div class="dashboard-container">
                     <div class="titulo-container">
                         <span>Densidade de fluxo luminoso</span>
                     </div>
-                    <div class="container-metrica">
-                        <div class="texto-container">
-                            <span class="descricao">Quantidade ideal</span>
-                            <span class="valor">388- 555</span>
-                            <span class="unidade-de-medida">umol/m²/s</span>
+                    <div class="metrica-legenda">
+                        <div class="boxes-container metricas-container">
+                            <div class="box-valores-ideais-PPFD" id="metrica1">
+                                <span class="medida"></span>
+                                <span class="unidade-medida">µmol/m²/s</span>
+                                <span class="legenda">Quantidade ideal por segundo</span>
+                            </div>
+                            <div class="legenda">
+                                <div clas="legenda-metrica">
+                                    <p>Métricas</p>
+                                </div>
+                                <div clas="legenda-reais">
+                                    <p>Valores reais</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="boxes-container">
+                        <canvas id="myChart2"></canvas>
+                    </div>
                 </div>
-                <div class="dashboard-container">
+                <div class="dashboard-container-3-linhas">
+                    <div class="container-menor-valores-maior-menor">
+                        <h3>Valores do dia</h3>
+                        <div class="maior-menor">
+                            <div class="valores-dia">
+                                <img src="../assets/images/icons/indicador-maior.png"
+                                    alt="triângulo apontado para cima">
+                                <div class="texto-container">
+                                    <span>Maior valor do dia</span>
+                                    <p class="valor">555</p>
+                                    <p>umol/m²/s</p>
+                                </div>
+                            </div>
+                            <div class="valores-dia">
+                                <div class="texto-container">
+                                    <span>Menor valor do dia</span>
+                                    <p class="valor">388</p>
+                                    <p>umol/m²/s</p>
+                                </div>
+                                <img src="../assets/images/icons/indicador-menor.png"
+                                    alt="triângulo apontado para baixo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-menor">
+                        <h3>Horas iluminadas</h3>
+                        <div class="box-valores">
+                            <div class="boxes-container">
+                                <div class="box-valores-ideais" id="kpi3">
+                                    <span class="medida"></span>
+                                    <span class="legenda">Média da última semana</span>
+                                </div>
+                            </div>
+                            <div class="boxes-container">
+                                <div class="box-valores-reais" id="kpi3">
+                                    <span class="medida"></span>
+                                    <span class="legenda">Média da última semana</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-menor">
+                        <h3>DLI</h3>
+                        <div class="box-valores">
+                            <div class="box-valores-ideais" id="metrica3">
+                                <span class="medida"></span>
+                                <span class="legenda">Iluminação ideal por dia</span>
+                            </div>
+                            <div class="boxes-container">
+                                <div class="box-valores-reais" id="kpi3">
+                                    <span class="medida"></span>
+                                    <span class="legenda">Média da última semana</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <canvas id="myChart1"></canvas>
                 </div>
+            </div>
             </div>
         </section>
     </main>
-
     <script src="../js/dashboard.js"></script>
     <script>
         let chart1, chart2;
@@ -122,8 +191,8 @@
                 document.getElementById('kpi3').classList.add('fora-ideal')
 
                 if (
-                    (setor == 1 && sensor == 0) || 
-                    (setor == 0) 
+                    (setor == 1 && sensor == 0) ||
+                    (setor == 0)
 
                 ) {
                     document.getElementById('kpi3').classList.remove('fora-ideal')
