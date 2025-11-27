@@ -412,7 +412,7 @@ main {
 }
 
 .alerta-bar {
-    background-color: #fff;
+    background-color: #f33d3d;
     border-radius: 8px;
     padding-right: 500px;
 }
@@ -568,4 +568,35 @@ main {
     flex-direction: row;
     justify-content: space-between;
     gap: 1%;
+}
+
+.legenda {
+    display: flex;
+    gap: 9%;
+}
+
+.legenda-metrica {
+    display: flex;
+    height: 28%;
+    justify-content: center;
+    align-items: center;
+    background: #FFD38E;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    color: #474747;
+}
+
+.legenda-reais {
+    display: flex;
+    height: 28%;
+    justify-content: center;
+    align-items: center;
+    background: #C5BEB2;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    color: #474747;
+}
+
+.box-grafico canvas {
+    display: flex;
+    height: 54vh;
+    width: 100%;
 }

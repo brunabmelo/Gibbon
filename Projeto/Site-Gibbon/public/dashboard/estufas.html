@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gibbon</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/styleDashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body onload="listarEstufas(sessionStorage.getItem('ID_EMPRESA'))">
+    <nav class="sidebar">
+        <div>
+            <div class="perfil">
+                <div class="perfil-card">
+                    <img class="avatar-icon" src="../assets/images/generic-avatar.png" alt="Foto de perfil">
+                    <h2>Nome Usuário</h2>
+                </div>
+                <a href="./perfil.html">Perfil</a>
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li><a href="./dashboard.html">Gráficos</a></li>
+                    <li><a class="selecionado" href="./funcionarios.html">Cadastrar Funcionário</a></li>
+                    <li><a href="./notificacoes.html">Notificação</a></li>
+                </ul>
+            </div>
+        </div>
+        <button onclick="sair()">Sair</button>
+    </nav>
+
+    <main>
+        <div class="funcionarios-container">
+            <div class="funcionarios-header">
+                <h2>Estufas Cadastradas</h2>
+                <a href="./cadastro-estufas.html"><img class="icone-mais" src="../assets/images/icons/plus-icon.png"
+                        alt="Símbolo de mais"></a>
+            </div>
+
+            <ul id="lista-estufas"></ul>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>
+
+<script>
+    function listarEstufas(id_empresa) {
+        fetch(`/estufas/listar/${id_empresa}`).then(resposta => {
+            resposta.json().then(vt_estufas => {
+                const ul_lista_estufas = document.getElementById('lista-estufas')
+                for (let i = 0; i < vt_estufas.length; i++) {
+                    const estufa = vt_estufas[i];
+                    ul_lista_estufas.innerHTML += `
+                        <li>
+                            <div class="estufas-info">
+                                <h3>${estufa.nome}</h3>
+                            </div>
+                        </li>
+                    `
+                }
+            })
+        })
+    }
+</script>

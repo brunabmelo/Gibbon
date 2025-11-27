@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
-var sensoresController = require("../controllers/sensoresController")
+var estufasController = require("../controllers/estufasController")
 
 router.get("/listar/:id_empresa", function (req, res) {
-    sensoresController.listar(req, res);
+    estufasController.listar(req, res);
 });
 
 module.exports = router;
