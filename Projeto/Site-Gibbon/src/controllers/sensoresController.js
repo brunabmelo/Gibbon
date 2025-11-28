@@ -16,6 +16,20 @@ function listar(req, res) {
     });
 }
 
+function cadastrar(req, res) {
+    let nome = req.body.nome
+    let id_estufa = req.body.id_estufa
+    let id_empresa = req.params.id_empresa
+
+    sensoresModel.cadastrar(id_empresa, nome, id_estufa)
+        .then(resultado => resultado.status(201).json(resultado))
+        .catch(erro => {
+            console.error("Erro ao cadastrar sensor:", erro);
+            res.status(500).json(erro);
+        });
+}
+
 module.exports = {
-    listar
+    listar,
+    cadastrar
 }

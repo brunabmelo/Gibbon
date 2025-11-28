@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gibbon</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/styleDashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div>
+            <div class="perfil">
+                <div class="perfil-card">
+                    <img class="avatar-icon" src="../assets/images/generic-avatar.png" alt="Foto de perfil">
+                    <h2>Nome Usuário</h2>
+                </div>
+                <a href="./perfil.html">Perfil</a>
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li><a href="./dashboard.html">Gráficos</a></li>
+                    <li><a class="selecionado" href="./funcionarios.html">Cadastrar Funcionário</a></li>
+                    <li><a href="./notificacoes.html">Notificação</a></li>
+                </ul>
+            </div>
+        </div>
+        <button onclick="sair()">Sair</button>
+    </nav>
+
+    <main class="container">
+        <section class="cadastro-card">
+            <h3>Cadastrar Sensor</h3>
+            <div class="cadastro-form">
+                <div class="ipt-container">
+                    <label for="nome">Nome do sensor*</label>
+                    <input type="text" id="nome" name="nome" placeholder="Nome do sensor" inputmode="text" required>
+                    <label for="sel-estufa">Estufa*</label>
+                    <select name="estufa" id="sel-estufa">
+                        <option value="0">Selecione uma estufa...</option>
+                    </select>
+
+                </div>
+
+                <button onclick="cadastrar()">Cadastrar</button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>
+<script>
+    fetch(`/estufas/listar/${sessionStorage.getItem('ID_EMPRESA')}`)
+        .then(resposta => {
+            resposta.json().then(vt_estufas => {
+                for (let i = 0; i < vt_estufas.length; i++) {
+                    const estufa = vt_estufas[i];
+                    select_estufas.innerHTML += `
+                        <option value="${estufa.id_estufa}">
+                            <h3>${estufa.nome}</h3>
+                        </option>
+                    `
+                }
+            })
+        })
+
+    function cadastrar() {
+        let nome = nome.value;
+        let select_estufas = document.getElementById('sel-estufa')
+        let id_estufa = select_estufas.value;
+
+        fetch(`/sensores/cadastrar/${sessionStorage.getItem('ID_EMPRESA')}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nome,
+                id_estufa
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Sensor cadastrado com sucesso!");
+                    window.location = "./sensores.html";
+                } else {
+                    alert("Erro ao cadastrar sensor");
+                }
+            });
+    }
+</script>
