@@ -2,11 +2,11 @@ var database = require("../database/config");
 
 function login(email, senha) {
     const instrucao = `
-        SELECT idEmpresa, nome, email
-        FROM empresa
-        WHERE email = '${email}' AND senha = '${senha}';
+        SELECT f.fkEmpresa, f.nome, f.email, f.senha
+        FROM funcionario f 
+        WHERE f.email = '${email}' AND f.senha = '${senha}';
     `;
     console.log("Executando SQL: \n" + instrucao);
-    return database.executar(instrucao);
+    return database.executar(instrucao, [email, senha]);
 }
 module.exports = { login };

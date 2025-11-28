@@ -35,8 +35,8 @@
             <h3>Login</h3>
             <div class="login-form">
                 <div>
-                    <label for="e-mail">E-mail</label>
-                    <input type="text" id="e-mail" name="login" placeholder="e-mail" inputmode="text" required>
+                    <label for="email">E-mail</label>
+                    <input type="text" id="email" name="login" placeholder="e-mail" inputmode="text" required>
                 </div>
                 <div>
                     <label for="senha">Senha</label>
@@ -79,7 +79,7 @@
 
     <script src="./js/login.js"></script>
     <script>
-     function login() {
+        function login() {
             var email = document.getElementById("email").value;
             var senha = document.getElementById("senha").value;
 
@@ -88,20 +88,23 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha })
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.message === "Login realizado com sucesso!") {
-                    alert(data.message);
-                    window.location = "./dashboard.html"; 
-                } else {
-                    alert("Email ou senha inválidos");
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Erro na requisição");
-            });
+                .then(res => res.json()
+                    .then(data => {
+                        console.log();
+                        
+                        if (data.message === "Login realizado com sucesso!") {
+                            alert(data.message);
+                            window.location = "dashboard/dashboard.html";
+                        } else {
+                            alert("Email ou senha inválidos");
+                        }
+                    })) 
+                .catch(err => {
+                    console.error(err);
+                    alert("Erro na requisição");
+                });
         }
     </script>
 </body>
+
 </html>

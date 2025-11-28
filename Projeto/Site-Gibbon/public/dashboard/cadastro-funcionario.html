@@ -43,17 +43,17 @@
             <h3>Cadastrar Funcionário</h3>
             <div class="cadastro-form">
                 <div class="ipt-container">
-                    <label for="nome">Nome*</label>
-                    <input type="text" id="nome" name="nome" placeholder="Nome" inputmode="text" required>
+                    <label for="nome1">Nome*</label>
+                    <input type="text" id="nome1" name="nome" placeholder="Nome" inputmode="text" required>
                 </div>
                 <div class="ipt-container">
                     <label for="sobrenome">Sobrenome*</label>
-                    <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" inputmode="text"
+                    <input type="text" id="sobrenome1" name="sobrenome" placeholder="Sobrenome" inputmode="text"
                         required>
                 </div>
                 <div class="ipt-container">
                     <label for="email">E-mail*</label>
-                    <input type="text" id="email" name="e-mail" placeholder="email@email.com" inputmode="text" required>
+                    <input type="text" id="email1" name="e-mail" placeholder="email@email.com" inputmode="text" required>
                 </div>
                 <div class="ipt-container">
                     <label for="sel_NivelAcesso">Nível de acesso*</label>
@@ -66,11 +66,11 @@
                 </div>
                 <div class="ipt-container">
                     <label for="senha">Senha*</label>
-                    <input type="password" id="senha" name="senha" placeholder="Senha" inputmode="text" required>
+                    <input type="password" id="senha1" name="senha" placeholder="Senha" inputmode="text" required>
                 </div>
                 <div class="ipt-container">
                     <label for="confirmacao-senha">Confirmação da Senha*</label>
-                    <input type="password" id="confirmacao-senha" name="confirmacao-senha"
+                    <input type="password" id="confirmacao-senha1" name="confirmacao-senha"
                         placeholder="Confirme sua senha" inputmode="text" required>
                 </div>
                 <button onclick="cadastrar()">Cadastrar</button>
@@ -86,19 +86,22 @@
 </html>
 <script>
     function cadastrar() {
-    let nome = nome.value;
-    let sobrenome = sobrenome.value;
-    let email = email.value;
-    let nivelAcesso = sel_NivelAcesso.value;
-    let senha = senha.value;
-    let confirmacao = document.getElementById("confirmacao-senha").value;
+     let nome = nome1.value;
+    let sobrenome = sobrenome1.value;
+    let email = email1.value;
+    let nivelAcesso = parseInt(sel_NivelAcesso.value);
+    let senha = senha1.value;
+    let confirmacao = document.getElementById("confirmacao-senha1").value;
 
     if (senha !== confirmacao) {
         alert("As senhas não conferem!");
         return;
     }
 
-    fetch("/funcionarios/cadastrar", {
+    
+    const fkEmpresa = 1; 
+
+    fetch("/cadastrar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -106,16 +109,21 @@
             sobrenome,
             email,
             nivelAcesso,
-            senha
+            senha,
+            fkEmpresa
         })
     })
-        .then(res => {
-            if (res.ok) {
-                alert("Funcionário cadastrado com sucesso!");
-                window.location = "./funcionarios.html";
-            } else {
-                alert("Erro ao cadastrar funcionário");
-            }
-        });
+    .then(res => {
+        if (res.ok) {
+            alert("Funcionário cadastrado com sucesso!");
+            window.location = "./funcionarios.html";
+        } else {
+            alert("Erro ao cadastrar funcionário");
+        }
+    })
+    .catch(err => {
+        console.error("Erro na requisição:", err);
+        alert("Erro ao conectar com o servidor");
+    });
 }
 </script>

@@ -1,4 +1,5 @@
 var database = require("../database/config");
+var { cadastrar } = require("./cadastrarModel");
 
 function listar() {
     var instrucaoSql = `
@@ -13,6 +14,9 @@ function listar() {
     return database.executar(instrucaoSql);
 }
 
+
+
 module.exports = {
-    listar
+    listar, 
+    cadastrar
 }

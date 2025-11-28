@@ -6,7 +6,7 @@ function login(req, res) {
     empresaModel.login(email, senha)
         .then(resultado => {
             if (resultado.length > 0) {
-                req.session.idEmpresa = resultado[0].idEmpresa;
+                //req.session.idEmpresa = resultado[0].fkEmpresa; 
 
                 res.status(200).json({
                     message: "Login realizado com sucesso!",
