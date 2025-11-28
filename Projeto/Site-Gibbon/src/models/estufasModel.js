@@ -3,6 +3,7 @@ var database = require("../database/config");
 function listar(id_empresa) {
     var instrucaoSql = `
         SELECT
+            id,
             nome
         FROM estufa
         WHERE fkEmpresa = ${id_empresa};
