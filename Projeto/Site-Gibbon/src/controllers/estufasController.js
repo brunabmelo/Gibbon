@@ -16,6 +16,21 @@ function listar(req, res) {
     });
 }
 
+function cadastrar(req, res) {
+    let nome = req.body.nome
+    let ppfdMin = req.body.ppfdMin
+    let ppfdMax = req.body.ppfdMax
+    let id_empresa = req.params.id_empresa
+
+    estufasModel.cadastrar(id_empresa, nome, ppfdMin, ppfdMax)
+        .then(resultado => resultado.status(201).json(resultado))
+        .catch(erro => {
+            console.error("Erro ao cadastrar estufa:", erro);
+            res.status(500).json(erro);
+        });
+}
+
 module.exports = {
-    listar
+    listar,
+    cadastrar
 }
