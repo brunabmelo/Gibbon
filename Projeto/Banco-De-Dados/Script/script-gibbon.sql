@@ -34,14 +34,15 @@ nivel VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE funcionario (
-idFuncionario INT, 
-fkEmpresa INT, CONSTRAINT pk_funcionario_empresa PRIMARY KEY (idFuncionario,fkEmpresa),
-nome VARCHAR(100) NOT NULL,
-sobrenome VARCHAR(100) NOT NULL,
-email VARCHAR(100) NOT NULL,
-senha VARCHAR(25) NOT NULL,
-fkNivelAcesso INT, CONSTRAINT fk_funcionario_acesso FOREIGN KEY (fkNivelAcesso) REFERENCES nivelAcesso(idNivelAcesso),
-CONSTRAINT fk_cliente_empresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
+    idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
+    fkEmpresa INT NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(25) NOT NULL,
+    fkNivelAcesso INT,
+    CONSTRAINT fk_funcionario_acesso FOREIGN KEY (fkNivelAcesso) REFERENCES nivelAcesso(idNivelAcesso),
+    CONSTRAINT fk_funcionario_empresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
 
 CREATE TABLE setor (
@@ -68,6 +69,27 @@ estadoLuz TINYINT NOT NULL,
 dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT pk_registro_sensor PRIMARY KEY (idRegistro,fkSensor)
 );
+
+
+
+
+
+
+
+
+
+
+-- INSERTS
+INSERT INTO empresa (nome,email,cnpj,situacaoContrato,dtContratacao) VALUES
+('Gibbon','oficial@gibbon.com','12345678901234',1,'2025-10-17');
+
+INSERT INTO funcionario (idFuncionario, fkEmpresa, nome, sobrenome, email, senha) values
+(1, 1, 'Bruno', 'Souza', 'bruno@gmail.com', '123');
+
+select * from funcionario;
+
+DESCRIBE funcionario;
+
 
 
 
