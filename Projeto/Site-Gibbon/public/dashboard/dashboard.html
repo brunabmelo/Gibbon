@@ -28,6 +28,7 @@
                 </div>
                 <a href="./perfil.html">Perfil</a>
             </div>
+            <button onclick="abrirSuporte()">Suporte</button>
             <div class="navbar">
                 <ul>
                     <li><a class="selecionado" href="./dashboard.html">Gráficos</a></li>
@@ -35,12 +36,17 @@
                     <li><a href="./notificacoes.html">Estufas</a></li>
                     <li><a href="./funcionarios.html">Setores</a></li>
                     <li><a href="./notificacoes.html">Sensores</a></li>
+                    
 
                 </ul>
+               
             </div>
+           
         </div>
+       
         <button onclick="sair()">Sair</button>
     </nav>
+    
 
     <main>
         <section class="dashboard-section">
@@ -147,6 +153,7 @@
         </section>
     </main>
     <script src="../js/dashboard.js"></script>
+    
     <script>
         let chart1, chart2;
 
@@ -289,6 +296,15 @@
                 chart2.update();
             }
         }
+      
+     function abrirSuporte() {
+    let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
+    if (fkNivelAcessoUsuario === 6) {
+        window.location.href = "./bobIA.html"; // só Suporte N3
+    } else {
+        alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+    }
+}
     </script>
 </body>
 

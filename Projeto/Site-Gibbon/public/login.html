@@ -91,9 +91,11 @@
                 .then(res => res.json()
                     .then(data => {
                         console.log();
-                        
+                  
                         if (data.message === "Login realizado com sucesso!") {
+                           localStorage.setItem("fkNivelAcessoUsuario", Number(data.fkNivelAcesso));
                             alert(data.message);
+
                             window.location = "dashboard/dashboard.html";
                         } else {
                             alert("Email ou senha inválidos");

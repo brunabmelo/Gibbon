@@ -27,6 +27,7 @@
                 </div>
                 <a href="./perfil.html">Perfil</a>
             </div>
+            <button onclick="abrirSuporte()">Suporte</button>
             <div class="navbar">
                 <ul>
                     <li><a href="./dashboard.html">Gráficos</a></li>
@@ -62,6 +63,9 @@
                         <option value="1">Administrador</option>
                         <option value="2">Editor</option>
                         <option value="3">Visualizador</option>
+                        <option value="4">Suporte N1</option>
+                        <option value="5">Suporte N2</option>
+                        <option value="6">Suporte N3</option>
                     </select>
                 </div>
                 <div class="ipt-container">
@@ -125,5 +129,13 @@
         console.error("Erro na requisição:", err);
         alert("Erro ao conectar com o servidor");
     });
+}
+  function abrirSuporte() {
+    let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
+    if (fkNivelAcessoUsuario === 6) {
+        window.location.href = "./bobIA.html"; // só Suporte N3
+    } else {
+        alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+    }
 }
 </script>

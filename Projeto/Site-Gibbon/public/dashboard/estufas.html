@@ -27,6 +27,7 @@
                 </div>
                 <a href="./perfil.html">Perfil</a>
             </div>
+            <button onclick="abrirSuporte()">Suporte</button>
             <div class="navbar">
                 <ul>
                     <li><a href="./dashboard.html">Gráficos</a></li>
@@ -73,4 +74,12 @@
             })
         })
     }
+      function abrirSuporte() {
+    let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
+    if (fkNivelAcessoUsuario === 6) {
+        window.location.href = "./bobIA.html"; // só Suporte N3
+    } else {
+        alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+    }
+}
 </script>

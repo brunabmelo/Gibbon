@@ -2,7 +2,7 @@ var database = require("../database/config");
 
 function login(email, senha) {
     const instrucao = `
-        SELECT f.fkEmpresa, f.nome, f.email, f.senha
+        SELECT f.fkEmpresa, f.nome, f.email, f.senha, f.fkNivelAcesso
         FROM funcionario f 
         WHERE f.email = '${email}' AND f.senha = '${senha}';
     `;

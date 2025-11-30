@@ -127,7 +127,10 @@ INSERT INTO registro (fkSensor,nivelLuz,estadoLuz) VALUES
 INSERT INTO nivelAcesso (nivel) VALUES 
 ('Administrador'),
 ('Editor'),
-('Visualizador');
+('Visualizador'),
+('Suporte N1'),
+('Suporte N2'),
+('Suporte N3');
 
 INSERT INTO funcionario (idFuncionario,fkEmpresa,nome,sobrenome,email,senha,fkNivelAcesso) VALUES
 (1,1,'Robson','Freitas Gonçalo','robson.freitas@gibbon.com','robsonFG123',1);
