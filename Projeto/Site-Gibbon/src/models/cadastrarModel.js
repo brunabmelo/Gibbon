@@ -1,10 +1,10 @@
 var database = require("../database/config");
 
-function cadastrar(nome, sobrenome, email, nivelAcesso, senha, fkEmpresa) {
+function cadastrar(nome, sobrenome, email, senha, fkEmpresa) {
 
     var instrucao = `
-        INSERT INTO funcionario ( nome, sobrenome, email, senha, fkEmpresa, fkNivelAcesso)
-        VALUES ('${nome}', '${sobrenome}', '${email}', '${senha}', ${fkEmpresa}, ${nivelAcesso});
+        INSERT INTO funcionario ( nome, sobrenome, email, senha, fkEmpresa)
+        VALUES ('${nome}', '${sobrenome}', '${email}', '${senha}', ${fkEmpresa});
     `;
 
 

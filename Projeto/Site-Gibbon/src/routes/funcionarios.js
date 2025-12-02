@@ -11,4 +11,12 @@ router.get("/niveisAcesso", function(req, res) {
     funcionarioController.buscarNiveisAcesso(req, res)
 })
 
+router.post("/cadastrar", function (req, res) {
+    funcionarioController.cadastrar(req, res);
+});
+
+router.post("/acessoFuncionario", function (req, res) {
+    funcionarioController.cadastrarAcessoFuncionario(req, res);
+});
+
 module.exports = router;

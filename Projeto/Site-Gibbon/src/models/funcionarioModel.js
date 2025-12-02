@@ -27,7 +27,33 @@ function buscarNiveisAcesso(id_empresa, id_funcionario) {
     return database.executar(instrucaoSql);
 }
 
+function cadastrar(nome, sobrenome, email, senha, fkEmpresa) {
+
+    var instrucao = `
+        INSERT INTO funcionario ( nome, sobrenome, email, senha, fkEmpresa)
+        VALUES ('${nome}', '${sobrenome}', '${email}', '${senha}', ${fkEmpresa});
+    `;
+
+    console.log("Executando SQL:", instrucao);
+
+    return database.executar(instrucao);
+}
+
+function cadastrarAcessoFuncionario(fkFuncionario, fkEmpresa, fkNivelAcesso) {
+
+    var instrucao = `
+        INSERT INTO acessoFuncionario ( fkFuncionario, fkEmpresa, fkNivelAcesso)
+        VALUES ('${fkFuncionario}', ${fkEmpresa}, ${fkNivelAcesso});
+    `;
+
+    console.log("Executando SQL:", instrucao);
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar, 
-    buscarNiveisAcesso
+    buscarNiveisAcesso,
+    cadastrar,
+    cadastrarAcessoFuncionario
 }

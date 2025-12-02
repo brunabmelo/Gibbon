@@ -54,19 +54,37 @@
                 </div>
                 <div class="ipt-container">
                     <label for="email">E-mail*</label>
-                    <input type="text" id="email1" name="e-mail" placeholder="email@email.com" inputmode="text" required>
+                    <input type="text" id="email1" name="e-mail" placeholder="email@email.com" inputmode="text"
+                        required>
                 </div>
                 <div class="ipt-container">
-                    <label for="sel_NivelAcesso">Nível de acesso*</label>
-                    <select name="NivelAcesso" id="sel_NivelAcesso">
-                        <option value="">Selecione o nível de acesso</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Editor</option>
-                        <option value="3">Visualizador</option>
-                        <option value="4">Suporte N1</option>
-                        <option value="5">Suporte N2</option>
-                        <option value="6">Suporte N3</option>
-                    </select>
+                    <span>Nível de acesso*</span>
+                    <div class="nivel-acesso-container">
+                        <div class="ipt-nivel-container">
+                            <label for="admin">Administrador</label>
+                            <input type="checkbox" name="admin" id="admin" value="1">
+                        </div>
+                        <div class="ipt-nivel-container">
+                            <label for="editor">Editor</label>
+                            <input type="checkbox" name="editor" id="editor" value="2">
+                        </div>
+                        <div class="ipt-nivel-container">
+                            <label for="visualizador">Visualizador</label>
+                            <input type="checkbox" name="visualizador" id="visualizador" value="3">
+                        </div>
+                        <div class="ipt-nivel-container">
+                            <label for="suporte_N1">Suporte N1</label>
+                            <input type="checkbox" name="suporte_N1" id="suporte_N1" value="4">
+                        </div>
+                        <div class="ipt-nivel-container">
+                            <label for="suporte_N2">Suporte N2</label>
+                            <input type="checkbox" name="suporte_N2" id="suporte_N2" value="5">
+                        </div>
+                        <div class="ipt-nivel-container">
+                            <label for="suporte_N3">Suporte N3</label>
+                            <input type="checkbox" name="suporte_N3" id="suporte_N3" value="6">
+                        </div>
+                    </div>
                 </div>
                 <div class="ipt-container">
                     <label for="senha">Senha*</label>
@@ -90,52 +108,83 @@
 </html>
 <script>
     function cadastrar() {
-     let nome = nome1.value;
-    let sobrenome = sobrenome1.value;
-    let email = email1.value;
-    let nivelAcesso = parseInt(sel_NivelAcesso.value);
-    let senha = senha1.value;
-    let confirmacao = document.getElementById("confirmacao-senha1").value;
+        let nome = nome1.value;
+        let sobrenome = sobrenome1.value;
+        let email = email1.value;
+        let senha = senha1.value;
+        let confirmacao = document.getElementById("confirmacao-senha1").value;
+        let niveisSelecionados = []
 
-    if (senha !== confirmacao) {
-        alert("As senhas não conferem!");
-        return;
-    }
-
-    
-    const fkEmpresa = 1; 
-
-    fetch("/cadastrar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            nome,
-            sobrenome,
-            email,
-            nivelAcesso,
-            senha,
-            fkEmpresa
+        let niveisAcesso = document.querySelectorAll('.ipt-nivel-container input')
+        
+        niveisAcesso.forEach(ipt_nivel => {            
+            if (ipt_nivel.checked) {
+                niveisSelecionados.push(ipt_nivel.value)
+            }
         })
-    })
-    .then(res => {
-        if (res.ok) {
-            alert("Funcionário cadastrado com sucesso!");
-            window.location = "./funcionarios.html";
-        } else {
-            alert("Erro ao cadastrar funcionário");
+
+        if(niveisSelecionados.length == 0) {
+            alert('Selecione pelo menos um nível de acesso')
+            return
         }
-    })
-    .catch(err => {
-        console.error("Erro na requisição:", err);
-        alert("Erro ao conectar com o servidor");
-    });
-}
-  function abrirSuporte() {
-    let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
-    if (fkNivelAcessoUsuario === 6) {
-        window.location.href = "./bobIA.html"; // só Suporte N3
-    } else {
-        alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+        if (senha !== confirmacao) {
+            alert("As senhas não conferem!");
+            return;
+        }
+
+        fetch("/funcionarios/cadastrar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nome,
+                sobrenome,
+                email,
+                senha,
+                fkEmpresa: sessionStorage.getItem('ID_EMPRESA')
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+
+                    fetch('/empresa/login', {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, senha })
+                    })
+                        .then(resposta => {
+                            resposta.json().then(data => {
+
+                                for(let i = 0; i < niveisSelecionados.length; i++) {
+                                    fetch('/funcionario/acessoFuncionario', {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ 
+                                        id_funcionario: data.id_funcionario, 
+                                        id_empresa: data.id_empresa,
+                                        id_nivel_acesso: niveisSelecionados[i]
+                                    })
+                                })
+                                }
+                            })
+                        })
+
+                    alert("Funcionário cadastrado com sucesso!");
+                    window.location = "./funcionarios.html";
+                } else {
+                    alert("Erro ao cadastrar funcionário");
+                }
+            })
+            .catch(err => {
+                console.error("Erro na requisição:", err);
+                alert("Erro ao conectar com o servidor");
+            });
     }
-}
+    function abrirSuporte() {
+        let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
+        if (fkNivelAcessoUsuario === 6) {
+            window.location.href = "./bobIA.html"; // só Suporte N3
+        } else {
+            alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+        }
+    }
 </script>

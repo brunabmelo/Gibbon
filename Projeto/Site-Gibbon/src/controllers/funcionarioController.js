@@ -33,7 +33,50 @@ function buscarNiveisAcesso(req, res) {
     });
 }
 
+function cadastrar(req, res) {
+    var nome = req.body.nome;
+    var sobrenome = req.body.sobrenome;
+    var email = req.body.email;
+    var senha = req.body.senha;
+    var fkEmpresa = req.body.fkEmpresa;
+
+
+    if (!nome || !sobrenome || !email || !senha  || !fkEmpresa) {
+        return res.status(400).json({ erro: "Todos os campos obrigatórios devem ser preenchidos" });
+    }
+
+
+    console.log("Cadastrando funcionário:", { nome, sobrenome, email, nivelAcesso, fkEmpresa });
+
+
+    funcionarioModel.cadastrar(nome, sobrenome, email, nivelAcesso, senha, fkEmpresa)
+        .then(function (resultado) {
+            res.status(201).json({ mensagem: "Funcionário cadastrado com sucesso", resultado });
+        })
+        .catch(function (erro) {
+            console.error("Erro ao cadastrar funcionário:", erro);
+            res.status(500).json({ erro: "Erro interno ao cadastrar funcionário" });
+        });
+}
+
+function cadastrarAcessoFuncionario(req, res) {
+    var fkFuncionario = req.body.id_funcionario;
+    var fkEmpresa = req.body.id_empresa;
+    var fkNivelAcesso = req.body.id_nivel_acesso;
+
+    funcionarioModel.cadastrarAcessoFuncionario(fkFuncionario, fkEmpresa, fkNivelAcesso)
+        .then(function (resultado) {
+            res.status(201).json({ mensagem: "Nível de acesso do funcionário cadastrado com sucesso", resultado });
+        })
+        .catch(function (erro) {
+            console.error("Erro ao cadastrar nível de acesso do funcionário:", erro);
+            res.status(500).json({ erro: "Erro interno ao cadastrar nível de acesso do funcionário" });
+        });
+}
+
 module.exports = {
     listar,
-    buscarNiveisAcesso
+    buscarNiveisAcesso,
+    cadastrar,
+    cadastrarAcessoFuncionario
 }
