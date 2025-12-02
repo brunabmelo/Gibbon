@@ -20,8 +20,8 @@ function login(req, res) {
                     let vt_niveis_acesso = []
 
                     for (let i = 0; i < niveisAcesso.length; i++) {
-                        let nivel = niveisAcesso[i].nivel
-                        vt_niveis_acesso.push(nivel)
+                        let json = niveisAcesso[i]
+                        vt_niveis_acesso.push(json)
                     }
 
                     res.status(200).json({

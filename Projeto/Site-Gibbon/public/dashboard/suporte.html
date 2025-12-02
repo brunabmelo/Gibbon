@@ -56,31 +56,41 @@
     function verificarNivelAcesso() {
         let vt_niveis_acesso = []
 
-        fetch("/funcionarios/niveisAcesso", {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id_empresa: sessionStorage.getItem('ID_EMPRESA'),
-                id_funcionario: sessionStorage.getItem('ID_FUNCIONARIO')
-            })
-        }).then(function (resposta) {
-            if(resposta.ok) {
-                resposta.json().then((array) => {
-                    for(let i = 0; i < array.length; i++) {
-                        let nivel = array[i]
-                        vt_niveis_acesso.push(nivel)
-                    }
+        JSON.parse(sessionStorage.NIVEIS_ACESSO).forEach(json => {
+            vt_niveis_acesso.push(json.nivel)
+        });
 
-                    if(vt_niveis_acesso.includes('Suporte N3')) {
-                        document.getElementById('bobia_btn_container').innerHTML = '<a href="./bobIA.html">Acessar Bob IA</a>'
-                    }
-                })
-            }
-            else {
-                console.log('Houve um erro ao tentar buscar níveis de acesso do funcionário');
-            }
-        })
+        if (vt_niveis_acesso.includes('Suporte N3')) {
+            document.getElementById('bobia_btn_container').innerHTML = '<a href="./bobIA.html">Acessar Bob IA</a>'
+        }
+
+        // Deixar comentado de reserva caso não funcione
+
+        // fetch("/funcionarios/niveisAcesso", {
+        //     method: "post",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         id_empresa: sessionStorage.getItem('ID_EMPRESA'),
+        //         id_funcionario: sessionStorage.getItem('ID_FUNCIONARIO')
+        //     })
+        // }).then(function (resposta) {
+        //     if(resposta.ok) {
+        //         resposta.json().then((array) => {
+        //             for(let i = 0; i < array.length; i++) {
+        //                 let nivel = array[i].nivel
+        //                 vt_niveis_acesso.push(nivel)
+        //             }
+
+        //             if(vt_niveis_acesso.includes('Suporte N3')) {
+        //                 document.getElementById('bobia_btn_container').innerHTML = '<a href="./bobIA.html">Acessar Bob IA</a>'
+        //             }
+        //         })
+        //     }
+        //     else {
+        //         console.log('Houve um erro ao tentar buscar níveis de acesso do funcionário');
+        //     }
+        // })
     }
 </script>
