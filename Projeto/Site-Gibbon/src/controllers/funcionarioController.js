@@ -1,7 +1,7 @@
 var funcionarioModel = require("../models/funcionarioModel");
 
 function listar(req, res) {
-    let id_empresa = req.body.id_empresa
+    let id_empresa = req.params.id_empresa
 
     funcionarioModel.listar(id_empresa).then(function (resultado) {
         if (resultado.length > 0) {
@@ -17,5 +17,6 @@ function listar(req, res) {
 }
 
 module.exports = {
-    listar
+    listar,
+    buscarNiveisAcesso
 }
