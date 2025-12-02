@@ -90,17 +90,23 @@
             })
                 .then(res => res.json()
                     .then(data => {
-                        console.log();
-                  
+
                         if (data.message === "Login realizado com sucesso!") {
-                           localStorage.setItem("fkNivelAcessoUsuario", Number(data.fkNivelAcesso));
                             alert(data.message);
+
+                            sessionStorage.ID_FUNCIONARIO = data.id_funcionario
+                            sessionStorage.NOME = data.nome
+                            sessionStorage.SOBRENOME = data.sobrenome
+                            sessionStorage.EMAIL = data.email
+                            sessionStorage.SENHA = data.senha
+                            sessionStorage.ID_EMPRESA = data.id_empresa
+                            sessionStorage.NIVEIS_ACESSO = JSON.stringify(data.niveis_acesso)
 
                             window.location = "dashboard/dashboard.html";
                         } else {
                             alert("Email ou senha inválidos");
                         }
-                    })) 
+                    }))
                 .catch(err => {
                     console.error(err);
                     alert("Erro na requisição");
