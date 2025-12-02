@@ -3,7 +3,7 @@ var router = express.Router();
 
 var funcionarioController = require("../controllers/funcionarioController")
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:id_empresa", function (req, res) {
     funcionarioController.listar(req, res);
 });
 
