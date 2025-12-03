@@ -4,20 +4,8 @@ USE gibbon;
 
 CREATE TABLE empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-cnpj CHAR(14) NOT NULL,
-telefoneFixo CHAR(10),
-telefoneCelular CHAR(11),
-email VARCHAR(100) NOT NULL,
-situacaoContrato TINYINT NOT NULL,
-dtContratacao DATE NOT NULL
-);
-
-CREATE TABLE estufa (
-idEstufa INT PRIMARY KEY AUTO_INCREMENT,
-localEstufa VARCHAR(100) NOT NULL,
-descricao VARCHAR(500),
-fkEmpresa INT, CONSTRAINT fk_estufa_empresa FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa) 
+razaoSocial VARCHAR(100) NOT NULL,
+cnpj CHAR(14) NOT NULL
 );
 
 CREATE TABLE endereco (
@@ -25,7 +13,19 @@ idEndereco INT PRIMARY KEY AUTO_INCREMENT,
 cep VARCHAR(8) NOT NULL,
 numero VARCHAR(10) NOT NULL,
 complemento VARCHAR(45),
-fkEmpresa INT, CONSTRAINT fk_endereco_empresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
+fkEmpresa INT NOT NULL, 
+CONSTRAINT fk_endereco_empresa 
+FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+);
+
+CREATE TABLE funcionario (
+    idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    senha VARCHAR(25) NOT NULL,
+	fkEmpresa INT NOT NULL,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
 CREATE TABLE nivelAcesso (
@@ -33,41 +33,39 @@ idNivelAcesso INT PRIMARY KEY AUTO_INCREMENT,
 nivel VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE funcionario (
-    idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE acessoFuncionario ( 
+    fkFuncionario INT NOT NULL,
     fkEmpresa INT NOT NULL,
-    nome VARCHAR(100) NOT NULL,
-    sobrenome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    senha VARCHAR(25) NOT NULL,
-    fkNivelAcesso INT,
-    CONSTRAINT fk_funcionario_acesso FOREIGN KEY (fkNivelAcesso) REFERENCES nivelAcesso(idNivelAcesso),
-    CONSTRAINT fk_funcionario_empresa FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
+    fkNivelAcesso INT NOT NULL,
+    PRIMARY KEY (fkFuncionario, fkEmpresa, fkNivelAcesso),
+    FOREIGN KEY (fkFuncionario) REFERENCES funcionario(idFuncionario),
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa),
+    FOREIGN KEY (fkNivelAcesso) REFERENCES nivelAcesso(idNivelAcesso)
 );
 
-CREATE TABLE setor (
-idSetor INT,
-fkEstufa INT, CONSTRAINT pk_setor_estufa PRIMARY KEY (idSetor,fkEstufa),
-CONSTRAINT fk_setor_estufa FOREIGN KEY (fkEstufa) REFERENCES estufa (idEstufa),
-nome VARCHAR(45) NOT NULL,
-descricao VARCHAR(500)
+CREATE TABLE estufa (
+idEstufa INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(45),
+ppfdMax INT,
+ppfdMin INT,
+fkEmpresa INT NOT NULL, 
+FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa) 
 );
 
 CREATE TABLE sensor (
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45) NOT NULL,
-fkSetor INT,
-fkEstufa INT,
-CONSTRAINT fk_sensor_setor_estufa FOREIGN KEY (fkSetor, fkEstufa) REFERENCES setor (idSetor, fkEstufa)
+fkEstufa INT NOT NULL,
+FOREIGN KEY (fkEstufa) REFERENCES estufa(idEstufa)
 );
 
 CREATE TABLE registro (
-idRegistro INT AUTO_INCREMENT,
-fkSensor INT, CONSTRAINT fk_registro_sensor FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor),
+idRegistro INT PRIMARY KEY AUTO_INCREMENT,
 nivelLuz DECIMAL(6,2) NOT NULL,
 estadoLuz TINYINT NOT NULL,
 dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
-CONSTRAINT pk_registro_sensor PRIMARY KEY (idRegistro,fkSensor)
+fkSensor INT, 
+FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor)
 );
 
 
@@ -75,65 +73,47 @@ CONSTRAINT pk_registro_sensor PRIMARY KEY (idRegistro,fkSensor)
 
 
 
+-- INSERTS 
+INSERT INTO empresa (razaoSocial, cnpj) VALUES 
+('Tomatech', '45896320147895'),
+('SweetGrape', '79856301547982'),
+('Taeq', '45796325421359');
 
+INSERT INTO endereco (cep, numero, complemento, fkEmpresa) VALUES
+('09010010', '100', 'Matriz', 1),
+('09120020', '250', NULL, 2),
+('08030500', '900', 'Galpão Central', 3);
 
-
-
--- INSERTS
-INSERT INTO empresa (nome,email,cnpj,situacaoContrato,dtContratacao) VALUES
-('Gibbon','oficial@gibbon.com','12345678901234',1,'2025-10-17');
-
-INSERT INTO funcionario (idFuncionario, fkEmpresa, nome, sobrenome, email, senha) values
-(1, 1, 'Bruno', 'Souza', 'bruno@gmail.com', '123');
-
-select * from funcionario;
-
-DESCRIBE funcionario;
-
-
-
-
-
-
-
-
-
-
-
--- INSERTS
-INSERT INTO empresa (nome,email,cnpj,situacaoContrato,dtContratacao) VALUES
-('Gibbon','oficial@gibbon.com','12345678901234',1,'2025-10-17');
-
-INSERT INTO endereco (cep, numero,fkEmpresa) VALUES 
-('09281666',144,1); 
-
-INSERT INTO estufa (localEstufa,fkEmpresa) VALUES 
-('hectare 1',1);
-
-INSERT INTO setor (idSetor,fkEstufa,nome) VALUES
-(1,1,'Setor de mudas');
-
-INSERT INTO sensor (idSensor,nome,fkEstufa,fkSetor) VALUES
-(1,'Sensor A',1,1),
-(2,'Sensor B',1,1),
-(3,'Sensor C',1,1);
-
-INSERT INTO registro (fkSensor,nivelLuz,estadoLuz) VALUES
-(1,500,1),
-(2,300,1),
-(3,900,1),
-(1,25,0);
+INSERT INTO funcionario (nome, sobrenome, email, senha, fkEmpresa) VALUES
+('Gilberto','Augusto', 'gilauga@tomatech.com', '123', 1),
+('Carla', 'Bianchi', 'carla.bianchi@tomatech.com', '123', 1),
+('Vivian','Freitas','vivian.freitas@tomatech.com', '123', 1),
+('Vinicius','Goeis','vinicius.goeis@tomatech.com', '123', 1),
+('Kelly','Gael','kelly.gael@tomatech.com', '123', 1),
+('Patricia','Guedes','patricia.guedes@tomatech.com', '123', 1);
 
 INSERT INTO nivelAcesso (nivel) VALUES 
 ('Administrador'),
 ('Editor'),
-('Visualizador'),
+('Visualizador'), 
 ('Suporte N1'),
 ('Suporte N2'),
 ('Suporte N3');
 
-INSERT INTO funcionario (idFuncionario,fkEmpresa,nome,sobrenome,email,senha,fkNivelAcesso) VALUES
-(1,1,'Robson','Freitas Gonçalo','robson.freitas@gibbon.com','robsonFG123',1);
+INSERT INTO acessoFuncionario (fkFuncionario, fkEmpresa, fkNivelAcesso) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6);
+
+INSERT INTO estufa (nome, fkEmpresa) VALUES 
+('Vegetativa', 1),
+('Reprodutiva', 1),
+('Maturação', 1);
+
+
 
 
 
