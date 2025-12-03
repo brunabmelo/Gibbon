@@ -433,6 +433,45 @@ main {
     padding: 8px 16px;
 }
 
+/* FINAL Avisos */
+
+/* --------------------------------------------------------------------------------------------- */
+
+/* SENSORES */
+
+#lista-sensores {
+    display: flex;
+    width: 80%;
+    height: 80%;
+    flex-direction: column;
+}
+
+.sensores-info {
+    display: flex;
+    margin: 18px;
+    padding: 19px 19px;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding-right: 530px;
+    box-shadow: 2px 5px 9px grey;
+}
+
+.sensores-info h3 {
+    font-size: 18px;
+}
+
+
+.sensores-info .estufa {
+    padding: 8px 16px;
+}
+
+/* FINAL SENSORES */
+
+/* --------------------------------------------------------------------------------------------- */
+
+
 .dashboard {
     display: flex;
     gap: 1%;
