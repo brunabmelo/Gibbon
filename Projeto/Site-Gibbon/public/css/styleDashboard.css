@@ -375,6 +375,7 @@ main {
     height: 7%;
     font-weight: bold;
     font-size: 20px;
+    color: #474747;
 }
 
 .container-metrica {
@@ -443,7 +444,7 @@ main {
     flex-direction: column;
     gap: 2%;
     width: 50%;
-    height: 84vh;
+    height: 83vh;
 }
 
 .container-menor {
@@ -520,6 +521,7 @@ main {
     justify-content: center;
     color: #474747;
     background: #C5BEB2;
+    justify-content: space-between;
 }
 
 .box-valores-ideais-PPFD {
@@ -535,6 +537,7 @@ main {
     justify-content: center;
     color: #474747;
     background: #C5BEB2;
+    justify-content: space-between;
 }
 
 .metrica-legenda {
@@ -545,7 +548,9 @@ main {
 .legenda {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 62%;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .box-valores-reais {
@@ -561,6 +566,7 @@ main {
     justify-content: center;
     color: #474747;
     background: #FFD38E;
+    justify-content: space-between;
 }
 
 .box-valores {
@@ -577,7 +583,7 @@ main {
 
 .legenda-metrica {
     display: flex;
-    height: 28%;
+    height: 45%;
     justify-content: center;
     align-items: center;
     background: #FFD38E;
@@ -585,9 +591,14 @@ main {
     color: #474747;
 }
 
+.legenda-metrica p {
+    font-size: 23px;
+    font-weight: 500;
+}
+
 .legenda-reais {
     display: flex;
-    height: 28%;
+    height: 45%;
     justify-content: center;
     align-items: center;
     background: #C5BEB2;
@@ -595,8 +606,31 @@ main {
     color: #474747;
 }
 
+.legenda-reais p {
+    font-size: 23px;
+    font-weight: 500;
+}
+
 .box-grafico canvas {
     display: flex;
     height: 54vh;
     width: 100%;
+}
+
+.legenda-pequena {
+    display: flex;
+    gap: 9%;
+}
+
+.medida {
+    display: flex;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.legenda2 {
+    display: flex;
+    flex-direction: column;
+    width: 34%;
+    gap: 9%;
 }
