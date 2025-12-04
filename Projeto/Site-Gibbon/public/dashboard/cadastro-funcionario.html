@@ -19,24 +19,27 @@
 
 <body>
     <nav class="sidebar">
-        <div>
+        <div class="sidebar-container">
             <div class="perfil">
                 <div class="perfil-card">
-                    <img class="avatar-icon" src="../assets/images/generic-avatar.png" alt="Foto de perfil">
                     <h2>Nome Usuário</h2>
                 </div>
                 <a href="./perfil.html">Perfil</a>
+                <button onclick="abrirSuporte()">Suporte</button>
             </div>
-            <button onclick="abrirSuporte()">Suporte</button>
             <div class="navbar">
                 <ul>
-                    <li><a href="./dashboard.html">Gráficos</a></li>
-                    <li><a class="selecionado" href="./funcionarios.html">Cadastrar Funcionário</a></li>
-                    <li><a href="./notificacoes.html">Notificação</a></li>
+                    <li><a href="./avisos.html">Avisos</a></li>
+                    <li><a class="selecionado" href="./dashboard.html">Gráficos</a></li>
+                    <li><a href="./funcionarios.html">Funcionários</a></li>
+                    <li><a href="./estufas.html">Estufas</a></li>
+                    <li><a href="./sensores.html">Sensores</a></li>
                 </ul>
             </div>
+            <div class="sair">
+                <button onclick="sair()">Sair</button>
+            </div>
         </div>
-        <button onclick="sair()">Sair</button>
     </nav>
 
     <main class="container">
@@ -116,14 +119,14 @@
         let niveisSelecionados = []
 
         let niveisAcesso = document.querySelectorAll('.ipt-nivel-container input')
-        
-        niveisAcesso.forEach(ipt_nivel => {            
+
+        niveisAcesso.forEach(ipt_nivel => {
             if (ipt_nivel.checked) {
                 niveisSelecionados.push(ipt_nivel.value)
             }
         })
 
-        if(niveisSelecionados.length == 0) {
+        if (niveisSelecionados.length == 0) {
             alert('Selecione pelo menos um nível de acesso')
             return
         }
@@ -154,16 +157,16 @@
                         .then(resposta => {
                             resposta.json().then(data => {
 
-                                for(let i = 0; i < niveisSelecionados.length; i++) {
+                                for (let i = 0; i < niveisSelecionados.length; i++) {
                                     fetch('/funcionario/acessoFuncionario', {
-                                    method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({ 
-                                        id_funcionario: data.id_funcionario, 
-                                        id_empresa: data.id_empresa,
-                                        id_nivel_acesso: niveisSelecionados[i]
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            id_funcionario: data.id_funcionario,
+                                            id_empresa: data.id_empresa,
+                                            id_nivel_acesso: niveisSelecionados[i]
+                                        })
                                     })
-                                })
                                 }
                             })
                         })
