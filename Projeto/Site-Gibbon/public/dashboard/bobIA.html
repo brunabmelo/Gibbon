@@ -8,47 +8,51 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="./assets/images/logos/tomate.ico">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/styleDashboard.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/styleDashboard.css">
 </head>
 
 <body>
-    <main>
-        <nav class="sidebar">
-            <div class="sidebar-container">
-                <div class="perfil">
-                    <div class="perfil-card">
-                        <h2>Nome Usuário</h2>
-                    </div>
-                    <a href="./perfil.html">Perfil</a>
-                    <button onclick="abrirSuporte()">Suporte</button>
+    <nav class="sidebar">
+        <div class="sidebar-container">
+            <div class="perfil">
+                <div class="perfil-card">
+                    <h2>Nome Usuário</h2>
                 </div>
-                <div class="navbar">
-                    <ul>
-                        <li><a href="./avisos.html">Avisos</a></li>
-                        <li><a class="selecionado" href="./dashboard.html">Gráficos</a></li>
-                        <li><a href="./funcionarios.html">Funcionário</a></li>
-                        <li><a href="./estufas.html">Estufas</a></li>
-                        <li><a href="./sensores.html">Sensores</a></li>
-                    </ul>
-                </div>
-                <div class="sair">
-                    <button onclick="sair()">Sair</button>
-                </div>
+                <a href="./perfil.html">Perfil</a>
+                <button onclick="abrirSuporte()">Suporte</button>
             </div>
-        </nav>
-        <div id="container">
+            <div class="navbar">
+                <ul>
+                    <li><a href="./avisos.html">Avisos</a></li>
+                    <li><a class="selecionado" href="./dashboard.html">Gráficos</a></li>
+                    <li><a href="./funcionarios.html">Funcionários</a></li>
+                    <li><a href="./estufas.html">Estufas</a></li>
+                    <li><a href="./sensores.html">Sensores</a></li>
+                </ul>
+            </div>
+            <div class="sair">
+                <button onclick="sair()">Sair</button>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="bobIA-container">
             <h1>BobIA</h1>
-            <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
-            <br><br>
-            <button onclick="gerarResposta()">Gerar Resposta</button>
-            <h3>Resposta da IA:</h3>
-            <div id="resposta"></div>
+            <div class="textarea">
+                <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+                <br><br>
+                <button onclick="gerarResposta()">Gerar Resposta</button>
+            </div>
+            <div class="resposta-form">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et totam non quam ab corporis natus assumenda, odio nam voluptas laborum rem ea. Expedita, repellendus! Libero perferendis cumque iusto deleniti ipsa!</p>
+            </div>
         </div>
     </main>
 

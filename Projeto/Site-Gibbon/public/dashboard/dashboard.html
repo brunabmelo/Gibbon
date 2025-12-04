@@ -10,6 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="./assets/images/logos/tomate.ico">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
@@ -82,7 +83,9 @@
                     </div>
 
                     <div class="box-grafico">
-                        <canvas id="myChart2"></canvas>
+                        <div>
+                            <canvas id="myChart2"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -237,41 +240,27 @@
             document.querySelector('.dashboard').style.display = 'flex';
             atualizarKPIs(setor, sensor);
 
-            let novoBarData = barDatas[sensor]
             let novoLineData = lineDatas[sensor]
-            let ctx1 = document.getElementById('myChart1').getContext('2d');
             let ctx2 = document.getElementById('myChart2').getContext('2d');
 
 
             if (!chart2) {
-                chart2 = new Chart(ctx2, {
-                    type: 'line',
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
                     data: {
-                        labels: ['09:01:01', '09:01:02', '09:01:03', '09:01:04', '09:01:05', '09:01:06', '09:01:07'],
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                         datasets: [{
-                            label: 'µmol/m²/s',
-                            data: novoLineData,
-                            borderColor: 'red',
-                            backgroundColor: 'rgba(255, 0, 0, 0.1)',
-                            borderWidth: 2,
-                            tension: 0.4
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            borderWidth: 1
                         }]
                     },
                     options: {
-                        responsive: true,
                         scales: {
                             y: {
                                 beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                titleFont: {
-                                    size: 18
-                                },
-                                bodyFont: {
-                                    size: 16
-                                }
                             }
                         }
                     }

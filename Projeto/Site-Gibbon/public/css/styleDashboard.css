@@ -120,8 +120,6 @@ main {
     align-items: center;
     justify-content: center;
     width: 50%;
-    height: 85%;
-    margin: 5%;
 }
 
 .perfil-form,
@@ -171,6 +169,55 @@ main {
     font-family: 'Inter', sans-serif;
     color: #757575;
 }
+
+.nivel-acesso-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+ .ipt-nivel-container input[type="checkbox"] {
+    display: none;
+    visibility: hidden;
+  }
+.ipt-nivel-container label {
+    position: relative;
+    padding-left: 2em;
+    padding-right: 1em;
+    line-height: 2;
+    cursor: pointer;
+    display: inline-flex;
+  }
+.ipt-nivel-container label:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid #9098A9;
+    border-radius: 6px;
+    z-index: -1;
+  }
+.ipt-nivel-container input[type=checkbox]:checked + label {
+    padding-left: 1em;
+    color: #0f5229;
+  }
+  .ipt-nivel-container input[type=checkbox]:checked + label:before {
+    top: 0;
+    width: 100%;
+    height: 2em;
+    background: #b7e6c9;
+    border-color: #2cbc63;
+  }
+
+  .ipt-nivel-container label,
+  .ipt-nivel-container label::before {
+    transition: 0.25s all ease;
+  }
+
 
 .perfil-section button,
 .cadastro-form button {
@@ -760,4 +807,84 @@ main {
     flex-direction: column;
     width: 34%;
     gap: 9%;
+}
+
+/* BobIA ------------------------------------------------------------------------------------------------------------------------------- */
+.bobIA-container {
+    width: 59%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh;
+    gap: 5%;
+}
+
+.textarea {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 15vh;
+    resize: none;
+    font-family: 'Inter', sans-serif;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: #E0E0E0;
+    margin-top: 8px;
+    border: transparent;
+}
+
+textarea:focus {
+    outline: none;
+
+}
+
+.textarea textarea {
+    width: 65%;
+    height: 11vh;
+    resize: none;
+    font-family: 'Inter', sans-serif;
+    background: transparent;
+    border: transparent;
+    font-size: 17px;
+}
+
+.textarea button {
+    width: 19%;
+    height: 60%;
+    background-color: #FBB03B;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.textarea button:hover {
+    background-color: #ffce7f;
+    color: #3C3C3C;
+}
+
+.resposta-form {
+    display: flex;
+    width: 100%;
+}
+
+.resposta-form p {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    resize: none;
+    font-family: 'Inter', sans-serif;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: #FADAA8;
+;
+    margin-top: 8px;
+    border: transparent;
 }
