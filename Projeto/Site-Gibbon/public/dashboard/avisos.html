@@ -19,7 +19,7 @@
 
 <body onload="buscarAvisos(sessionStorage.getItem(ID_EMPRESA))">
     <!--MENU-->
-     <nav class="sidebar">
+    <nav class="sidebar">
         <div class="sidebar-container">
             <div class="perfil">
                 <div class="perfil-card">
@@ -67,39 +67,54 @@
 
 <script>
     function buscarAvisos(ID_EMPRESA) {
+        const dataAtual = new Date()
+
+        let dataBrasil = dataAtual.toLocaleString('pt-br')
+
+        dataBrasil = dataBrasil.replace(',', '')
+
+        const [data, hora] = dataBrasil.split(' ');
+        const [dia, mes, ano] = data.split('/');
+        const dataFormatada = `${ano}-${mes}-${dia} ${hora}`;
+
         fetch(`/avisos/buscar/${ID_EMPRESA}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-
+                dataHora: dataFormatada
             })
         })
             .then(res => {
                 if (res.ok) {
 
-                    res.json().then(function (ul_aviso_sensor) {
+                    if (res.status == 200) {
+                        res.json().then(function (sensores) {
+                            const ul_aviso_sensor = document.getElementById('avisos-sensor')
+                            for (let i = 0; i < sensores.length; i++) {
+                                const sensor = ul_aviso_sensor[i];
+                                ul_aviso_sensor.innerHTML += `
+                                    <li class="alerta-bar">
+                                        <div class="titulo-container">
+                                            <h2>${sensor.sensor}</h2>
+                                        </div>
+                                        <p>
+                                            Estufa ${sensor.estufa}                      
+                                        </p>
+                                    </li>
+                                `
+                            }
+                            setTimeout(() => buscarAvisos(ID_EMPRESA), 2000)
+
+                        })
+                    } else if (res.status == 204) {
                         const ul_aviso_sensor = document.getElementById('avisos-sensor')
-                        for (let i = 0; i < ul_aviso_sensor.length; i++) {
-                            const sensor = ul_aviso_sensor[i];
-                            ul_lista_funcionarios.innerHTML += `
-                              <li class="alerta-bar">
-                                 <div class="titulo-container">
-                                     <h2>${sensor.Sensor}</h2>
-                                  </div>
-                                     <p>
-                                        Estufa ${sensor.LocaldaEstufa}                      
-                                    </p>
-                             </li>
-                             `
-
-                        }
-
-
-                    })
-
+                        ul_aviso_sensor.innerHTML = `Nenhum sensor fora do ideal`
+                        setTimeout(() => buscarAvisos(ID_EMPRESA), 2000)
+                    }
 
                 } else {
-                    alert("Erro ao cadastrar funcionário");
+                    alert("Erro ao buscar avisos");
+                    setTimeout(() => buscarAvisos(ID_EMPRESA), 2000)
                 }
             });
     }
