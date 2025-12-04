@@ -7,8 +7,8 @@ router.get("/listar/:id_empresa", function (req, res) {
     estufasController.listar(req, res);
 });
 
-router.get('/cadastrar/:id_empresa', function (req, res) {
-    estufasController.cadastrar(req, res)
+router.post('/cadastrar/:id_empresa', function (req, res) {
+    estufasController.cadastrar(req, res);
 })
 
 module.exports = router;

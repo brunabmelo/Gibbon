@@ -3,7 +3,7 @@ var database = require("../database/config");
 function listar(id_empresa) {
     var instrucaoSql = `
         SELECT
-            id,
+            idEstufa,
             nome
         FROM estufa
         WHERE fkEmpresa = ${id_empresa};
@@ -14,7 +14,7 @@ function listar(id_empresa) {
 
 function cadastrar(id_empresa, nome, ppfdMin, ppfdMax) {
     var instrucaoSql = `
-        INSERT INTO estufa
+        INSERT INTO estufa (nome, ppfdMin, ppfdMax, fkEmpresa) VALUES
             ('${nome}', ${ppfdMin}, ${ppfdMax}, ${id_empresa})
         ;
     `;
