@@ -3,11 +3,13 @@ var database = require("../database/config");
 function listar(id_empresa) {
     var instrucaoSql = `
         SELECT
+            idFuncionario,
             nome,
             sobrenome,
             email,
-            senha
-        FROM usuario
+            senha,
+            fkEmpresa
+        FROM funcionario
         WHERE fKEmpresa = ${id_empresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

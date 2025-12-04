@@ -46,10 +46,10 @@ function cadastrar(req, res) {
     }
 
 
-    console.log("Cadastrando funcionário:", { nome, sobrenome, email, nivelAcesso, fkEmpresa });
+    console.log("Cadastrando funcionário:", { nome, sobrenome, email, senha, fkEmpresa });
 
 
-    funcionarioModel.cadastrar(nome, sobrenome, email, nivelAcesso, senha, fkEmpresa)
+    funcionarioModel.cadastrar(nome, sobrenome, email, senha, fkEmpresa)
         .then(function (resultado) {
             res.status(201).json({ mensagem: "Funcionário cadastrado com sucesso", resultado });
         })

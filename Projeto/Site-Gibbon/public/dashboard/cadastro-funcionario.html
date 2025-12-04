@@ -156,9 +156,11 @@
                     })
                         .then(resposta => {
                             resposta.json().then(data => {
+                                console.log('níveis de acesso selecionados: ', niveisSelecionados);
+                                console.log('usuário que acabou de ser cadastrado: ', data);
 
                                 for (let i = 0; i < niveisSelecionados.length; i++) {
-                                    fetch('/funcionario/acessoFuncionario', {
+                                    fetch('/funcionarios/acessoFuncionario', {
                                         method: "POST",
                                         headers: { "Content-Type": "application/json" },
                                         body: JSON.stringify({

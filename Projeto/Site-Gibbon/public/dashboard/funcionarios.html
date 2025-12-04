@@ -64,8 +64,10 @@
 
 <script>
     function listarFuncionarios() {
-        fetch('/funcionarios/listar').then(resposta => {
+        fetch(`/funcionarios/listar/${sessionStorage.getItem('ID_EMPRESA')}`).then(resposta => {
             resposta.json().then(vt_funcionarios => {
+                console.log(vt_funcionarios);
+
                 const ul_lista_funcionarios = document.getElementById('lista-funcionarios')
                 for (let i = 0; i < vt_funcionarios.length; i++) {
                     const funcionario = vt_funcionarios[i];
@@ -74,11 +76,39 @@
                             <div class="funcionario-info">
                                 <h3>${funcionario.nome} ${funcionario.sobrenome}</h3>
                                 <p class="funcionario-email">${funcionario.email}</p>
-                                <ul class="lista-nivel-acesso"></ul>
+                                <ul id="lista_${i}" class="lista-nivel-acesso"></ul>
                             </div>
                         </li>
                     `
+
+                    fetch(`/funcionarios/niveisAcesso`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id_empresa: funcionario.fkEmpresa,
+                        id_funcionario: funcionario.idFuncionario
+                    })
+                })
+                    .then(resultado => {
+                        if (resultado.ok) {
+                            resultado.json().then(vt_niveis_acesso => {
+                                const lista = document.getElementById(`lista_${i}`)
+                                for (let i = 0; i < vt_niveis_acesso.length; i++) {
+                                    lista.innerHTML += `
+                                        <li>
+                                            ${vt_niveis_acesso[i].nivel}
+                                        </li>
+                                    `
+                                }
+                            })
+                        }
+                        else {
+                            console.log('Erro ao buscar níveis de acesso dos funcionários na lista de funcionários');
+                        }
+                    })
+
                 }
+
             })
         })
     }
