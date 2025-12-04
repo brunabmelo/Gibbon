@@ -48,8 +48,8 @@
             <h3>Cadastrar Sensor</h3>
             <div class="cadastro-form">
                 <div class="ipt-container">
-                    <label for="nome">Nome do sensor*</label>
-                    <input type="text" id="nome" name="nome" placeholder="Nome do sensor" inputmode="text" required>
+                    <label for="nome_estufa">Nome do sensor*</label>
+                    <input type="text" id="nome_estufa" name="nome" placeholder="Nome do sensor" inputmode="text" required>
                     <label for="sel-estufa">Estufa*</label>
                     <select name="estufa" id="sel-estufa">
                         <option value="0">Selecione uma estufa...</option>
@@ -69,13 +69,14 @@
 
 </html>
 <script>
+    const select_estufas = document.getElementById('sel-estufa')
     fetch(`/estufas/listar/${sessionStorage.getItem('ID_EMPRESA')}`)
         .then(resposta => {
             resposta.json().then(vt_estufas => {
                 for (let i = 0; i < vt_estufas.length; i++) {
                     const estufa = vt_estufas[i];
                     select_estufas.innerHTML += `
-                        <option value="${estufa.id_estufa}">
+                        <option value="${estufa.idEstufa}">
                             <h3>${estufa.nome}</h3>
                         </option>
                     `
@@ -84,11 +85,11 @@
         })
 
     function cadastrar() {
-        let nome = nome.value;
+        let nome = nome_estufa.value;
         let select_estufas = document.getElementById('sel-estufa')
         let id_estufa = select_estufas.value;
 
-        fetch(`/sensores/cadastrar/${sessionStorage.getItem('ID_EMPRESA')}`, {
+        fetch(`/sensores/cadastrar`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

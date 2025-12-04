@@ -65,7 +65,7 @@
 
 <script>
     function listarSensores(id_empresa) {
-        fetch(`/funcionarios/listar/${id_empresa}`).then(resposta => {
+        fetch(`/sensores/listar/${id_empresa}`).then(resposta => {
             resposta.json().then(vt_sensores => {
                 const ul_lista_sensores = document.getElementById('lista-sensores')
                 for (let i = 0; i < vt_sensores.length; i++) {
