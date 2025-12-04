@@ -19,25 +19,28 @@
 
 <body onload="buscarAvisos(sessionStorage.getItem(ID_EMPRESA))">
     <!--MENU-->
-    <nav class="sidebar">
-        <div>
+     <nav class="sidebar">
+        <div class="sidebar-container">
             <div class="perfil">
                 <div class="perfil-card">
-                    <img class="avatar-icon" src="../assets/images/generic-avatar.png" alt="Foto de perfil">
                     <h2>Nome Usuário</h2>
                 </div>
                 <a href="./perfil.html">Perfil</a>
+                <button onclick="abrirSuporte()">Suporte</button>
             </div>
-            <button onclick="abrirSuporte()">Suporte</button>
             <div class="navbar">
                 <ul>
-                    <li><a href="./dashboard.html">Gráficos</a></li>
-                    <li><a href="./funcionarios.html">Cadastrar Funcionário</a></li>
-                    <li><a class="selecionado" href="./notificacoes.html">Alertas</a></li>
+                    <li><a href="./avisos.html">Avisos</a></li>
+                    <li><a class="selecionado" href="./dashboard.html">Gráficos</a></li>
+                    <li><a href="./funcionarios.html">Funcionário</a></li>
+                    <li><a href="./estufas.html">Estufas</a></li>
+                    <li><a href="./sensores.html">Sensores</a></li>
                 </ul>
             </div>
+            <div class="sair">
+                <button onclick="sair()">Sair</button>
+            </div>
         </div>
-        <button onclick="sair()">Sair</button>
     </nav>
     <!--FIM MENU-->
 
@@ -45,14 +48,14 @@
         <section class="alertas">
             <h1>Painel de Alerta</h1>
             <ul id="avisos-sensor" class="alerta-card">
-                 <li class="alerta-bar">
+                <li class="alerta-bar">
                     <div class="titulo-container">
                         <h2>Sensor A</h2>
                     </div>
                     <p>
                         Estufa Y
                     </p>
-                </li> 
+                </li>
             </ul>
         </section>
     </main>
@@ -63,22 +66,22 @@
 </html>
 
 <script>
-    function buscarAvisos(ID_EMPRESA){
-    fetch(`/avisos/buscar/${ID_EMPRESA}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    function buscarAvisos(ID_EMPRESA) {
+        fetch(`/avisos/buscar/${ID_EMPRESA}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
 
+            })
         })
-    })
-        .then(res => {
-            if (res.ok) {
+            .then(res => {
+                if (res.ok) {
 
-                res.json().then(function (ul_aviso_sensor) {
-                    const ul_aviso_sensor = document.getElementById('avisos-sensor')
-                    for (let i = 0; i < ul_aviso_sensor.length; i++) {
-                        const sensor = ul_aviso_sensor[i];
-                        ul_lista_funcionarios.innerHTML += `
+                    res.json().then(function (ul_aviso_sensor) {
+                        const ul_aviso_sensor = document.getElementById('avisos-sensor')
+                        for (let i = 0; i < ul_aviso_sensor.length; i++) {
+                            const sensor = ul_aviso_sensor[i];
+                            ul_lista_funcionarios.innerHTML += `
                               <li class="alerta-bar">
                                  <div class="titulo-container">
                                      <h2>${sensor.Sensor}</h2>
@@ -89,23 +92,23 @@
                              </li>
                              `
 
-                    }
+                        }
 
 
-                })
+                    })
 
 
-            } else {
-                alert("Erro ao cadastrar funcionário");
-            }
-        });
+                } else {
+                    alert("Erro ao cadastrar funcionário");
+                }
+            });
     }
-      function abrirSuporte() {
-    let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
-    if (fkNivelAcessoUsuario === 6) {
-        window.location.href = "./bobIA.html"; // só Suporte N3
-    } else {
-        alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+    function abrirSuporte() {
+        let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
+        if (fkNivelAcessoUsuario === 6) {
+            window.location.href = "./bobIA.html"; // só Suporte N3
+        } else {
+            alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+        }
     }
-}
 </script>
