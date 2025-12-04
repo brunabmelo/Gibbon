@@ -20,7 +20,7 @@
 </head>
 
 <body>
-      <nav class="sidebar">
+    <nav class="sidebar">
         <div class="sidebar-container">
             <div class="perfil">
                 <div class="perfil-card">
@@ -48,19 +48,9 @@
     <main>
         <section class="dashboard-section">
             <div class="seletores">
-                <select id="sltsetor" onchange="atualizarGraficos()">
-                    <option value="">Selecione o setor</option>
-                    <option value="0">Produção de mudas</option>
-                    <option value="1">Fase vegetativa</option>
-                    <option value="2">Fase reprodutiva</option>
-                    <option value="3">Fase de maturação</option>
+                <select id="sltEstufa" onchange="atualizarGraficos(this)">
                 </select>
-                <select id="sltsensor" onchange="atualizarGraficos()">
-                    <option value="">Selecione o sensor</option>
-                    <option value="0">Sensor A</option>
-                    <option value="1">Sensor B</option>
-                    <option value="2">Sensor C</option>
-                    <option value="3">Sensor D</option>
+                <select id="sltsensor" onchange="atualizarGraficos(this)">
                 </select>
             </div>
 
@@ -180,8 +170,6 @@
         let barDatas = [[17, 18, 16, 15, 16, 14, 16], [14, 15, 14, 15, 17, 14, 16], [11, 13, 17, 12, 9, 7, 15], [11, 12, 10, 15, 12, 13, 11]]
         let lineDatas = [[100, 150, 190, 200, 210, 220, 205], [320, 300, 290, 320, 300, 280, 300], [700, 550, 610, 700, 510, 500, 600], [690, 680, 697, 700, 680, 700, 698]]
 
-
-
         function atualizarKPIs(setor, sensor) {
 
             document.getElementById('kpi1').querySelector('.medida').innerHTML = kpi1[sensor]
@@ -213,6 +201,29 @@
                     document.getElementById('kpi3').classList.remove('fora-ideal')
                 }
             }
+        }
+
+
+        async function carregarEstufas() {
+            const select = document.getElementById("sltsetor");
+            select.innerHTML = "<option value=''>Selecione um setor</option>";
+
+            setores.forEach(item => {
+                select.innerHTML += `
+            <option value="${item.idEstufa}">${item.nome}</option>
+        `;
+            });
+        }
+
+        async function carregarSensores() {
+            const select = document.getElementById("sltsensor");
+            select.innerHTML = "<option value=''>Selecione um sensor</option>";
+
+            sensores.forEach(item => {
+                select.innerHTML += `
+            <option value="${item.idSensor}">${item.nome}</option>
+        `;
+            });
         }
 
         function atualizarGraficos() {
