@@ -1,22 +1,17 @@
 var empresaModel = require("../models/empresaModel");
+var funcionarioModel = require("../models/funcionarioModel")
 
 function login(req, res) {
     var { email, senha } = req.body;
 
     empresaModel.login(email, senha)
         .then(resultado => {
+            console.log('empresa: ', resultado[0].fkEmpresa, 'funcionario: ', resultado[0].idFuncionario);
+            
             if (resultado.length > 0) {
 
-                fetch("/funcionarios/niveisAcesso", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        id_empresa: resultado[0].fkEmpresa,
-                        id_funcionario: resultado[0].idFuncionario
-                    })
-                }).then(niveisAcesso => {
+                funcionarioModel.buscarNiveisAcesso(resultado[0].fkEmpresa, resultado[0].idFuncionario)
+                .then(niveisAcesso => {
                     let vt_niveis_acesso = []
 
                     for (let i = 0; i < niveisAcesso.length; i++) {

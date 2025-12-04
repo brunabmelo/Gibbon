@@ -7,7 +7,7 @@ router.get("/listar/:id_empresa", function (req, res) {
     funcionarioController.listar(req, res);
 });
 
-router.get("/niveisAcesso", function(req, res) {
+router.post("/niveisAcesso", function(req, res) {
     funcionarioController.buscarNiveisAcesso(req, res)
 })
 
