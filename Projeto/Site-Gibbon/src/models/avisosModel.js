@@ -1,25 +1,9 @@
 var database = require("../database/config");
 
-function buscar(ID_EMPRESA) {
+function buscar(ID_EMPRESA, dataHora) {
     var instrucaoSql = `
-          SELECT 
-    nivelLuz AS 'Nivel da luz',
-		CASE 
-        WHEN estadoLuz = 1 THEN 'ILUMINADO' 
-        ELSE 'ESCURO' END AS 'Estado da luz',
-    sensor.nome AS 'Sensor',
-    estufa.localEstufa AS 'LocaldaEstufa',
-    empresa.idEmpresa AS 'Empresa'
-FROM
-    registro
-        JOIN
-    sensor ON fkSensor = idSensor
-        JOIN
-    setor ON fkSetor = idSetor
-        JOIN
-    estufa ON setor.fkEstufa = idEstufa
-        JOIN
-    empresa ON estufa.${ID_EMPRESA} = idEmpresa;
+    SELECT sensor, estufa FROM vw_avisos
+    WHERE empresa = ${ID_EMPRESA} AND dataHora = '${dataHora}' AND foraIdeal = 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
