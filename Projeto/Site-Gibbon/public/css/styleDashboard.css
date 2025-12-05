@@ -412,6 +412,7 @@ main {
 .funcionarios-container {
     display: flex;
     flex-direction: column;
+    margin-left: 21%;
     justify-content: flex-start;
     width: 100%;
     height: 100%;
@@ -574,15 +575,18 @@ main {
 
 .lista-nivel-acesso {
     display: flex;
+    flex-wrap: nowrap;
+}
+
+
+.lista-nivel-acesso li {
+    display: flex;
     margin: 4px;
     padding: 8px 21px;
     background-color: #4e4e4e;
     color: #fff;
     border-radius: 8px;
-}
-
-.lista-nivel-acesso ul {
-    display: flex;
+    font-size: 10px;
 
 }
 

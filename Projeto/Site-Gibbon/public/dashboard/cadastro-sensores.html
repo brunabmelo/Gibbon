@@ -107,11 +107,21 @@
             });
     }
     function abrirSuporte() {
-        let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
-        if (fkNivelAcessoUsuario === 6) {
-            window.location.href = "./bobIA.html"; // só Suporte N3
+        let vt_niveis_acesso = []
+
+        JSON.parse(sessionStorage.NIVEIS_ACESSO).forEach(json => {
+            vt_niveis_acesso.push(json.nivel)
+        });
+
+        console.log(vt_niveis_acesso.includes('Suporte N1'));
+        console.log(vt_niveis_acesso.includes('Suporte N2'));
+        console.log(vt_niveis_acesso.includes('Suporte N3'));
+        
+
+        if (vt_niveis_acesso.includes('Suporte N3') || vt_niveis_acesso.includes('Suporte N2') || vt_niveis_acesso.includes('Suporte N1')) {
+            window.location.href = "./suporte.html";
         } else {
-            alert("Acesso restrito! Apenas Suporte N3 pode acessar esta página.");
+            alert("Acesso restrito! Apenas suporte pode acessar esta página.");
         }
     }
 </script>
