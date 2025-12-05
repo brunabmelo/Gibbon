@@ -121,6 +121,7 @@ main {
     align-items: center;
     justify-content: center;
     width: 50%;
+    margin-left: 21%;
 }
 
 .perfil-form,
@@ -311,6 +312,7 @@ main {
     flex-direction: column;
     padding: 3%;
     gap: 16px;
+    margin-left: 42%;
 }
 
 .seletores {
@@ -415,6 +417,7 @@ main {
     height: 100%;
     gap: 48px;
     padding: 128px;
+    margin-left: 21%;
 }
 
 .funcionarios-header {
@@ -466,6 +469,10 @@ main {
 .alerta {
     width: 80%;
     height: 80%;
+}
+
+.alertas {
+    margin-left: 21%;
 }
 
 .alerta-card {
@@ -788,6 +795,12 @@ main {
 .legenda-reais p {
     font-size: 23px;
     font-weight: 500;
+}
+
+.box-grafico {
+    margin-top: 21%;
+    justify-content: center;
+    display: flex;
 }
 
 .box-grafico canvas {
