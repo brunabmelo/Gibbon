@@ -176,10 +176,11 @@ main {
     flex-wrap: wrap;
 }
 
- .ipt-nivel-container input[type="checkbox"] {
+.ipt-nivel-container input[type="checkbox"] {
     display: none;
     visibility: hidden;
-  }
+}
+
 .ipt-nivel-container label {
     position: relative;
     padding-left: 2em;
@@ -187,7 +188,8 @@ main {
     line-height: 2;
     cursor: pointer;
     display: inline-flex;
-  }
+}
+
 .ipt-nivel-container label:before {
     box-sizing: border-box;
     content: " ";
@@ -200,23 +202,25 @@ main {
     border: 2px solid #9098A9;
     border-radius: 6px;
     z-index: -1;
-  }
-.ipt-nivel-container input[type=checkbox]:checked + label {
+}
+
+.ipt-nivel-container input[type=checkbox]:checked+label {
     padding-left: 1em;
     color: #0f5229;
-  }
-  .ipt-nivel-container input[type=checkbox]:checked + label:before {
+}
+
+.ipt-nivel-container input[type=checkbox]:checked+label:before {
     top: 0;
     width: 100%;
     height: 2em;
     background: #b7e6c9;
     border-color: #2cbc63;
-  }
+}
 
-  .ipt-nivel-container label,
-  .ipt-nivel-container label::before {
+.ipt-nivel-container label,
+.ipt-nivel-container label::before {
     transition: 0.25s all ease;
-  }
+}
 
 
 .perfil-section button,
@@ -884,7 +888,64 @@ textarea:focus {
     padding: 12px 16px;
     border-radius: 8px;
     background: #FADAA8;
-;
+    ;
     margin-top: 8px;
     border: transparent;
+}
+
+/* BobIA ------------------------------------------------------------------------------------------------------------------------------- */
+.suporte-container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.apresentacao {
+    display: flex;
+    flex-direction: column;
+}
+
+.ferramentas {
+    display: flex;
+    flex-direction: column;
+}
+
+.ferramentas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height:23vh;
+    resize: none;
+    font-family: 'Inter', sans-serif;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: #FADAA8;
+    margin-top: 8px;
+}
+
+.ferramentas h3 {
+    font-weight: 600;
+}
+
+
+.forma-ferramenta {
+    width: 100%;
+    background-color: #FBB03B;
+    border: none;
+    border-radius: 8px;
+    padding: 16px 32px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.forma-ferramenta:hover {
+    background-color: #ffce7f;
+    color: #3C3C3C;
+}
+
+.botoes-ferramentas {
+    display: flex;
+    gap: 3%;
 }
