@@ -53,6 +53,18 @@
 
             <ul id="lista-funcionarios">
                 <!--Funcionarios-->
+                <li>
+                            <div class="funcionario-info">
+                                <h3>${funcionario.nome} ${funcionario.sobrenome}</h3>
+                                <p class="funcionario-email">${funcionario.email}</p>
+                                <ul id="lista_${i}" class="lista-nivel-acesso"><li>
+                                            ${vt_niveis_acesso[i].nivel}
+                                        </li>
+                                    <li>
+                                            ${vt_niveis_acesso[i].nivel}
+                                        </li></ul>
+                            </div>
+                        </li>
 
             </ul>
         </div>
