@@ -566,7 +566,7 @@ main {
     padding: 8px 16px;
 }
 
-.lista-nivel-acesso ul {
+.lista-nivel-acesso {
     display: flex;
     flex-wrap: nowrap;
 }
