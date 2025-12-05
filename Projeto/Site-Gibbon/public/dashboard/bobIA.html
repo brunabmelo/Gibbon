@@ -76,6 +76,25 @@
         document.getElementById('resposta').innerText = data.resultado;
     }
 
+    function abrirSuporte() {
+        let vt_niveis_acesso = []
+
+        JSON.parse(sessionStorage.NIVEIS_ACESSO).forEach(json => {
+            vt_niveis_acesso.push(json.nivel)
+        });
+
+        console.log(vt_niveis_acesso.includes('Suporte N1'));
+        console.log(vt_niveis_acesso.includes('Suporte N2'));
+        console.log(vt_niveis_acesso.includes('Suporte N3'));
+        
+
+        if (vt_niveis_acesso.includes('Suporte N3') || vt_niveis_acesso.includes('Suporte N2') || vt_niveis_acesso.includes('Suporte N1')) {
+            window.location.href = "./suporte.html";
+        } else {
+            alert("Acesso restrito! Apenas suporte pode acessar esta página.");
+        }
+    }
+
 </script>
 
 
