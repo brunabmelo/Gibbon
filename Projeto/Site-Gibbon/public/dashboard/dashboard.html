@@ -158,118 +158,61 @@
     <script src="../js/dashboard.js"></script>
 
     <script>
-        let chart2;
+        // dado mocado (nem está pegando do select)
+        window.onload = function () {
+    document.querySelector('.dashboard').style.display = 'flex';
 
-        let metrica1 = ["100 - 200", "250 - 400", "500 - 700", "500 - 700"]
-        let metrica2 = ["6 - 8", "14 - 16", "22 - 30", "22 - 30"]
-        let metrica3 = ["12<span>h</span> - 16<span>h</span>", "14<span>h</span> - 18<span>h</span>", "12<span>h</span> - 14<span>h</span>", "10<span>h</span> - 12<span>h</span>"]
+    let ctx2 = document.getElementById('myChart2').getContext('2d');
 
-        let kpi1 = ["200", "320", "602", "697"]
-        let kpi2 = ["7", "15", "25", "25"]
-        let kpi3 = ["16<span>h</span>", "15<span>h</span>", "12<span>h</span>", "12<span>h</span>"]
+    let dadosMock = [100, 180, 140, 220, 260, 300, 250];
 
+   
+    new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+            datasets: [{
+                label: 'PPFD',
+                data: dadosMock,
+                borderWidth: 2
+            }]
+        }
+    });
+};
 
+        /*function atualizarGraficos() {
+    let setor = document.getElementById("sltEstufa").value;
+    let sensor = document.getElementById("sltsensor").value;
 
-        let barDatas = [[17, 18, 16, 15, 16, 14, 16], [14, 15, 14, 15, 17, 14, 16], [11, 13, 17, 12, 9, 7, 15], [11, 12, 10, 15, 12, 13, 11]]
-        let lineDatas = [[100, 150, 190, 200, 210, 220, 205], [320, 300, 290, 320, 300, 280, 300], [700, 550, 610, 700, 510, 500, 600], [690, 680, 697, 700, 680, 700, 698]]
+    if (setor === "" || sensor === "") {
+        document.querySelector('.dashboard').style.display = 'none';
+        return;
+    }
 
-        function atualizarKPIs(setor, sensor) {
+    document.querySelector('.dashboard').style.display = 'flex';
 
-            document.getElementById('kpi1').querySelector('.medida').innerHTML = kpi1[sensor]
-            document.getElementById('kpi2').querySelector('.medida').innerHTML = kpi2[sensor]
-            document.getElementById('kpi3').querySelector('.medida').innerHTML = kpi3[sensor]
+    atualizarKPIs(setor, sensor);
 
-            document.getElementById('metrica1').querySelector('.medida').innerHTML = metrica1[setor]
-            document.getElementById('metrica2').querySelector('.medida').innerHTML = metrica2[setor]
-            document.getElementById('metrica3').querySelector('.medida').innerHTML = metrica3[setor]
+    let novoLineData = lineDatas[sensor]
+    let ctx2 = document.getElementById('myChart2').getContext('2d');
 
-            if (
-                setor == sensor ||
-                (setor == 2 && sensor == 3) ||
-                (setor == 3 && sensor == 2)
-            ) {
-                document.getElementById('kpi1').classList.remove('fora-ideal')
-                document.getElementById('kpi2').classList.remove('fora-ideal')
-                document.getElementById('kpi3').classList.remove('fora-ideal')
-            } else {
-                document.getElementById('kpi1').classList.add('fora-ideal')
-                document.getElementById('kpi2').classList.add('fora-ideal')
-                document.getElementById('kpi3').classList.add('fora-ideal')
-
-                if (
-                    (setor == 1 && sensor == 0) ||
-                    (setor == 0)
-
-                ) {
-                    document.getElementById('kpi3').classList.remove('fora-ideal')
-                }
+    if (!chart2) {
+        chart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+                datasets: [{
+                    label: 'PPFD',
+                    data: novoLineData,
+                    borderWidth: 2
+                }]
             }
-        }
-
-        async function carregarEstufas() {
-            const select = document.getElementById("sltsetor");
-            select.innerHTML = "<option value=''>Selecione um setor</option>";
-
-            setores.forEach(item => {
-                select.innerHTML += `
-            <option value="${item.idEstufa}">${item.nome}</option>
-        `;
-            });
-        }
-
-        async function carregarSensores() {
-            const select = document.getElementById("sltsensor");
-            select.innerHTML = "<option value=''>Selecione um sensor</option>";
-
-            sensores.forEach(item => {
-                select.innerHTML += `
-            <option value="${item.idSensor}">${item.nome}</option>
-        `;
-            });
-        }
-
-        function atualizarGraficos() {
-            let setor = document.getElementById("sltsetor").value;
-            let sensor = document.getElementById("sltsensor").value;
-
-            if (setor === "" || sensor === "") {
-                document.querySelector('.dashboard').style.display = 'none';
-                return;
-            }
-
-            document.querySelector('.dashboard').style.display = 'flex';
-            atualizarKPIs(setor, sensor);
-
-            let novoLineData = lineDatas[sensor]
-            let ctx2 = document.getElementById('myChart2').getContext('2d');
-
-
-            if (!chart2) {
-                const ctx = document.getElementById('myChart');
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                        datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            } else {
-                chart2.data.datasets[0].data = novoLineData;
-                chart2.update();
-            }
-        }
+        });
+    } else {
+        chart2.data.datasets[0].data = novoLineData;
+        chart2.update();
+    }
+}*/
 
         function abrirSuporte() {
             let fkNivelAcessoUsuario = Number(localStorage.getItem("fkNivelAcessoUsuario"));
