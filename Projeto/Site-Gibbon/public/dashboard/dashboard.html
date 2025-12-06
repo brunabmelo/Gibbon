@@ -49,9 +49,11 @@
     <main>
         <section class="dashboard-section">
             <div class="seletores">
-                <select id="sltEstufa" onchange="atualizarGraficos(this)">
+                <select id="sltEstufa" onchange="atualizarSensores(this)">
+                    <option value="0">Selecione uma estufa</option>
                 </select>
-                <select id="sltsensor" onchange="atualizarGraficos(this)">
+                <select id="sltSensor" onchange="atualizarGraficos(this)" disabled>
+                    <option value="0">Selecione um sensor</option>
                 </select>
             </div>
 
@@ -277,6 +279,74 @@
                 alert("Acesso restrito! Apenas suporte pode acessar esta página.");
             }
         }
+
+        const select_estufas = document.getElementById('sltEstufa')
+
+        fetch(`/estufas/listar/${sessionStorage.getItem('ID_EMPRESA')}`)
+            .then(resposta => {
+                resposta.json().then(vt_estufas => {
+                    for (let i = 0; i < vt_estufas.length; i++) {
+                        const estufa = vt_estufas[i];
+                        select_estufas.innerHTML += `
+                        <option value="${estufa.idEstufa}">
+                            <h3>${estufa.nome}</h3>
+                        </option>
+                    `
+                    }
+                })
+            })
+
+        function atualizarSensores(estufa) {
+            const id_estufa = estufa.value
+            const select_sensores = document.getElementById('sltSensor')
+
+            if (id_estufa == 0) {
+                select_sensores.setAttribute('disabled', '')
+                select_sensores.innerHTML = `
+                    <option value="0">
+                        <h3>Selecione um sensor</h3>
+                    </option>
+                `
+                return
+            }
+
+            fetch(`/sensores/listar/estufa/${id_estufa}/empresa/${sessionStorage.getItem('ID_EMPRESA')}`)
+                .then(resposta => {
+
+                    if (resposta.status == 204) {
+                        select_sensores.setAttribute('disabled', '')
+                        select_sensores.innerHTML = `
+                            <option value="0">
+                                <h3>Sem sensores cadastrados</h3>
+                            </option>
+                        `
+                    }
+                    else if (resposta.status == 200) {
+                        resposta.json().then(vt_sensores => {
+                            select_sensores.removeAttribute('disabled', '')
+                            
+                            select_sensores.innerHTML = `
+                                <option value="0">
+                                    <h3>Selecione um sensor</h3>
+                                </option>
+                            `
+
+                            for (let i = 0; i < vt_sensores.length; i++) {
+                                const sensor = vt_sensores[i];
+                                select_sensores.innerHTML += `
+                                    <option value="${sensor.id_sensor}">
+                                        <h3>${sensor.nome_sensor}</h3>
+                                    </option>
+                                `
+                            }
+                        })
+                    }
+                })
+                .catch(erro => {
+                    console.log('Erro ao atualizar sensores: ', erro);
+                })
+        }
+
     </script>
 </body>
 
