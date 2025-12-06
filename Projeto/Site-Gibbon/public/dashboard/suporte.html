@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -134,4 +135,142 @@
             alert("Acesso restrito! Apenas suporte pode acessar esta página.");
         }
     }
+=======
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gibbon</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="./assets/images/logos/tomate.ico">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/styleDashboard.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body onload="verificarNivelAcesso()">
+    <nav class="sidebar">
+        <div class="sidebar-container">
+            <div class="perfil">
+                <div class="perfil-card">
+                    <h2>Nome Usuário</h2>
+                </div>
+                <a href="./perfil.html">Perfil</a>
+                <button onclick="abrirSuporte()">Suporte</button>
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li><a href="./avisos.html">Avisos</a></li>
+                    <li><a href="./dashboard.html">Gráficos</a></li>
+                    <li><a href="./funcionarios.html">Funcionários</a></li>
+                    <li><a href="./estufas.html">Estufas</a></li>
+                    <li><a href="./sensores.html">Sensores</a></li>
+                </ul>
+            </div>
+            <div class="sair">
+                <button onclick="sair()">Sair</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="suporte-container">
+            <div class="apresentacao">
+                <h1>Olá, Usuário!</h1>
+            </div>
+            <div class="ferramentas">
+                <h3>Ferramentas de suporte</h3>
+                <div class="botoes-ferramentas">
+                    <div class="forma-ferramenta">
+                        <a href="../assets/docs/Atividade Gmud - Grupo1.pdf" target="_blank">GMUD</a>
+                    </div>
+                    <div class="forma-ferramenta">
+                        <a href="../assets/docs/FLUXOGRAMA.pdf" target="_blank">Fluxograma de suporte</a>
+                    </div>
+                    <div class="forma-ferramenta">
+                        <a
+                            href="https://home.atlassian.com/o/22621825-19e0-4dc3-84b0-0b1ec5888a09/?cloudId=06a71de0-2d5c-450f-a82e-cf8d0f79224c">Jira</a>
+                    </div>
+                    <div class="forma-ferramenta">
+                        <a href="bobIA.html">bobIA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+
+</html>
+
+<script>
+    function verificarNivelAcesso() {
+        let vt_niveis_acesso = []
+
+        JSON.parse(sessionStorage.NIVEIS_ACESSO).forEach(json => {
+            vt_niveis_acesso.push(json.nivel)
+        });
+
+        if (vt_niveis_acesso.includes('Suporte N3')) {
+            document.getElementById('bobia_btn_container').innerHTML = '<a href="./bobIA.html">Acessar Bob IA</a>'
+        }
+
+        // Deixar comentado de reserva caso não funcione
+
+        // fetch("/funcionarios/niveisAcesso", {
+        //     method: "post",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         id_empresa: sessionStorage.getItem('ID_EMPRESA'),
+        //         id_funcionario: sessionStorage.getItem('ID_FUNCIONARIO')
+        //     })
+        // }).then(function (resposta) {
+        //     if(resposta.ok) {
+        //         resposta.json().then((array) => {
+        //             for(let i = 0; i < array.length; i++) {
+        //                 let nivel = array[i].nivel
+        //                 vt_niveis_acesso.push(nivel)
+        //             }
+
+        //             if(vt_niveis_acesso.includes('Suporte N3')) {
+        //                 document.getElementById('bobia_btn_container').innerHTML = '<a href="./bobIA.html">Acessar Bob IA</a>'
+        //             }
+        //         })
+        //     }
+        //     else {
+        //         console.log('Houve um erro ao tentar buscar níveis de acesso do funcionário');
+        //     }
+        // })
+    }
+
+    function abrirSuporte() {
+        let vt_niveis_acesso = []
+
+        JSON.parse(sessionStorage.NIVEIS_ACESSO).forEach(json => {
+            vt_niveis_acesso.push(json.nivel)
+        });
+
+        console.log(vt_niveis_acesso.includes('Suporte N1'));
+        console.log(vt_niveis_acesso.includes('Suporte N2'));
+        console.log(vt_niveis_acesso.includes('Suporte N3'));
+        
+
+        if (vt_niveis_acesso.includes('Suporte N3') || vt_niveis_acesso.includes('Suporte N2') || vt_niveis_acesso.includes('Suporte N1')) {
+            window.location.href = "./suporte.html";
+        } else {
+            alert("Acesso restrito! Apenas suporte pode acessar esta página.");
+        }
+    }
+>>>>>>> 0cc4cdde1195bb43dd69ca8bb60ba8b427816059
 </script>
