@@ -1,15 +1,5 @@
--- Script Sprit 3 com resultados dinâmicos
+-- Script Views criadas para o projeto
 
--- Insert de cadastro de funcionário
-INSERT INTO funcionario ( nome, sobrenome, email, senha, fkEmpresa)
-        VALUES ('${nome}', '${sobrenome}', '${email}', '${senha}', ${fkEmpresa});
-        
--- select tela de alerta 
-SELECT sensor, estufa FROM vw_avisos
-    WHERE empresa = ${ID_EMPRESA} AND dataHora = 1 AND foraIdeal = 1;
-    
-    
--- View para consultar horas iluminadas do dia anterior
 CREATE VIEW vw_horas_ilumonadas_dia_anterior as 
 SELECT
     e.idEstufa,
@@ -23,3 +13,16 @@ WHERE DATE(r.dataHora) = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
   AND s.idSensor = 1
 GROUP BY e.idEstufa, s.idSensor;
 
+
+CREATE VIEW vw_media_ppfd_dia_anterior AS
+SELECT
+    e.idEstufa,
+    s.idSensor,
+    AVG(r.nivelLuz) AS media_ppfd
+FROM registro r
+JOIN sensor s ON s.idSensor = r.fkSensor
+JOIN estufa e ON e.idEstufa = s.fkEstufa
+WHERE DATE(r.dataHora) = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+  AND e.idEstufa = 1
+  AND s.idSensor = 1
+GROUP BY e.idEstufa, s.idSensor;
