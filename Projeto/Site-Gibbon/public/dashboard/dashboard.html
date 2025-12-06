@@ -55,7 +55,7 @@
                 </select>
             </div>
 
-            <div class="dashboard">
+            <div class="dashboard" id="dashboard">
                 <div class="dashboard-container">
                     <div class="titulo-container">
                         <span>Densidade de fluxo luminoso</span>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="dashboard-container-3-linhas">
+                <div class="dashboard-container-3-linhas" id="dashboard3linhas">
                     <div class="container-menor-valores-maior-menor">
                         <h3>Valores do dia</h3>
                         <div class="maior-menor">
@@ -158,138 +158,106 @@
     <script src="../js/dashboard.js"></script>
 
     <script>
-      /*  // dado mocado (nem está pegando do select)
-        var labels = []
-        var datahora = []
-        function buscarDados(){
-            fetch("/dashboard", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idServer: ID_EMPRESA
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+        function carregarEstufas() {
+            var idEmpresa = sessionStorage.ID_EMPRESA;
 
-            if (resposta.ok) {
-                console.log(resposta);
+            fetch(`/dashboard/estufas/${idEmpresa}`)
+                .then(res => res.json())
+                .then(estufas => preencherSelectEstufas(estufas));
+        }
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    
+        function preencherSelectEstufas(lista) {
+            const select = document.getElementById("sltEstufa");
 
+            select.innerHTML = `<option value="#">Selecione a estufa</option>`;
 
-                    for (var i = 0; i < json.length; i++) {
-                        dataHora.push(json[i].dataHora)
-                        labels.push(json[i].nivelLuz)
-
-                    }
-                    plotarGrafico()
-
-                });
-
-            } 
-            
-            else {
-
-                console.log("Houve um erro ao plotar na estufa!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
+            for (let i = 0; i < lista.length; i++) {
+                select.innerHTML += `
+            <option value="${lista[i].idEstufa}">
+                ${lista[i].nome}
+            </option>
+        `;
             }
+        }
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
+        function carregarSensores(idEstufa) {
+            fetch(`/dashboard/sensores/${idEstufa}`)
+                .then(res => res.json())
+                .then(lista => preencherSelectSensores(lista));
+        }
 
-    
+        function preencherSelectSensores(lista) {
+            const select = document.getElementById("sltsensor");
+
+            select.innerHTML = `<option value="#">Selecione o sensor</option>`;
+
+            for (let i = 0; i < lista.length; i++) {
+                select.innerHTML += `
+            <option value="${lista[i].idSensor}">
+                ${lista[i].nome}
+            </option>
+        `;
+            }
+        }
+        
+        function atualizarGraficos(select) {
+        let idEstufa = document.getElementById("sltEstufa").value;
+        let idSensor = document.getElementById("sltsensor").value;
+
+        if (select.id === "sltEstufa") {
+            carregarSensores(idEstufa);
+            return;
+        }
+
+        if (idEstufa !== "#" && idSensor !== "#") {
+            fetch(`/dashboard/ppfd/${idSensor}`)
+                .then(res => res.json())
+                .then(lista => plotarGraficoPPFD(lista));
+        }
     }
-        
 
-        
-        function plotarGrafico() {
+    function plotarGraficoPPFD(lista) {
 
+        const dashboard = document.getElementById("dashboard");
+        const dashboard3linhas = document.getElementById("dashboard3linhas");
 
-            document.querySelector('.dashboard').style.display = 'flex';
+        if (!lista || lista.length === 0) {
+            dashboard.style.display = "none";
+            dashboard3linhas.style.display = "none";
+            return;
+        }
 
-            let ctx2 = document.getElementById('myChart2').getContext('2d');
+        dashboard.style.display = "flex";
+        dashboard3linhas.style.display = "flex";
 
-            let dadosMock = [100, 180, 140, 220, 260, 300, 250];
+        const labels = [];
+        const dados = [];
 
+        for (let i = 0; i < lista.length; i++) {
+            let registro = lista[i];
 
-            new Chart(ctx2, {
-                type: 'line',
-                data: {
-                    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
-                    datasets: [{
-                        label: 'PPFD',
-                        data: labels,
-                        borderWidth: 2
-                    }]
-                }
+            let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit"
             });
-        };
 
-        /*function atualizarGraficos() {
-    let setor = document.getElementById("sltEstufa").value;
-    let sensor = document.getElementById("sltsensor").value;
+            labels.push(hora);
+            dados.push(registro.nivelLuz);
+        }
 
-    if (setor === "" || sensor === "") {
-        document.querySelector('.dashboard').style.display = 'none';
-        return;
-    }
-
-    document.querySelector('.dashboard').style.display = 'flex';
-
-    atualizarKPIs(setor, sensor);
-
-    let novoLineData = lineDatas[sensor]
-    let ctx2 = document.getElementById('myChart2').getContext('2d');
-
-    if (!chart2) {
-        chart2 = new Chart(ctx2, {
-            type: 'line',
+        new Chart(document.getElementById("myChart2"), {
+            type: "line",
             data: {
-                labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
+                labels: labels,
                 datasets: [{
-                    label: 'PPFD',
-                    data: novoLineData,
+                    label: "PPFD",
+                    data: dados,
                     borderWidth: 2
                 }]
             }
         });
-    } else {
-        chart2.data.datasets[0].data = novoLineData;
-        chart2.update();
     }
-}*/ document.addEventListener("DOMContentLoaded", () => {
 
-        // Apenas exibe o container do gráfico
-        document.querySelector(".dashboard").style.display = "flex";
-
-        // Dados totalmente MOCK
-        const labelsMock = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
-        const dadosMock = [100, 180, 140, 220, 260, 300, 250];
-
-        const ctx2 = document.getElementById("myChart2").getContext("2d");
-
-        new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: labelsMock,
-                datasets: [{
-                    label: 'PPFD',
-                    data: dadosMock,
-                    borderWidth: 2
-                }]
-            }
-        });
-    });
 
         function abrirSuporte() {
             let vt_niveis_acesso = []

@@ -17,6 +17,29 @@ function ppfd(id) {
     return database.executar(instrucaoSql);
 }
 
+function listarEstufas(idEmpresa) {
+    var instrucaoSql = `
+        SELECT idEstufa, nome
+        FROM estufa
+        WHERE fkEmpresa = ${idEmpresa};
+    `;
+    console.log("Executando SQL listarEstufas:\n", instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function listarSensores(idEstufa) {
+    var instrucaoSql = `
+        SELECT idSensor, nome
+        FROM sensor
+        WHERE fkEstufa = ${idEstufa};
+    `;
+    console.log("Executando SQL listarSensores:\n", instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-    ppfd
+    ppfd,
+    listarEstufas,
+    listarSensores
+
 };
