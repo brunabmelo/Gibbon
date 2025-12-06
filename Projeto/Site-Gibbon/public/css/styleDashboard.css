@@ -121,6 +121,7 @@ main {
     align-items: center;
     justify-content: center;
     width: 50%;
+    margin-left: 21%;
 }
 
 .perfil-form,
@@ -513,6 +514,11 @@ main {
     flex-direction: column;
 }
 
+.container {
+    display: flex;
+    margin-left: 21%;
+}
+
 .sensores-info {
     display: flex;
     margin: 18px;
@@ -829,6 +835,7 @@ main {
     align-items: center;
     height: 70vh;
     gap: 5%;
+    margin-left: 19%;
 }
 
 .textarea {
@@ -952,13 +959,16 @@ textarea:focus {
     font-weight: 500;
 }
 
+.forma-ferramenta a {
+    font-weight: 400;
+}
+
 .forma-ferramenta:hover {
     background-color: #ffce7f;
-    color: #3C3C3C;
+    color: #474747;
 }
 
 .botoes-ferramentas {
     display: flex;
     gap: 3%;
-}
 }
