@@ -1,43 +1,30 @@
 var dashboardModel = require("../models/dashboardModel");
 
-
 function ppfd(req, res) {
-    var id = req.body.IDServer;
-    
+    var id = req.params.id;  // usando id da URL
 
-    if (Id == undefined) {
-        res.status(400).send("Seu Id está undefined!");
-    }else {
+    if (id == undefined) {
+        res.status(400).send("O id da estufa está undefined!");
+    } else {
 
         dashboardModel.ppfd(id)
-            .then(
-                function (resultadoreceber) {
-                    console.log(`\nResultados encontrados: ${resultadoreceber.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoreceber)}`); // transforma JSON em String
+            .then(function (resultado) {
+                console.log(`\nResultados encontrados: ${resultado.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultado)}`);
 
-                    if (resultadoreceber.length == 1) {
-                        console.log(resultadoreceber);
-
-                        res.json({
-                        });
-                    } else {
-                        res.status(204).json({});
-                    }
-                })
-            .catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
+                if (resultado.length > 0) {
+                    res.json(resultado);
+                } else {
+                    res.status(204).json([]);
                 }
-            );
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                res.status(500).json(erro.sqlMessage);
+            });
     }
-
 }
-
-
 
 module.exports = {
-    
     ppfd
-}
+};

@@ -46,11 +46,11 @@
         <div class="bobIA-container">
             <h1>BobIA</h1>
             <div class="textarea">
-                <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+                <textarea id="inputPergunta" type="text" placeholder="Digite a pergunta..."></textarea>
                 <br><br>
                 <button onclick="gerarResposta()">Gerar Resposta</button>
             </div>
-            <div class="resposta-form">
+            <div id="resposta" class="resposta-form">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et totam non quam ab corporis natus assumenda, odio nam voluptas laborum rem ea. Expedita, repellendus! Libero perferendis cumque iusto deleniti ipsa!</p>
             </div>
         </div>
@@ -59,22 +59,28 @@
 </body>
 <script>
 
-    async function gerarResposta() {
-        const pergunta = document.getElementById('pergunta').value;
+   async function gerarResposta() {
+    const pergunta = document.getElementById("inputPergunta").value;
 
-        const response = await fetch('/perguntar', {
-            method: 'POST',
+    try {
+        const req = await fetch("http://localhost:3333/perguntar", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({ pergunta })
         });
 
-        const data = await response.json();
+        const data = await req.json();
 
-        resposta.style.display = 'block';
-        document.getElementById('resposta').innerText = data.resultado;
+        document.getElementById("resposta").innerText = data.resultado;
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("resposta").innerText =
+            "Erro ao gerar resposta.";
     }
+}
 
     function abrirSuporte() {
         let vt_niveis_acesso = []

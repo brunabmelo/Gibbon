@@ -158,7 +158,7 @@
     <script src="../js/dashboard.js"></script>
 
     <script>
-        // dado mocado (nem está pegando do select)
+      /*  // dado mocado (nem está pegando do select)
         var labels = []
         var datahora = []
         function buscarDados(){
@@ -267,7 +267,29 @@
         chart2.data.datasets[0].data = novoLineData;
         chart2.update();
     }
-}*/
+}*/ document.addEventListener("DOMContentLoaded", () => {
+
+        // Apenas exibe o container do gráfico
+        document.querySelector(".dashboard").style.display = "flex";
+
+        // Dados totalmente MOCK
+        const labelsMock = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
+        const dadosMock = [100, 180, 140, 220, 260, 300, 250];
+
+        const ctx2 = document.getElementById("myChart2").getContext("2d");
+
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: labelsMock,
+                datasets: [{
+                    label: 'PPFD',
+                    data: dadosMock,
+                    borderWidth: 2
+                }]
+            }
+        });
+    });
 
         function abrirSuporte() {
             let vt_niveis_acesso = []
