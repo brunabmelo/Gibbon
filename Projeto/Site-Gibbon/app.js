@@ -2,8 +2,6 @@
 var ambiente_processo = 'desenvolvimento';
 
 var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
-// Acima, temos o uso do operador ternário para definir o caminho do arquivo .env
-// A sintaxe do operador ternário é: condição ? valor_se_verdadeiro : valor_se_falso
 
 require("dotenv").config({ path: caminho_env });
 
@@ -15,26 +13,66 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
+// ROTAS DO SISTEMA
 var indexRouter = require("./src/routes/index");
 var funcionariosRouter = require("./src/routes/funcionarios");
-// var cadastrarRouter = require("./src/routes/cadastrar");
-var empresaRouter = require("./src/routes/empresa")
-var sensoresRouter = require("./src/routes/sensores")
-var estufasRouter = require("./src/routes/estufas")
+var empresaRouter = require("./src/routes/empresa");
+var sensoresRouter = require("./src/routes/sensores");
+var estufasRouter = require("./src/routes/estufas");
+var dashboardRouter = require("./src/routes/dashboard");
 
+
+// CONFIGURAÇÕES DO EXPRESS
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
-
 app.use(cors());
 
+// USO DAS ROTAS
 app.use("/", indexRouter);
-app.use("/funcionarios", funcionariosRouter)
-// app.use("/cadastrar", cadastrarRouter)
-app.use("/empresa", empresaRouter)
-app.use("/sensores", sensoresRouter)
-app.use("/estufas", estufasRouter)
+app.use("/funcionarios", funcionariosRouter);
+app.use("/empresa", empresaRouter);
+app.use("/sensores", sensoresRouter);
+app.use("/estufas", estufasRouter);
+app.use("/dashboard", dashboardRouter);
 
+
+const { GoogleGenAI } = require("@google/genai");
+
+const chatIA = new GoogleGenAI({
+    apiKey: process.env.MINHA_CHAVE
+});
+
+app.post("/perguntar", async (req, res) => {
+    const pergunta = req.body.pergunta;
+
+    try {
+        const resposta = await gerarResposta(pergunta);
+        return res.json({ resultado: resposta });
+    } catch (error) {
+        console.error("Erro no /perguntar:", error);
+        return res.status(500).json({ erro: "Erro interno ao gerar resposta" });
+    }
+});
+
+async function gerarResposta(mensagem) {
+    try {
+        const modeloIA = chatIA.models.generateContent({
+            model: "gemini-2.0-flash",
+            contents: `Responda de forma clara: ${mensagem}`
+        });
+
+        const resposta = (await modeloIA).text;
+        return resposta;
+
+    } catch (error) {
+        console.error("Erro IA:", error);
+        throw error;
+    }
+}
+
+
+// INICIANDO SERVIDOR
 app.listen(PORTA_APP, function () {
     console.log(`
     ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  
@@ -44,10 +82,8 @@ app.listen(PORTA_APP, function () {
     #######  ##       ##  ##            ##  ##   ##  ##     ##     ##  ##            ##  ##     ##      ##     
     ### ###  ##       ##  ##            ## ##    ##  ##     ##     ##  ##             ####      ##     ##      
     ##   ##  ######   #####             ####     ##  ##     ##     ##  ##              ##      ####    ######  
-    \n\n\n                                                                                                 
-    Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar .: http://${HOST_APP}:${PORTA_APP} :. \n\n
-    Você está rodando sua aplicação em ambiente de .:${process.env.AMBIENTE_PROCESSO}:. \n\n
-    \tSe .:desenvolvimento:. você está se conectando ao banco local. \n
-    \tSe .:producao:. você está se conectando ao banco remoto. \n\n
-    \t\tPara alterar o ambiente, comente ou descomente as linhas 1 ou 2 no arquivo 'app.js'\n\n`);
+    
+    Servidor rodando em: http://${HOST_APP}:${PORTA_APP}
+    Ambiente: ${process.env.AMBIENTE_PROCESSO}
+    `);
 });
