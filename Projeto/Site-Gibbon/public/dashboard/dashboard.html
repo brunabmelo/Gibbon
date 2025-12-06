@@ -159,7 +159,62 @@
 
     <script>
         // dado mocado (nem está pegando do select)
-        window.onload = function () {
+        var labels = []
+        var datahora = []
+        function buscarDados(){
+            fetch("/dashboard", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: ID_EMPRESA
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    
+
+
+                    for (var i = 0; i < json.length; i++) {
+                        dataHora.push(json[i].dataHora)
+                        labels.push(json[i].nivelLuz)
+
+                    }
+                    plotarGrafico()
+
+                });
+
+            } 
+            
+            else {
+
+                console.log("Houve um erro ao plotar na estufa!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+    
+    }
+        
+
+        
+        function plotarGrafico() {
+
+
             document.querySelector('.dashboard').style.display = 'flex';
 
             let ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -173,7 +228,7 @@
                     labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'],
                     datasets: [{
                         label: 'PPFD',
-                        data: dadosMock,
+                        data: labels,
                         borderWidth: 2
                     }]
                 }
