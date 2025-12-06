@@ -8,7 +8,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="./assets/images/logos/tomate.ico">
+    <link rel="icon" href="../assets/images/logos/tomate.ico">
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
@@ -31,7 +32,7 @@
             <div class="navbar">
                 <ul>
                     <li><a href="./avisos.html">Avisos</a></li>
-                    <li><a  href="./dashboard.html">Gráficos</a></li>
+                    <li><a href="./dashboard.html">Gráficos</a></li>
                     <li><a href="./funcionarios.html">Funcionários</a></li>
                     <li><a class="selecionado" href="./estufas.html">Estufas</a></li>
                     <li><a href="./sensores.html">Sensores</a></li>
@@ -49,7 +50,8 @@
             <div class="cadastro-form">
                 <div class="ipt-container">
                     <label for="nome_estufa">Nome da estufa*</label>
-                    <input type="text" id="nome_estufa" name="nome" placeholder="Nome da estufa" inputmode="text" required>
+                    <input type="text" id="nome_estufa" name="nome" placeholder="Nome da estufa" inputmode="text"
+                        required>
                     <label for="min-ppfd">PPFD Mínimo*</label>
                     <input type="number" id="min-ppfd" placeholder="PPFD Mínimo">
                     <label for="max-ppfd">PPFD Máximo*</label>
@@ -82,18 +84,18 @@
                 ppfdMax
             })
         }).then(res => {
-                console.log(res);
-                console.log(res.status);
-                
-                if (res.status == 201) {
-                    alert("Estufa cadastrada com sucesso!");
-                    window.location = "./estufas.html";
-                } else {
-                    alert("Erro ao cadastrar estufa");
-                }
-            });
+            console.log(res);
+            console.log(res.status);
+
+            if (res.status == 201) {
+                alert("Estufa cadastrada com sucesso!");
+                window.location = "./estufas.html";
+            } else {
+                alert("Erro ao cadastrar estufa");
+            }
+        });
     }
-    
+
     function abrirSuporte() {
         let vt_niveis_acesso = []
 
@@ -104,7 +106,7 @@
         console.log(vt_niveis_acesso.includes('Suporte N1'));
         console.log(vt_niveis_acesso.includes('Suporte N2'));
         console.log(vt_niveis_acesso.includes('Suporte N3'));
-        
+
 
         if (vt_niveis_acesso.includes('Suporte N3') || vt_niveis_acesso.includes('Suporte N2') || vt_niveis_acesso.includes('Suporte N1')) {
             window.location.href = "./suporte.html";
