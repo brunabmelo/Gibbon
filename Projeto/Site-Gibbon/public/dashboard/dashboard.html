@@ -201,65 +201,92 @@
         `;
             }
         }
-        
+
         function atualizarGraficos(select) {
-        let idEstufa = document.getElementById("sltEstufa").value;
-        let idSensor = document.getElementById("sltsensor").value;
+            let idEstufa = document.getElementById("sltEstufa").value;
+            let idSensor = document.getElementById("sltsensor").value;
 
-        if (select.id === "sltEstufa") {
-            carregarSensores(idEstufa);
-            return;
-        }
-
-        if (idEstufa !== "#" && idSensor !== "#") {
-            fetch(`/dashboard/ppfd/${idSensor}`)
-                .then(res => res.json())
-                .then(lista => plotarGraficoPPFD(lista));
-        }
-    }
-
-    function plotarGraficoPPFD(lista) {
-
-        const dashboard = document.getElementById("dashboard");
-        const dashboard3linhas = document.getElementById("dashboard3linhas");
-
-        if (!lista || lista.length === 0) {
-            dashboard.style.display = "none";
-            dashboard3linhas.style.display = "none";
-            return;
-        }
-
-        dashboard.style.display = "flex";
-        dashboard3linhas.style.display = "flex";
-
-        const labels = [];
-        const dados = [];
-
-        for (let i = 0; i < lista.length; i++) {
-            let registro = lista[i];
-
-            let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
-                hour: "2-digit",
-                minute: "2-digit"
-            });
-
-            labels.push(hora);
-            dados.push(registro.nivelLuz);
-        }
-
-        new Chart(document.getElementById("myChart2"), {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: "PPFD",
-                    data: dados,
-                    borderWidth: 2
-                }]
+            if (select.id === "sltEstufa") {
+                carregarSensores(idEstufa);
+                return;
             }
-        });
-    }
 
+            if (idEstufa !== "#" && idSensor !== "#") {
+                fetch(`/dashboard/ppfd/${idSensor}`)
+                    .then(res => res.json())
+                    .then(lista => plotarGraficoPPFD(lista));
+            }
+        }
+
+        function plotarGraficoPPFD(lista) {
+
+            const dashboard = document.getElementById("dashboard");
+            const dashboard3linhas = document.getElementById("dashboard3linhas");
+
+            if (!lista || lista.length === 0) {
+                dashboard.style.display = "none";
+                dashboard3linhas.style.display = "none";
+                return;
+            }
+
+            dashboard.style.display = "flex";
+            dashboard3linhas.style.display = "flex";
+
+            const labels = [];
+            const dados = [];
+
+            for (let i = 0; i < lista.length; i++) {
+                let registro = lista[i];
+
+                let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+
+                labels.push(hora);
+                dados.push(registro.nivelLuz);
+            }
+
+            new Chart(document.getElementById("myChart2"), {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "PPFD",
+                        data: dados,
+                        borderWidth: 2
+                    }]
+                }
+            });
+        }
+
+        function preencherKPIs(lista, horasInfo) {
+            let maior = lista[0].nivelLuz;
+            let menor = lista[0].nivelLuz;
+            let soma = 0;
+            let quantidade = 0;
+
+            for (let i = 0; i < lista.length; i++) {
+                let v = lista[i].nivelLuz;
+
+                if (v > maior) maior = v;
+                if (v < menor) menor = v;
+
+                soma += v;
+                quantidade++;
+            }
+
+            let mediaPPFD = soma / quantidade;
+
+            let horasIluminadas = horasInfo.horas_iluminadas;
+
+            let dli = (mediaPPFD * 3600 * horasIluminadas) / 1000000;
+
+            document.getElementById("maiorValor").innerHTML = maior;
+            document.getElementById("menorValor").innerHTML = menor;
+            document.getElementById("horasIluminadas").innerHTML = horasIluminadas;
+            document.getElementById("dliReal").innerHTML = dli.toFixed(2);
+        }
 
         function abrirSuporte() {
             let vt_niveis_acesso = []
@@ -324,7 +351,7 @@
                     else if (resposta.status == 200) {
                         resposta.json().then(vt_sensores => {
                             select_sensores.removeAttribute('disabled', '')
-                            
+
                             select_sensores.innerHTML = `
                                 <option value="0">
                                     <h3>Selecione um sensor</h3>
