@@ -66,12 +66,13 @@ FOREIGN KEY (fkEstufa) REFERENCES estufa(idEstufa)
 );
 
 CREATE TABLE registro (
-idRegistro INT PRIMARY KEY AUTO_INCREMENT,
+idRegistro INT AUTO_INCREMENT,
 nivelLuz DECIMAL(6,2) NOT NULL,
 estadoLuz TINYINT NOT NULL,
 dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
 fkSensor INT, 
-FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor)
+FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor),
+PRIMARY KEY (idRegistro, fkSensor)
 );
 
 -- INSERTS 
