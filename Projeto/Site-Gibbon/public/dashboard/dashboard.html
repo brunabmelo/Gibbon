@@ -128,7 +128,7 @@
                             <div class="box-valores-reais" id="kpi3">
                                 <span class="legenda">Fotoperíodo do dia anterior</span>
                                 <div>
-                                    <span class="medida">552</span>
+                                    <span class="medida" id="fotoperiodo-anterior"></span>
                                     <p>Horas</p>
                                 </div>
                             </div>
@@ -364,48 +364,28 @@
 
 
 
-
-
-
-
-        // pode mexer
-        function preencherKPIs(lista, horasInfo) {
-            let maior = lista[0].nivelLuz;
-            let menor = lista[0].nivelLuz;
-            let soma = 0;
-            let quantidade = 0;
-
-            for (let i = 0; i < lista.length; i++) {
-                let v = lista[i].nivelLuz;
-
-                if (v > maior) maior = v;
-                if (v < menor) menor = v;
-
-                soma += v;
-                quantidade++;
-            }
-
-            let mediaPPFD = soma / quantidade;
-
-            let horasIluminadas = horasInfo.horas_iluminadas;
-
-            let dli = (mediaPPFD * 3600 * horasIluminadas) / 1000000;
-
-            document.getElementById("maiorValor").innerHTML = maior;
-            document.getElementById("menorValor").innerHTML = menor;
-            document.getElementById("horasIluminadas").innerHTML = horasIluminadas;
-            document.getElementById("dliReal").innerHTML = dli.toFixed(2);
+        /*KPIs --------------------------------------------------------------------- */
+        function carregarFotoperiodoAnterior() {
+            fetch("/medidas/fotoperiodo-anterior", {
+                method: "GET"
+            })
+                .then(res => res.json())
+                .then(dados => {
+                    // Esperado: [{ idEstufa: 1, idSensor: 1, horas_ilumonadas: 12 }]
+                    if (dados && dados.length > 0) {
+                        var horas = dados[0].horas_ilumonadas;
+                        document.getElementById("fotoperiodo-anterior").innerText = horas + " h";
+                    } else {
+                        document.getElementById("fotoperiodo-anterior").innerText = "0 h";
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro ao buscar fotoperíodo do dia anterior:", err);
+                    document.getElementById("fotoperiodo-anterior").innerText = "--";
+                });
         }
 
-
-
-
-
-
-
-
-
-
+        
         // Não mexer
         function abrirSuporte() {
             let vt_niveis_acesso = []
