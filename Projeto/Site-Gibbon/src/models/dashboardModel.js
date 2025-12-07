@@ -63,8 +63,8 @@ function buscarIdeais(idEstufa, idSensor, idEmpresa) {
         FROM estufa e
         JOIN variedade v ON v.idVariedade = e.fkVariedade
         WHERE e.idEstufa = ${idEstufa}
-          AND v.idSensor = ${idSensor}
-          AND e.fkEmpresa = ${idEmpresa};
+            AND v.idSensor = ${idSensor}
+            AND e.fkEmpresa = ${idEmpresa};
     `;
 
     return database.executar(instrucaoSql);
@@ -72,16 +72,16 @@ function buscarIdeais(idEstufa, idSensor, idEmpresa) {
 
 function buscarPpfdDia(idEstufa, idSensor, idEmpresa) {
     const instrucao = `
-        SELECT
-            MAX(r.ppfd) AS ppfdMax,
-            MIN(r.ppfd) AS ppfdMin
-        FROM registro r
+    SELECT
+        MAX(r.ppfd) AS ppfdMax,
+        MIN(r.ppfd) AS ppfdMin
+    FROM registro r
         JOIN sensor s ON s.idSensor = r.fkSensor
         JOIN estufa e ON e.idEstufa = s.fkEstufa
-        WHERE DATE(r.dataHora) = CURDATE()
-          AND e.idEstufa = ${idEstufa}
-          AND s.idSensor = ${idSensor}
-          AND e.fkEmpresa = ${idEmpresa};
+    WHERE DATE(r.dataHora) = CURRENT_DATE()
+        AND e.idEstufa = ${idEstufa}
+        AND s.idSensor = ${idSensor}
+        AND e.fkEmpresa = ${idEmpresa};
     `;
 
     return database.executar(instrucao);
