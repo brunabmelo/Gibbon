@@ -18,14 +18,16 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styleDashboard.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <script src="../js/dashboard.js"></script>
 </head>
 
-<body onload="verificarNivelAcesso()">
+<body onload="verificarNivelAcesso(), validarSessao()">
     <nav class="sidebar">
         <div class="sidebar-container">
             <div class="perfil">
                 <div class="perfil-card">
-                    <h2>Nome Usuário</h2>
+                    <h2 id="nome_usuario_sidebar">Nome Usuário</h2>
                 </div>
                 <a href="./perfil.html">Perfil</a>
                 <button onclick="abrirSuporte()">Suporte</button>
@@ -62,7 +64,7 @@
                     <div class="forma-ferramenta">
                         <a href="https://sptech-grupo1.atlassian.net/jira/software/projects/KAN/list?jql=project%20%3D%20%22KAN%22%20ORDER%20BY%20created%20DESC" target="_blank">Jira</a>
                     </div>
-                    <div class="forma-ferramenta">
+                    <div id="bobIA-container" class="forma-ferramenta">
                         <a href="bobIA.html">bobIA</a>
                     </div>
                     <div class="forma-ferramenta">
@@ -72,8 +74,6 @@
             </div>
         </div>
     </main>
-
-    <script src="../js/dashboard.js"></script>
 </body>
 
 </html>
@@ -86,8 +86,8 @@
             vt_niveis_acesso.push(json.nivel)
         });
 
-        if (vt_niveis_acesso.includes('Suporte N3')) {
-            document.getElementById('bobia_btn_container').innerHTML = '<a href="./bobIA.html">Acessar Bob IA</a>'
+        if (!vt_niveis_acesso.includes('Suporte N3')) {
+            document.getElementById('bobIA-container').style.display = 'none'
         }
 
         // Deixar comentado de reserva caso não funcione

@@ -1,6 +1,7 @@
 let senhaUsuario = '123456'
 
 function sair() {
+    sessionStorage.clear();
     window.location.href = '../index.html'
 }
 
@@ -9,13 +10,13 @@ function atualizarPerfil() {
     let iptNovaSenha = document.getElementById('nova-senha')
     let iptConfirmacaoSenha = document.getElementById('confirmacao-senha')
 
-    if(
+    if (
         iptSenhaAtual.value == '' ||
         iptNovaSenha.value == '' ||
         iptConfirmacaoSenha.value == ''
     ) {
         alert('Preencha todos os campos')
-    } 
+    }
     else if (iptSenhaAtual.value != senhaUsuario) {
         alert('Senha incorreta')
     }
@@ -31,50 +32,15 @@ function atualizarPerfil() {
     }
 }
 
-function cadastrar() {
-    let iptNome = document.getElementById('nome')
-    let iptSobrenome = document.getElementById('sobrenome')
-    let iptEmail = document.getElementById('email')
-    let selNivelAcesso = document.getElementById('sel_NivelAcesso')
-    let iptSenha = document.getElementById('senha')
-    let iptConfirmacaoSenha = document.getElementById('confirmacao-senha')
+function validarSessao() {
+    var email = sessionStorage.EMAIL
+    var nome = sessionStorage.NOME
+    var sobrenome = sessionStorage.SOBRENOME
+    var nome_usuario_sidebar = document.getElementById("nome_usuario_sidebar")
 
-    if (
-        iptNome.value == '' ||
-        iptSobrenome.value == '' ||
-        iptEmail.value == '' ||
-        selNivelAcesso.value == '' ||
-        iptSenha.value == '' ||
-        iptConfirmacaoSenha.value == ''
-    ) {
-        alert('Preencha todos os campos')
-    }
-    else if(iptSenha.value != iptConfirmacaoSenha.value) {
-        alert('Senhas não correspondem')
-    }
-    else {
-        let isEmail = false
-        let i = 0
-        while (i < iptEmail.value.length) {
-            let temArroba = iptEmail.value[i] == '@'
-            i++
-
-            if(temArroba) {
-                isEmail = true
-                break
-            }
-        }
-
-        if(isEmail) {
-            alert('Usuário cadastrado com sucesso')
-            iptNome.value = ''
-            iptSobrenome.value = ''
-            iptEmail.value = ''
-            selNivelAcesso.value = ''
-            iptSenha.value = ''
-            iptConfirmacaoSenha.value = ''
-        } else {
-            alert('Insira um e-mail')
-        }
+    if (email != null && nome != null) {
+        nome_usuario_sidebar.innerHTML = `${nome} ${sobrenome}`
+    } else {
+        window.location = "../login.html";
     }
 }

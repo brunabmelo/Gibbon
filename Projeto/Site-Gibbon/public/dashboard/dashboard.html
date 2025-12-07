@@ -18,14 +18,16 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styleDashboard.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <script src="../js/dashboard.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao()">
     <nav class="sidebar">
         <div class="sidebar-container">
             <div class="perfil">
                 <div class="perfil-card">
-                    <h2>Nome Usuário</h2>
+                    <h2 id="nome_usuario_sidebar">Nome Usuário</h2>
                 </div>
                 <a href="./perfil.html">Perfil</a>
                 <button onclick="abrirSuporte()">Suporte</button>
@@ -156,8 +158,6 @@
                 </div>
         </section>
     </main>
-
-    <script src="../js/dashboard.js"></script>
 
     <script>
         const dashboard = document.getElementById("dashboard");
