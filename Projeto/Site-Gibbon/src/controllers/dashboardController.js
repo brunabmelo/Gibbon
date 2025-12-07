@@ -1,19 +1,17 @@
 var dashboardModel = require("../models/dashboardModel");
 
-function ppfd(req, res) {
-    var id = req.params.id;  // usando id da URL
+function buscarRegistro(req, res) {
+    var id_estufa = req.params.id_estufa;
+    var id_sensor = req.params.id_sensor;
+    var id_empresa = req.params.id_empresa;
 
-    if (id == undefined) {
-        res.status(400).send("O id da estufa está undefined!");
-    } else {
-
-        dashboardModel.ppfd(id)
+        dashboardModel.buscarRegistro(id_estufa, id_sensor, id_empresa)
             .then(function (resultado) {
                 console.log(`\nResultados encontrados: ${resultado.length}`);
                 console.log(`Resultados: ${JSON.stringify(resultado)}`);
 
                 if (resultado.length > 0) {
-                    res.json(resultado);
+                    res.status(200).json(resultado);
                 } else {
                     res.status(204).json([]);
                 }
@@ -22,7 +20,6 @@ function ppfd(req, res) {
                 console.log(erro);
                 res.status(500).json(erro.sqlMessage);
             });
-    }
 }
 
 function listarEstufas(req, res) {
@@ -62,7 +59,7 @@ function listarSensores(req, res) {
 }
 
 module.exports = {
-    ppfd,
+    buscarRegistro,
     listarEstufas,
     listarSensores
 };

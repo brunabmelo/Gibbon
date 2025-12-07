@@ -52,7 +52,7 @@
                 <select id="sltEstufa" onchange="atualizarSensores(this)">
                     <option value="0">Selecione uma estufa</option>
                 </select>
-                <select id="sltSensor" onchange="atualizarGraficos(this)" disabled>
+                <select id="sltSensor" onchange="obterDadosGrafico(this)" disabled>
                     <option value="0">Selecione um sensor</option>
                 </select>
             </div>
@@ -86,7 +86,7 @@
 
                     <div class="box-grafico">
                         <div>
-                            <canvas id="myChart2"></canvas>
+                            <canvas id="myChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -160,86 +160,129 @@
     <script src="../js/dashboard.js"></script>
 
     <script>
-        function carregarEstufas() {
-        }
+        const select_estufas = document.getElementById('sltEstufa')
 
-        function preencherSelectEstufas(lista) {
-            const select = document.getElementById("sltEstufa");
+        fetch(`/estufas/listar/${sessionStorage.getItem('ID_EMPRESA')}`)
+            .then(resposta => {
+                resposta.json().then(vt_estufas => {
+                    for (let i = 0; i < vt_estufas.length; i++) {
+                        const estufa = vt_estufas[i];
+                        select_estufas.innerHTML += `
+                        <option value="${estufa.idEstufa}">
+                            <h3>${estufa.nome}</h3>
+                        </option>
+                    `
+                    }
+                })
+            })
 
-            select.innerHTML = `<option value="#">Selecione a estufa</option>`;
+        function atualizarSensores(estufa) {
+            const id_estufa = estufa.value
+            const select_sensores = document.getElementById('sltSensor')
 
-            for (let i = 0; i < lista.length; i++) {
-                select.innerHTML += `
-            <option value="${lista[i].idEstufa}">
-                ${lista[i].nome}
-            </option>
-        `;
+            if (id_estufa == 0) {
+                select_sensores.setAttribute('disabled', '')
+                select_sensores.innerHTML = `
+                    <option value="0">
+                        <h3>Selecione um sensor</h3>
+                    </option>
+                `
+                return
             }
+
+            fetch(`/sensores/listar/estufa/${id_estufa}/empresa/${sessionStorage.getItem('ID_EMPRESA')}`)
+                .then(resposta => {
+
+                    if (resposta.status == 204) {
+                        select_sensores.setAttribute('disabled', '')
+                        select_sensores.innerHTML = `
+                            <option value="0">
+                                <h3>Sem sensores cadastrados</h3>
+                            </option>
+                        `
+                    }
+                    else if (resposta.status == 200) {
+                        resposta.json().then(vt_sensores => {
+                            select_sensores.removeAttribute('disabled', '')
+
+                            select_sensores.innerHTML = `
+                                <option value="0">
+                                    <h3>Selecione um sensor</h3>
+                                </option>
+                            `
+
+                            for (let i = 0; i < vt_sensores.length; i++) {
+                                const sensor = vt_sensores[i];
+                                select_sensores.innerHTML += `
+                                    <option value="${sensor.id_sensor}">
+                                        <h3>${sensor.nome_sensor}</h3>
+                                    </option>
+                                `
+                            }
+                        })
+                    }
+                })
+                .catch(erro => {
+                    console.log('Erro ao atualizar sensores: ', erro);
+                })
         }
 
-        function carregarSensores(idEstufa) {
-        }
 
-        function preencherSelectSensores(lista) {
-            const select = document.getElementById("sltsensor");
 
-            select.innerHTML = `<option value="#">Selecione o sensor</option>`;
 
-            for (let i = 0; i < lista.length; i++) {
-                select.innerHTML += `
-            <option value="${lista[i].idSensor}">
-                ${lista[i].nome}
-            </option>
-        `;
+
+        let proximaAtualizacao;
+
+        function obterDadosGrafico(select) {
+
+            if (proximaAtualizacao != undefined) {
+                clearTimeout(proximaAtualizacao);
             }
-        }
 
-        function atualizarGraficos(select) {
             let idEstufa = document.getElementById("sltEstufa").value;
-            let idSensor = document.getElementById("sltsensor").value;
+            let idSensor = select.value;
 
-            if (select.id === "sltEstufa") {
-                carregarSensores(idEstufa);
-                return;
-            }
-
-            if (idEstufa !== "#" && idSensor !== "#") {
-                fetch(`/dashboard/ppfd/${idSensor}`)
+            if (idEstufa !== "0" && idSensor !== "0") {
+                fetch(`/dashboard/buscar/resgistro/empresa/${sessionStorage.getItem('ID_EMPRESA')}/estufa/${idEstufa}/sensor/${idSensor}`)
                     .then(res => res.json())
-                    .then(lista => plotarGraficoPPFD(lista));
+                    .then(lista => plotarGraficoPPFD(lista, idEstufa, idSensor));
             }
         }
 
-        function plotarGraficoPPFD(lista) {
+        const labels = [];
+        const dados = [];
 
-            const dashboard = document.getElementById("dashboard");
-            const dashboard3linhas = document.getElementById("dashboard3linhas");
+        function plotarGraficoPPFD(lista, idEstufa, idSensor) {
 
-            if (!lista || lista.length === 0) {
-                dashboard.style.display = "none";
-                dashboard3linhas.style.display = "none";
-                return;
-            }
+            // const dashboard = document.getElementById("dashboard");
+            // const dashboard3linhas = document.getElementById("dashboard3linhas");
 
-            dashboard.style.display = "flex";
-            dashboard3linhas.style.display = "flex";
+            // if (!lista || lista.length === 0) {
+            //     dashboard.style.display = "none";
+            //     dashboard3linhas.style.display = "none";
+            //     return;
+            // }
 
-            const labels = [];
-            const dados = [];
+            // dashboard.style.display = "flex";
+            // dashboard3linhas.style.display = "flex";
 
-            for (let i = 0; i < lista.length; i++) {
-                let registro = lista[i];
 
-                let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
-                    hour: "2-digit",
-                    minute: "2-digit"
-                });
 
-                labels.push(hora);
-                dados.push(registro.nivelLuz);
-            }
+            // for (let i = 0; i < lista.length; i++) {
+            // let registro = lista[i];
+            let registro = lista[0]
 
-            new Chart(document.getElementById("myChart2"), {
+            let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: '2-digit'
+            });
+
+            labels.push(hora);
+            dados.push(registro.nivelLuz);
+            // }
+
+            let grafico = new Chart(document.getElementById("myChart"), {
                 type: "line",
                 data: {
                     labels: labels,
@@ -250,8 +293,23 @@
                     }]
                 }
             });
+
+            atualizarGrafico(grafico, idEstufa, idSensor)
         }
 
+        function atualizarGrafico() {
+
+        }
+
+
+
+
+
+
+
+
+
+        // pode mexer
         function preencherKPIs(lista, horasInfo) {
             let maior = lista[0].nivelLuz;
             let menor = lista[0].nivelLuz;
@@ -280,6 +338,16 @@
             document.getElementById("dliReal").innerHTML = dli.toFixed(2);
         }
 
+
+
+
+
+
+
+
+
+
+        // Não mexer
         function abrirSuporte() {
             let vt_niveis_acesso = []
 

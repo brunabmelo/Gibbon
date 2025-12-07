@@ -1,16 +1,19 @@
 var database = require("../database/config");
 
 // Model da função PPFD
-function ppfd(id) {
-    console.log("Executando PPFD para a estufa:", id);
+function buscarRegistro(id_estufa, id_sensor, id_empresa) {
 
     var instrucaoSql = `
-        SELECT r.nivelLuz, r.dataHora
+        SELECT 
+            r.nivelLuz, 
+            r.dataHora
         FROM registro r
-        INNER JOIN sensor s ON s.idSensor = r.fkSensor
-        INNER JOIN estufa e ON e.idEstufa = s.fkEstufa
-        WHERE e.idEstufa = ${id}
-        ORDER BY r.dataHora;
+        JOIN sensor s 
+            ON s.idSensor = r.fkSensor
+        JOIN estufa e 
+            ON e.idEstufa = s.fkEstufa
+        WHERE s.fkEstufa = ${id_estufa} AND s.idSensor = ${id_sensor} AND e.fkEmpresa = ${id_empresa}
+        ORDER BY r.dataHora DESC LIMIT 1;
     `;
 
     console.log("Executando a instrução SQL:\n" + instrucaoSql);
@@ -38,7 +41,7 @@ function listarSensores(idEstufa) {
 }
 
 module.exports = {
-    ppfd,
+    buscarRegistro,
     listarEstufas,
     listarSensores
 
