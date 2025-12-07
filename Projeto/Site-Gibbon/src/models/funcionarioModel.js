@@ -53,9 +53,21 @@ function cadastrarAcessoFuncionario(fkFuncionario, fkEmpresa, fkNivelAcesso) {
     return database.executar(instrucao);
 }
 
+function atualizar(id_funcionario, id_empresa, senha) {
+    var instrucao = `
+        UPDATE funcionario SET senha = '${senha}'
+        WHERE idFuncionario = ${id_funcionario} AND fkEmpresa = ${id_empresa};
+    `;
+
+    console.log("Executando SQL:", instrucao);
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar, 
     buscarNiveisAcesso,
     cadastrar,
-    cadastrarAcessoFuncionario
+    cadastrarAcessoFuncionario,
+    atualizar
 }

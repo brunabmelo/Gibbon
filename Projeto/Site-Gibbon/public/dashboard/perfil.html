@@ -77,6 +77,9 @@
 
 </html>
 <script>
+    document.getElementById('nome-completo').value = `${sessionStorage.NOME} ${sessionStorage.SOBRENOME}`
+    document.getElementById('e-mail').value = sessionStorage.EMAIL
+
     function abrirSuporte() {
         let vt_niveis_acesso = []
 
@@ -93,6 +96,44 @@
             window.location.href = "./suporte.html";
         } else {
             alert("Acesso restrito! Apenas suporte pode acessar esta página.");
+        }
+    }
+
+    function atualizarPerfil() {
+        let senha_atual = document.getElementById('senha-atual').value
+        let nova_senha = document.getElementById('nova-senha').value
+        let confirmacao_senha = document.getElementById('confirmacao-senha').value
+
+        if (senha_atual != sessionStorage.getItem('SENHA')) {
+            alert('Senha incorreta')
+        }
+        else if (nova_senha != confirmacao_senha) {
+            alert('Senhas não são iguais')
+        }
+        else {
+            fetch('/funcionarios/atualizar', {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    idFuncionarioServer: sessionStorage.getItem('ID_FUNCIONARIO'),
+                    idEmpresaServer: sessionStorage.getItem('ID_EMPRESA'),
+                    senhaServer: nova_senha.trim() != '' ? nova_senha : sessionStorage.getItem('SENHA')
+                })
+            })
+                .then(resposta => {
+                    if (resposta.ok) {
+                        alert('Senha atualizada com sucesso')
+                        document.getElementById('senha-atual').value = ''
+                        document.getElementById('nova-senha').value = ''
+                        document.getElementById('confirmacao-senha').value = ''
+                        sessionStorage.SENHA = nova_senha
+                    }
+                    else {
+                        alert('Erro ao atualizar senha')
+                    }
+                })
         }
     }
 </script>

@@ -20,7 +20,7 @@ function buscarNiveisAcesso(req, res) {
     let id_empresa = req.body.id_empresa
     let id_funcionario = req.body.id_funcionario
 
-    funcionarioModel.buscarNiveisAcesso(id_empresa, id_funcionario).then(function(resultado) {
+    funcionarioModel.buscarNiveisAcesso(id_empresa, id_funcionario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -41,7 +41,7 @@ function cadastrar(req, res) {
     var fkEmpresa = req.body.fkEmpresa;
 
 
-    if (!nome || !sobrenome || !email || !senha  || !fkEmpresa) {
+    if (!nome || !sobrenome || !email || !senha || !fkEmpresa) {
         return res.status(400).json({ erro: "Todos os campos obrigatórios devem ser preenchidos" });
     }
 
@@ -74,9 +74,30 @@ function cadastrarAcessoFuncionario(req, res) {
         });
 }
 
+function atualizar(req, res) {
+    var id_funcionario = req.body.idFuncionarioServer
+    var id_empresa = req.body.idEmpresaServer
+    var senha = req.body.senhaServer    
+
+    funcionarioModel.atualizar(id_funcionario, id_empresa, senha)
+        .then(
+            function (resultado) {
+                res.status(200).json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao atualizar o perfil: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     listar,
     buscarNiveisAcesso,
     cadastrar,
-    cadastrarAcessoFuncionario
+    cadastrarAcessoFuncionario,
+    atualizar
 }
