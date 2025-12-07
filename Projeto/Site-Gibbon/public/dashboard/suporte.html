@@ -50,7 +50,7 @@
     <main>
         <div class="suporte-container">
             <div class="apresentacao">
-                <h1>Olá, Usuário!</h1>
+                <h1 id="nome_usuario">Olá, Usuário!</h1>
             </div>
             <div class="ferramentas">
                 <h3>Ferramentas de suporte</h3>
@@ -79,6 +79,9 @@
 </html>
 
 <script>
+    let nome_usuario_h1 = document.getElementById('nome_usuario')
+    nome_usuario_h1.innerHTML = `Olá, ${sessionStorage.NOME} ${sessionStorage.SOBRENOME}!`
+
     function verificarNivelAcesso() {
         let vt_niveis_acesso = []
 
@@ -89,35 +92,6 @@
         if (!vt_niveis_acesso.includes('Suporte N3')) {
             document.getElementById('bobIA-container').style.display = 'none'
         }
-
-        // Deixar comentado de reserva caso não funcione
-
-        // fetch("/funcionarios/niveisAcesso", {
-        //     method: "post",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         id_empresa: sessionStorage.getItem('ID_EMPRESA'),
-        //         id_funcionario: sessionStorage.getItem('ID_FUNCIONARIO')
-        //     })
-        // }).then(function (resposta) {
-        //     if(resposta.ok) {
-        //         resposta.json().then((array) => {
-        //             for(let i = 0; i < array.length; i++) {
-        //                 let nivel = array[i].nivel
-        //                 vt_niveis_acesso.push(nivel)
-        //             }
-
-        //             if(vt_niveis_acesso.includes('Suporte N3')) {
-        //                 document.getElementById('bobia_btn_container').innerHTML = '<a href="./bobIA.html">Acessar Bob IA</a>'
-        //             }
-        //         })
-        //     }
-        //     else {
-        //         console.log('Houve um erro ao tentar buscar níveis de acesso do funcionário');
-        //     }
-        // })
     }
 
     function abrirSuporte() {
