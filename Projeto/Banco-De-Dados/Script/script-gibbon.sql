@@ -115,8 +115,3 @@ INSERT INTO acessoFuncionario (fkFuncionario, fkEmpresa, fkNivelAcesso) VALUES
 (7, 1, 4),
 (7, 1, 5),
 (7, 1, 6);
-
-INSERT INTO estufa (nome, fkEmpresa) VALUES 
-('Vegetativa', 1),
-('Reprodutiva', 1),
-('Maturação', 1);
