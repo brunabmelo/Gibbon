@@ -48,8 +48,12 @@ CREATE TABLE acessoFuncionario (
 CREATE TABLE estufa (
 idEstufa INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45),
-ppfdMax INT,
-ppfdMin INT,
+ppfdMax INT NOT NULL,
+ppfdMin INT NOT NULL,
+horasMin INT NOT NULL, 
+horasMax INT NOT NULL,
+dliMin INT NOT NULL,
+dliMax INT NOT NULL,
 fkEmpresa INT NOT NULL, 
 FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa) 
 );
