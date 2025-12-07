@@ -79,9 +79,45 @@ function buscarFotoperiodoAnterior(req, res) {
         });
 }
 
+async function obterIdeais(req, res) {
+    const { idEstufa, idSensor, idEmpresa } = req.params;
+
+    try {
+        const resultado = await dashboardModel.buscarIdeais(idEstufa, idSensor, idEmpresa);
+
+        if (!resultado || resultado.length === 0) {
+            return res.status(404).json("Nenhum ideal encontrado.");
+        }
+
+        res.status(200).json(resultado[0]);
+    } catch (erro) {
+        console.log("Erro ao obter ideais:", erro);
+        res.status(500).json(erro.sqlMessage || erro);
+    }
+}
+
+function ppfdDia(req, res) {
+    const { idEstufa, idSensor, idEmpresa } = req.params;
+
+    dashboardModel.buscarPpfdDia(idEstufa, idSensor, idEmpresa)
+        .then(resultado => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado[0]);
+            } else {
+                res.status(204).json({});
+            }
+        })
+        .catch(erro => {
+            console.log("Erro ao buscar ppfd do dia:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarRegistros,
     listarEstufas,
     listarSensores,
-    buscarFotoperiodoAnterior
+    buscarFotoperiodoAnterior,
+    obterIdeais,
+    ppfdDia
 };

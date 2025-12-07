@@ -54,10 +54,45 @@ function buscarFotoperiodoAnterior(id_estufa, id_sensor, id_empresa) {
     return database.executar(instrucaoSql);
 }
 
+function buscarIdeais(idEstufa, idSensor, idEmpresa) {
+    const instrucaoSql = `
+        SELECT 
+            CONCAT(v.ppfdMin, ' - ', v.ppfdMax) AS ppfdIdeal,
+            CONCAT(v.horasMin, ' - ', v.horasMax) AS fotoperiodoIdeal,
+            CONCAT(v.dliMin, ' - ', v.dliMax) AS dliIdeal
+        FROM estufa e
+        JOIN variedade v ON v.idVariedade = e.fkVariedade
+        WHERE e.idEstufa = ${idEstufa}
+          AND v.idSensor = ${idSensor}
+          AND e.fkEmpresa = ${idEmpresa};
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
+function buscarPpfdDia(idEstufa, idSensor, idEmpresa) {
+    const instrucao = `
+        SELECT
+            MAX(r.ppfd) AS ppfdMax,
+            MIN(r.ppfd) AS ppfdMin
+        FROM registro r
+        JOIN sensor s ON s.idSensor = r.fkSensor
+        JOIN estufa e ON e.idEstufa = s.fkEstufa
+        WHERE DATE(r.dataHora) = CURDATE()
+          AND e.idEstufa = ${idEstufa}
+          AND s.idSensor = ${idSensor}
+          AND e.fkEmpresa = ${idEmpresa};
+    `;
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     buscarRegistros,
     listarEstufas,
     listarSensores,
-    buscarFotoperiodoAnterior
+    buscarFotoperiodoAnterior,
+    buscarIdeais,
+    buscarPpfdDia
 
 };

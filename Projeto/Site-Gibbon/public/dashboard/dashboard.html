@@ -68,7 +68,7 @@
                             <div class="box-valores-ideais-PPFD" id="metrica1">
                                 <span class="legenda">Quantidade ideal por segundo</span>
                                 <div>
-                                    <span class="medida">568</span>
+                                    <span class="medida" id="ppfd-ideal"></span>
                                     <span class="unidade-medida">µmol/m²/s</span>
                                 </div>
                             </div>
@@ -100,14 +100,14 @@
                                     alt="triângulo apontado para cima">
                                 <div class="texto-container">
                                     <span>Maior valor do dia</span>
-                                    <p class="valor">555</p>
+                                    <p class="valor" id="maior-valor-dia"></p>
                                     <p>umol/m²/s</p>
                                 </div>
                             </div>
                             <div class="valores-dia">
                                 <div class="texto-container">
                                     <span>Menor valor do dia</span>
-                                    <p class="valor">388</p>
+                                    <p class="valor" id="menor-valor-dia"></p>
                                     <p>umol/m²/s</p>
                                 </div>
                                 <img src="../assets/images/icons/indicador-menor.png"
@@ -121,7 +121,7 @@
                             <div class="box-valores-ideais" id="kpi3">
                                 <span class="legenda">Fotoperíodo <br>ideal</span>
                                 <div>
-                                    <span class="medida">254</span>
+                                    <span class="medida" id="fotoperiodo-ideal"></span>
                                     <p>Horas</p>
                                 </div>
                             </div>
@@ -140,14 +140,14 @@
                             <div class="box-valores-ideais" id="metrica3">
                                 <span class="legenda">Quantidade ideal por dia</span>
                                 <div>
-                                    <span class="medida">459</span>
+                                    <span class="medida" id="dli-ideal"></span>
                                     <p>umol/m²/dia</p>
                                 </div>
                             </div>
                             <div class="box-valores-reais" id="kpi3">
                                 <span class="legenda">Valor do dia anterior</span>
                                 <div>
-                                    <span class="medida">452</span>
+                                    <span class="medida" id="dli-anterior"></span>
                                     <p>umol/m²/dia</p>
                                 </div>
                             </div>
@@ -364,7 +364,24 @@
 
 
 
-        /*KPIs --------------------------------------------------------------------- */
+        /*KPIs --------------------------------------------------------------------------------------------------------------- */
+        fetch(`/ideais/${idEstufa}/${idSensor}/${idEmpresa}`)
+            .then(res => res.json())
+            .then(dados => {
+                ppfd_ideal.innerText = dados.ppfdIdeal;
+                fotoperiodo_ideal.innerText = dados.fotoperiodoIdeal;
+                dli_ideal.innerText = dados.dliIdeal;
+            })
+            .catch(err => console.error(err));
+
+        fetch(`/ppfd-dia/${idEstufa}/${idSensor}/${idEmpresa}`)
+            .then(res => res.json())
+            .then(dados => {
+                document.getElementById("maior-valor-dia").innerHTML = dados.ppfdMax ?? "-";
+                document.getElementById("menor-valor-dia").innerHTML = dados.ppfdMin ?? "-";
+            })
+            .catch(err => console.error(err));
+
         function carregarFotoperiodoAnterior() {
             fetch("/medidas/fotoperiodo-anterior", {
                 method: "GET"
@@ -385,7 +402,7 @@
                 });
         }
 
-        
+
         // Não mexer
         function abrirSuporte() {
             let vt_niveis_acesso = []

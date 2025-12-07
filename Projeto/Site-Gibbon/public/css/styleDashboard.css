@@ -775,7 +775,7 @@ main {
     gap: 9%;
 }
 
-.legenda-metrica {
+.legenda-reais {
     display: flex;
     height: 45%;
     justify-content: center;
@@ -790,7 +790,7 @@ main {
     font-weight: 500;
 }
 
-.legenda-reais {
+.legenda-metrica {
     display: flex;
     height: 45%;
     justify-content: center;

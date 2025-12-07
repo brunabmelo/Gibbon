@@ -21,4 +21,13 @@ router.get("/fotoperiodo/anterior/empresa/:id_empresa/estufa/:id_estufa/sensor/:
     }
 );
 
+router.get("/ideais/:idEstufa/:idSensor/:idEmpresa", function (req, res) {
+    dashboardController.obterIdeais(req, res);
+});
+
+router.get("/ppfd-dia/:idEstufa/:idSensor/:idEmpresa", function (req, res) {
+    dashboardController.ppfdDia(req, res);
+});
+
+
 module.exports = router;
