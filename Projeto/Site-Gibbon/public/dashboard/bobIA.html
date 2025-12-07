@@ -53,55 +53,60 @@
             </div>
 
             <div id="resposta" class="resposta-form">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et totam non quam ab corporis natus assumenda, odio nam voluptas laborum rem ea. Expedita, repellendus! Libero perferendis cumque iusto deleniti ipsa!</p></div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et totam non quam ab corporis natus
+                    assumenda, odio nam voluptas laborum rem ea. Expedita, repellendus! Libero perferendis cumque iusto
+                    deleniti ipsa!</p>
             </div>
+        </div>
         </div>
     </main>
 
 </body>
+<script src="../js/dashboard.js"></script>
 <script>
 
 async function gerarResposta() {
-    const pergunta = document.getElementById("inputPergunta").value;
+const pergunta = document.getElementById("inputPergunta").value;
 
-    try {
-        const req = await fetch("http://localhost:3333/perguntar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ pergunta })
-        });
+try {
+const req = await fetch("http://localhost:3333/perguntar", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({ pergunta })
+});
 
-        const data = await req.json();
+const data = await req.json();
 
-        document.getElementById("resposta").innerText = data.resultado;
+document.getElementById("resposta").innerText = data.resultado;
 
-    } catch (error) {
-        console.error(error);
-        document.getElementById("resposta").innerText =
-            "Erro ao gerar resposta.";
-    }
+} catch (error) {
+console.error(error);
+document.getElementById("resposta").innerText =
+"Erro ao gerar resposta.";
+}
 }
 
-    function abrirSuporte() {
-        let vt_niveis_acesso = []
+function abrirSuporte() {
+let vt_niveis_acesso = []
 
-        JSON.parse(sessionStorage.NIVEIS_ACESSO).forEach(json => {
-            vt_niveis_acesso.push(json.nivel)
-        });
+JSON.parse(sessionStorage.NIVEIS_ACESSO).forEach(json => {
+vt_niveis_acesso.push(json.nivel)
+});
 
-        console.log(vt_niveis_acesso.includes('Suporte N1'));
-        console.log(vt_niveis_acesso.includes('Suporte N2'));
-        console.log(vt_niveis_acesso.includes('Suporte N3'));
+console.log(vt_niveis_acesso.includes('Suporte N1'));
+console.log(vt_niveis_acesso.includes('Suporte N2'));
+console.log(vt_niveis_acesso.includes('Suporte N3'));
 
 
-        if (vt_niveis_acesso.includes('Suporte N3') || vt_niveis_acesso.includes('Suporte N2') || vt_niveis_acesso.includes('Suporte N1')) {
-            window.location.href = "./suporte.html";
-        } else {
-            alert("Acesso restrito! Apenas suporte pode acessar esta página.");
-        }
-    }
+if (vt_niveis_acesso.includes('Suporte N3') || vt_niveis_acesso.includes('Suporte N2') ||
+vt_niveis_acesso.includes('Suporte N1')) {
+window.location.href = "./suporte.html";
+} else {
+alert("Acesso restrito! Apenas suporte pode acessar esta página.");
+}
+}
 
 </script>
 
