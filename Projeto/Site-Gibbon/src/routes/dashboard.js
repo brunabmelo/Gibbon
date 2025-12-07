@@ -15,5 +15,10 @@ router.get("/sensores/:idEstufa", function (req, res) {
     dashboardController.listarSensores(req, res);
 });
 
+router.get("/fotoperiodo/anterior/empresa/:id_empresa/estufa/:id_estufa/sensor/:id_sensor",
+    function (req, res) {
+        dashboardController.buscarFotoperiodoAnterior(req, res);
+    }
+);
 
 module.exports = router;
