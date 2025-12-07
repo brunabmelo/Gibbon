@@ -3,8 +3,8 @@ var router = express.Router();
 
 var dashboardController = require("../controllers/dashboardController");
 
-router.get("/buscar/resgistro/empresa/:id_empresa/estufa/:id_estufa/sensor/:id_sensor", function (req, res) {
-    dashboardController.buscarRegistro(req, res);
+router.get("/buscar/registros/:limite/empresa/:id_empresa/estufa/:id_estufa/sensor/:id_sensor", function (req, res) {
+    dashboardController.buscarRegistros(req, res);
 });
 
 router.get("/estufas/:idEmpresa", function (req, res) {

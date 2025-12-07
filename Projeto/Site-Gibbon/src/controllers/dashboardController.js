@@ -1,11 +1,12 @@
 var dashboardModel = require("../models/dashboardModel");
 
-function buscarRegistro(req, res) {
+function buscarRegistros(req, res) {
     var id_estufa = req.params.id_estufa;
     var id_sensor = req.params.id_sensor;
     var id_empresa = req.params.id_empresa;
+    var limite = req.params.limite;
 
-        dashboardModel.buscarRegistro(id_estufa, id_sensor, id_empresa)
+        dashboardModel.buscarRegistros(id_estufa, id_sensor, id_empresa, limite)
             .then(function (resultado) {
                 console.log(`\nResultados encontrados: ${resultado.length}`);
                 console.log(`Resultados: ${JSON.stringify(resultado)}`);
@@ -13,7 +14,7 @@ function buscarRegistro(req, res) {
                 if (resultado.length > 0) {
                     res.status(200).json(resultado);
                 } else {
-                    res.status(204).json([]);
+                    res.status(204).json([{}]);
                 }
             })
             .catch(function (erro) {
@@ -59,7 +60,7 @@ function listarSensores(req, res) {
 }
 
 module.exports = {
-    buscarRegistro,
+    buscarRegistros,
     listarEstufas,
     listarSensores
 };

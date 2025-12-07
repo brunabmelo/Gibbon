@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 // Model da função PPFD
-function buscarRegistro(id_estufa, id_sensor, id_empresa) {
+function buscarRegistros(id_estufa, id_sensor, id_empresa, limite) {
 
     var instrucaoSql = `
         SELECT 
@@ -13,7 +13,7 @@ function buscarRegistro(id_estufa, id_sensor, id_empresa) {
         JOIN estufa e 
             ON e.idEstufa = s.fkEstufa
         WHERE s.fkEstufa = ${id_estufa} AND s.idSensor = ${id_sensor} AND e.fkEmpresa = ${id_empresa}
-        ORDER BY r.dataHora DESC LIMIT 1;
+        ORDER BY r.dataHora DESC LIMIT ${limite};
     `;
 
     console.log("Executando a instrução SQL:\n" + instrucaoSql);
@@ -41,7 +41,7 @@ function listarSensores(idEstufa) {
 }
 
 module.exports = {
-    buscarRegistro,
+    buscarRegistros,
     listarEstufas,
     listarSensores
 

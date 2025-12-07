@@ -160,6 +160,11 @@
     <script src="../js/dashboard.js"></script>
 
     <script>
+        const dashboard = document.getElementById("dashboard");
+        const dashboard3linhas = document.getElementById("dashboard3linhas");
+        dashboard.style.display = "none";
+        dashboard3linhas.style.display = "none";
+
         const select_estufas = document.getElementById('sltEstufa')
 
         fetch(`/estufas/listar/${sessionStorage.getItem('ID_EMPRESA')}`)
@@ -181,6 +186,9 @@
             const select_sensores = document.getElementById('sltSensor')
 
             if (id_estufa == 0) {
+                dashboard.style.display = "none";
+                dashboard3linhas.style.display = "none";
+
                 select_sensores.setAttribute('disabled', '')
                 select_sensores.innerHTML = `
                     <option value="0">
@@ -194,6 +202,9 @@
                 .then(resposta => {
 
                     if (resposta.status == 204) {
+                        dashboard.style.display = "none";
+                        dashboard3linhas.style.display = "none";
+
                         select_sensores.setAttribute('disabled', '')
                         select_sensores.innerHTML = `
                             <option value="0">
@@ -243,19 +254,38 @@
             let idSensor = select.value;
 
             if (idEstufa !== "0" && idSensor !== "0") {
-                fetch(`/dashboard/buscar/resgistro/empresa/${sessionStorage.getItem('ID_EMPRESA')}/estufa/${idEstufa}/sensor/${idSensor}`)
-                    .then(res => res.json())
-                    .then(lista => plotarGraficoPPFD(lista, idEstufa, idSensor));
+                fetch(`/dashboard/buscar/registros/10/empresa/${sessionStorage.getItem('ID_EMPRESA')}/estufa/${idEstufa}/sensor/${idSensor}`)
+                    .then(res => {
+
+                        if (res.status == 200) {
+                            dashboard.style.display = "flex";
+                            dashboard3linhas.style.display = "flex";
+                            res.json()
+                                .then(lista => {
+                                    lista.reverse()
+                                    plotarGraficoPPFD(lista, idEstufa, idSensor)
+                                });
+                        }
+                        else if (res.status == 204) {
+                            if (grafico != undefined) {
+                                grafico.destroy()
+                                labels = []
+                                dados = []
+                                dashboard.style.display = "none";
+                                dashboard3linhas.style.display = "none";
+                            }
+                            alert('Nenhum registro encontrado nesse sensor')
+                        }
+                    })
+
             }
         }
 
-        const labels = [];
-        const dados = [];
+        let labels = [];
+        let dados = [];
+        let grafico;
 
         function plotarGraficoPPFD(lista, idEstufa, idSensor) {
-
-            // const dashboard = document.getElementById("dashboard");
-            // const dashboard3linhas = document.getElementById("dashboard3linhas");
 
             // if (!lista || lista.length === 0) {
             //     dashboard.style.display = "none";
@@ -266,23 +296,27 @@
             // dashboard.style.display = "flex";
             // dashboard3linhas.style.display = "flex";
 
+            if (grafico != undefined) {
+                grafico.destroy()
+                labels = []
+                dados = []
+            }
 
+            for (let i = 0; i < lista.length; i++) {
+                let registro = lista[i];
+                // let registro = lista[0]
 
-            // for (let i = 0; i < lista.length; i++) {
-            // let registro = lista[i];
-            let registro = lista[0]
+                let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: '2-digit'
+                });
 
-            let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: '2-digit'
-            });
+                labels.push(hora);
+                dados.push(registro.nivelLuz);
+            }
 
-            labels.push(hora);
-            dados.push(registro.nivelLuz);
-            // }
-
-            let grafico = new Chart(document.getElementById("myChart"), {
+            grafico = new Chart(document.getElementById("myChart"), {
                 type: "line",
                 data: {
                     labels: labels,
@@ -294,11 +328,36 @@
                 }
             });
 
-            atualizarGrafico(grafico, idEstufa, idSensor)
+            setTimeout(() => atualizarGrafico(grafico, idEstufa, idSensor), 1000)
         }
 
-        function atualizarGrafico() {
+        function atualizarGrafico(grafico, idEstufa, idSensor) {
 
+            fetch(`/dashboard/buscar/registros/1/empresa/${sessionStorage.getItem('ID_EMPRESA')}/estufa/${idEstufa}/sensor/${idSensor}`)
+                .then(res => res.json())
+                .then(novoRegistro => {
+                    let registro = novoRegistro[0]
+
+                    let hora = new Date(registro.dataHora).toLocaleTimeString("pt-BR", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: '2-digit'
+                    });
+
+                    if (grafico.data.labels[grafico.data.labels.length - 1] == hora) {
+
+                    } else {
+                        grafico.data.labels.shift()
+                        grafico.data.labels.push(hora)
+
+                        grafico.data.datasets[0].data.shift()
+                        grafico.data.datasets[0].data.push(registro.nivelLuz)
+
+                        grafico.update()
+                    }
+                })
+
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(grafico, idEstufa, idSensor), 1000)
         }
 
 
