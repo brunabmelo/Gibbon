@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
-<body onload="buscarAvisos(sessionStorage.getItem(ID_EMPRESA))">
+<body onload="buscarAvisos(sessionStorage.getItem('ID_EMPRESA'))">
     <!--MENU-->
     <nav class="sidebar">
         <div class="sidebar-container">
@@ -71,7 +71,13 @@
     function buscarAvisos(ID_EMPRESA) {
         const dataAtual = new Date()
 
-        let dataBrasil = dataAtual.toLocaleString('pt-br')
+        const minutos = 1
+
+        const milissegundos = minutos * 60 * 1000
+
+        const dataAtrasada = new Date(dataAtual.getTime() - milissegundos)
+
+        let dataBrasil = dataAtrasada.toLocaleString('pt-br')
 
         dataBrasil = dataBrasil.replace(',', '')
 
@@ -92,6 +98,7 @@
                     if (res.status == 200) {
                         res.json().then(function (sensores) {
                             const ul_aviso_sensor = document.getElementById('avisos-sensor')
+                            ul_aviso_sensor.innerHTML = ''
                             for (let i = 0; i < sensores.length; i++) {
                                 const sensor = ul_aviso_sensor[i];
                                 ul_aviso_sensor.innerHTML += `

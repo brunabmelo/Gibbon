@@ -20,6 +20,7 @@ var empresaRouter = require("./src/routes/empresa");
 var sensoresRouter = require("./src/routes/sensores");
 var estufasRouter = require("./src/routes/estufas");
 var dashboardRouter = require("./src/routes/dashboard");
+var avisosRouter = require("./src/routes/avisos");
 
 
 // CONFIGURAÇÕES DO EXPRESS
@@ -35,6 +36,7 @@ app.use("/empresa", empresaRouter);
 app.use("/sensores", sensoresRouter);
 app.use("/estufas", estufasRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/avisos", avisosRouter);
 
 
 const { GoogleGenAI } = require("@google/genai");

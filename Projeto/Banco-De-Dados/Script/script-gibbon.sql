@@ -124,6 +124,24 @@ INSERT INTO estufa (nome, fkEmpresa) VALUES
 
 
 -- SELECTS
+
+CREATE VIEW vw_avisos AS
+    SELECT 
+        s.nome sensor,
+        e.nome estufa,
+        CASE
+            WHEN r.nivelLuz < e.ppfdMin THEN 1
+            WHEN r.nivelLuz > e.ppfdMax THEN 1
+            ELSE 0
+        END AS foraIdeal,
+        e.fkEmpresa empresa,
+        r.dataHora
+    FROM registro r
+    JOIN
+        sensor s ON r.fkSensor = s.idSensor
+    JOIN
+	estufa e ON s.fkEstufa = e.idEstufa;
+
 SELECT 
     empresa.nome AS 'Nome da empresa',
     cnpj AS 'CNPJ',
