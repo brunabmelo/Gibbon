@@ -99,15 +99,16 @@
                         res.json().then(function (sensores) {
                             const ul_aviso_sensor = document.getElementById('avisos-sensor')
                             ul_aviso_sensor.innerHTML = ''
+
                             for (let i = 0; i < sensores.length; i++) {
-                                const sensor = ul_aviso_sensor[i];
+                                const sensor = sensores[i];
                                 ul_aviso_sensor.innerHTML += `
                                     <li class="alerta-bar">
                                         <div class="titulo-container">
                                             <h2>${sensor.sensor}</h2>
                                         </div>
                                         <p>
-                                            Estufa ${sensor.estufa}                      
+                                            Estufa: ${sensor.estufa}                      
                                         </p>
                                     </li>
                                 `
