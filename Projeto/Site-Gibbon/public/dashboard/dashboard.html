@@ -68,7 +68,7 @@
                             <div class="box-valores-ideais-PPFD" id="metrica1">
                                 <span class="legenda">Quantidade ideal por segundo</span>
                                 <div>
-                                    <span class="medida" id="ppfd-ideal"></span>
+                                    <span class="medida" id="ppfdIdeal"></span>
                                     <span class="unidade-medida">µmol/m²/s</span>
                                 </div>
                             </div>
@@ -86,6 +86,7 @@
 
                     <div class="box-grafico">
                         <div>
+                            <span>PPFD em tempo real</span>
                             <canvas id="myChart"></canvas>
                         </div>
                     </div>
@@ -121,7 +122,7 @@
                             <div class="box-valores-ideais" id="kpi3">
                                 <span class="legenda">Fotoperíodo <br>ideal</span>
                                 <div>
-                                    <span class="medida" id="fotoperiodo-ideal"></span>
+                                    <span class="medida" id="fotoperiodoIdeal"></span>
                                     <p>Horas</p>
                                 </div>
                             </div>
@@ -140,7 +141,7 @@
                             <div class="box-valores-ideais" id="metrica3">
                                 <span class="legenda">Quantidade ideal por dia</span>
                                 <div>
-                                    <span class="medida" id="dli-ideal"></span>
+                                    <span class="medida" id="dliIdeal"></span>
                                     <p>umol/m²/dia</p>
                                 </div>
                             </div>
@@ -254,6 +255,7 @@
             let idSensor = select.value;
 
             if (idEstufa !== "0" && idSensor !== "0") {
+
                 fetch(`/dashboard/buscar/registros/10/empresa/${sessionStorage.getItem('ID_EMPRESA')}/estufa/${idEstufa}/sensor/${idSensor}`)
                     .then(res => {
 
@@ -263,7 +265,8 @@
                             res.json()
                                 .then(lista => {
                                     lista.reverse()
-                                    plotarGraficoPPFD(lista, idEstufa, idSensor)
+                                    plotarGraficoPPFD(lista, idEstufa, idSensor);
+                                    buscarMetricas(idSensor, idEstufa);
                                 });
                         }
                         else if (res.status == 204) {
@@ -357,30 +360,46 @@
                     }
                 })
 
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(grafico, idEstufa, idSensor), 1000)
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(grafico, idEstufa, idSensor), 1000000000)
         }
 
 
 
 
 
+        /*function buscarPPFDdia() {
+            // fetch(`/dashboard/buscar/registros/10/empresa/${sessionStorage.getItem('ID_EMPRESA')}/estufa/${idEstufa}/sensor/${idSensor}`)
+            //     .then(res => res.json())
+            //     .then(dados => {
+                //         document.getElementById("maior-valor-dia").innerHTML = dados.ppfdMax + "-";
+                //         document.getElementById("menor-valor-dia").innerHTML = dados.ppfdMin +"-";
+                //     })
+                //     .catch(err => console.error(err));
+                } */
         /*KPIs --------------------------------------------------------------------------------------------------------------- */
-        fetch(`/ideais/${idEstufa}/${idSensor}/${idEmpresa}`)
-            .then(res => res.json())
-            .then(dados => {
-                ppfd_ideal.innerText = dados.ppfdIdeal;
-                fotoperiodo_ideal.innerText = dados.fotoperiodoIdeal;
-                dli_ideal.innerText = dados.dliIdeal;
-            })
-            .catch(err => console.error(err));
 
-        fetch(`/ppfd-dia/${idEstufa}/${idSensor}/${idEmpresa}`)
-            .then(res => res.json())
-            .then(dados => {
-                document.getElementById("maior-valor-dia").innerHTML = dados.ppfdMax ?? "-";
-                document.getElementById("menor-valor-dia").innerHTML = dados.ppfdMin ?? "-";
-            })
-            .catch(err => console.error(err));
+        function buscarMetricas(idSensor, idEstufa) {
+            const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+
+
+            if (!idEmpresa || idEstufa === "0" || idSensor === "0" || idEstufa === "" || idSensor === "") {
+                console.warn("buscarMetricas: ids inválidos — abortando fetch.");
+                return;
+            }
+            alert("tentei")
+            fetch(`/dashboard/ideais/estufa/${idEstufa}/sensor/${idSensor}/empresa/${idEmpresa}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro ao buscar métricas");
+                    return res.json();
+                })
+
+                .then(dados => {
+                    ppfdIdeal.innerText = dados.ppfdIdeal;
+                    fotoperiodoIdeal.innerText = dados.fotoperiodoIdeal;
+                    dliIdeal.innerText = dados.dliIdeal;
+                })
+                .catch(err => console.error('Erro ao buscar métricas', err));
+        }
 
         function carregarFotoperiodoAnterior() {
             fetch("/medidas/fotoperiodo-anterior", {

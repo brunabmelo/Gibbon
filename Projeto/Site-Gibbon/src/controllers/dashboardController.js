@@ -79,21 +79,24 @@ function buscarFotoperiodoAnterior(req, res) {
         });
 }
 
-async function obterIdeais(req, res) {
-    const { idEstufa, idSensor, idEmpresa } = req.params;
+function obterIdeais(req, res) {
+    const idEstufa = req.params.idEstufa;
+    const idSensor = req.params.idSensor;
+    const idEmpresa = req.params.idEmpresa;
 
-    try {
-        const resultado = await dashboardModel.buscarIdeais(idEstufa, idSensor, idEmpresa);
+    dashboardModel.buscarIdeais(idEstufa, idSensor, idEmpresa)
+        .then(resultado => {
+            if (!resultado || resultado.length === 0) {
+                res.status(404).json("Nenhuma métrica encontrada.");
+                return;
+            }
 
-        if (!resultado || resultado.length === 0) {
-            return res.status(404).json("Nenhum ideal encontrado.");
-        }
-
-        res.status(200).json(resultado[0]);
-    } catch (erro) {
-        console.log("Erro ao obter ideais:", erro);
-        res.status(500).json(erro.sqlMessage || erro);
-    }
+            res.status(200).json(resultado[0]);
+        })
+        .catch(erro => {
+            console.log("Erro ao obter métricas:", erro);
+            res.status(500).json(erro.sqlMessage || erro);
+        });
 }
 
 function ppfdDia(req, res) {
