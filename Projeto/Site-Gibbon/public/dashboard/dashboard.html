@@ -368,7 +368,13 @@
         /*KPIs --------------------------------------------------------------------------------------------------------------- */
 
         // Função buscar PPFD maior e menor dia funcional
+        let proximaAtualizacaoBuscarPPFDdia
+
         function buscarPPFDdia(idSensor, idEstufa) {
+            if(proximaAtualizacaoBuscarPPFDdia != undefined) {
+                clearTimeout(proximaAtualizacaoBuscarPPFDdia)
+            }
+
             const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
 
             if (!idEmpresa || idEstufa === "0" || idSensor === "0" || idEstufa === "" || idSensor === "") {
@@ -384,6 +390,26 @@
                 .then(dados => {
                     document.getElementById("maiorValorDia").innerHTML = Number(dados.ppfdMax).toFixed(0);
                     document.getElementById("menorValorDia").innerHTML = Number(dados.ppfdMin).toFixed(0);
+                    setTimeout(() => atualizarBuscarPPFDdia(idSensor, idEstufa), 1000);
+                })
+                .catch(err => console.error(err));
+        }
+
+        function atualizarBuscarPPFDdia(idSensor, idEstufa) {
+            if(proximaAtualizacaoBuscarPPFDdia != undefined) {
+                clearTimeout(proximaAtualizacaoBuscarPPFDdia)
+            }
+            const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+
+            fetch(`/dashboard/ppfd-dia/estufa/${idEstufa}/sensor/${idSensor}/empresa/${idEmpresa}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro ao buscar métricas");
+                    return res.json();
+                })
+                .then(dados => {
+                    document.getElementById("maiorValorDia").innerHTML = Number(dados.ppfdMax).toFixed(0);
+                    document.getElementById("menorValorDia").innerHTML = Number(dados.ppfdMin).toFixed(0);
+                    proximaAtualizacaoBuscarPPFDdia = setTimeout(() => atualizarBuscarPPFDdia(idSensor, idEstufa), 1000);
                 })
                 .catch(err => console.error(err));
         }
