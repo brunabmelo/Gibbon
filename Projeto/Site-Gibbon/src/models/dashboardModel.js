@@ -87,12 +87,24 @@ function buscarPpfdDia(idEstufa, idSensor, idEmpresa) {
     return database.executar(instrucao);
 }
 
+function buscarMediaPpfdDiaAnterior(idEstufa, idSensor, idEmpresa) {
+    var instrucaoSql = `
+        SELECT * FROM vw_media_ppfd_dia_anterior
+        WHERE idEstufa = ${idEstufa}
+            AND idSensor = ${idSensor};
+        
+    `;
+
+    console.log("Executando SQL buscarMediaPpfdDiaAnterior:\n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarRegistros,
     listarEstufas,
     listarSensores,
     buscarFotoperiodoAnterior,
     buscarIdeais,
-    buscarPpfdDia
-
+    buscarPpfdDia,
+    buscarMediaPpfdDiaAnterior
 };

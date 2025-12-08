@@ -362,7 +362,7 @@
                     }
                 })
 
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(grafico, idEstufa, idSensor), 1000000000)
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(grafico, idEstufa, idSensor), 1000)
         }
 
         /*KPIs --------------------------------------------------------------------------------------------------------------- */
@@ -432,6 +432,8 @@
                     if (dados && dados.length > 0 && dados[0].horas_iluminadas != null) {
                         var horas = dados[0].horas_iluminadas;
                         document.getElementById("fotoperiodoAnterior").innerText = horas + "h";
+
+                        carregarDliDiaAnterior(idEmpresa, idEstufa, idSensor, horas)
                     } else {
                         document.getElementById("fotoperiodoAnterior").innerText = "0 h";
                     }
@@ -439,6 +441,28 @@
                 .catch(err => {
                     console.error("Erro ao buscar fotoperíodo do dia anterior:", err);
                     document.getElementById("fotoperiodoAnterior").innerText = "--";
+                });
+        }
+
+        function carregarDliDiaAnterior(idEmpresa, idEstufa, idSensor, horas) {
+            fetch(`/dashboard/mediappfd/estufa/${idEstufa}/sensor/${idSensor}/empresa/${idEmpresa}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro ao buscar média do ppfd do dia anterior");
+                    return res.json();
+                })
+                .then(dados => {
+                    console.log(dados[0])
+                    if (dados && dados.length > 0 && dados[0].media_ppfd != null) {
+                        let mediaPPFD = dados[0].media_ppfd
+                        let dli = mediaPPFD * horas * 3600 / 1000000
+                        document.getElementById("dli-anterior").innerText = dli;
+                    } else {
+                        document.getElementById("dli-anterior").innerText = "--";
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro ao buscar média do ppfd do dia anterior:", err);
+                    document.getElementById("dli-anterior").innerText = "--";
                 });
         }
 

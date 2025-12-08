@@ -115,11 +115,29 @@ function ppfdDia(req, res) {
         });
 }
 
+function buscarMediaPpfdDiaAnterior(req, res) {
+    const { idEstufa, idSensor, idEmpresa } = req.params;
+
+    dashboardModel.buscarMediaPpfdDiaAnterior(idEstufa, idSensor, idEmpresa)
+        .then(resultado => {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado[0]);
+            } else {
+                res.status(204).json({});
+            }
+        })
+        .catch(erro => {
+            console.log("Erro ao buscar média do ppfd do dia anterior:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarRegistros,
     listarEstufas,
     listarSensores,
     buscarFotoperiodoAnterior,
     obterIdeais,
-    ppfdDia
+    ppfdDia,
+    buscarMediaPpfdDiaAnterior
 };
