@@ -20,9 +20,16 @@ function cadastrar(req, res) {
     let nome = req.body.nome
     let ppfdMin = req.body.ppfdMin
     let ppfdMax = req.body.ppfdMax
+
+    let horasMin = req.body.horasMin
+    let horasMax = req.body.horasMax
+    
+    let dliMin = req.body.dliMin
+    let dliMax = req.body.dliMax
+
     let id_empresa = req.params.id_empresa
 
-    estufasModel.cadastrar(id_empresa, nome, ppfdMin, ppfdMax)
+    estufasModel.cadastrar(id_empresa, nome, ppfdMin, ppfdMax, horasMin, horasMax, dliMin, dliMax)
         .then(resultado => {
             res.status(201).json(resultado)
         })

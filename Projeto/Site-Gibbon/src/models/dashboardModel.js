@@ -54,7 +54,7 @@ function buscarFotoperiodoAnterior(idEstufa, idSensor, idEmpresa) {
 
 function buscarIdeais(idEstufa, idSensor, idEmpresa) {
     const instrucaoSql = `
-          SELECT 
+        SELECT 
             CONCAT(e.ppfdMin, ' - ', e.ppfdMax) AS ppfdIdeal,
             CONCAT(e.horasMin, ' - ', e.horasMax) AS fotoperiodoIdeal,
             CONCAT(e.dliMin, ' - ', e.dliMax) AS dliIdeal

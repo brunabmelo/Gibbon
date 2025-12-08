@@ -12,10 +12,10 @@ function listar(id_empresa) {
     return database.executar(instrucaoSql);
 }
 
-function cadastrar(id_empresa, nome, ppfdMin, ppfdMax) {
+function cadastrar(id_empresa, nome, ppfdMin, ppfdMax, horasMin, horasMax, dliMin, dliMax) {
     var instrucaoSql = `
-        INSERT INTO estufa (nome, ppfdMin, ppfdMax, fkEmpresa) VALUES
-            ('${nome}', ${ppfdMin}, ${ppfdMax}, ${id_empresa})
+        INSERT INTO estufa (nome, ppfdMin, ppfdMax, horasMin, horasMax, dliMin, dliMax, fkEmpresa) VALUES
+            ('${nome}', ${ppfdMin}, ${ppfdMax}, ${horasMin}, ${horasMax}, ${dliMin}, ${dliMax}, ${id_empresa})
         ;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
