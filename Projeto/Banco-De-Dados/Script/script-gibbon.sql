@@ -116,3 +116,10 @@ INSERT INTO acessoFuncionario (fkFuncionario, fkEmpresa, fkNivelAcesso) VALUES
 (7, 1, 4),
 (7, 1, 5),
 (7, 1, 6);
+
+	
+
+
+
+
+

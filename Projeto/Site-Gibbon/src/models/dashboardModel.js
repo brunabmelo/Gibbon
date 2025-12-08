@@ -56,16 +56,18 @@ function buscarFotoperiodoAnterior(id_estufa, id_sensor, id_empresa) {
 
 function buscarIdeais(idEstufa, idSensor, idEmpresa) {
     const instrucaoSql = `
-        SELECT 
-            CONCAT(v.ppfdMin, ' - ', v.ppfdMax) AS ppfdIdeal,
-            CONCAT(v.horasMin, ' - ', v.horasMax) AS fotoperiodoIdeal,
-            CONCAT(v.dliMin, ' - ', v.dliMax) AS dliIdeal
+          SELECT 
+            CONCAT(e.ppfdMin, ' - ', e.ppfdMax) AS ppfdIdeal,
+            CONCAT(e.horasMin, ' - ', e.horasMax) AS fotoperiodoIdeal,
+            CONCAT(e.dliMin, ' - ', e.dliMax) AS dliIdeal
         FROM estufa e
-        JOIN variedade v ON v.idVariedade = e.fkVariedade
+        JOIN sensor s ON s.fkEstufa = e.idEstufa
+        JOIN empresa em ON em.idEmpresa = e.fkEmpresa
         WHERE e.idEstufa = ${idEstufa}
-            AND v.idSensor = ${idSensor}
-            AND e.fkEmpresa = ${idEmpresa};
+            AND s.idSensor = ${idSensor}
+            AND em.idEmpresa = ${idEmpresa};
     `;
+    console.log("Executando SQL buscarIdeais:\n", instrucaoSql);
 
     return database.executar(instrucaoSql);
 }

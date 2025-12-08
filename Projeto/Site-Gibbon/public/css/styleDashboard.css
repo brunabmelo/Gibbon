@@ -551,6 +551,7 @@ main {
     height: 80%;
     flex-direction: column;
 }
+
 .container-funcionario {
     display: flex;
     margin: 9% 0% 9% 0%;
@@ -803,6 +804,17 @@ main {
 .legenda-reais p {
     font-size: 23px;
     font-weight: 500;
+}
+
+.box-grafico {
+    display: flex;
+    margin-top: 14%;
+}
+
+.box-grafico span {
+    font-weight: bold;
+    font-size: 20px;
+    color: #474747;
 }
 
 .box-grafico canvas {
