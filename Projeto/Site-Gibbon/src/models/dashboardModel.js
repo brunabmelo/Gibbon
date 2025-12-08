@@ -40,14 +40,12 @@ function listarSensores(idEstufa) {
     return database.executar(instrucaoSql);
 }
 
-function buscarFotoperiodoAnterior(id_estufa, id_sensor, id_empresa) {
+function buscarFotoperiodoAnterior(idEstufa, idSensor, idEmpresa) {
     var instrucaoSql = `
-        SELECT v.idEstufa, v.idSensor, v.horas_ilumonadas
-        FROM vw_horas_ilumonadas_dia_anterior v
-        JOIN estufa e ON e.idEstufa = v.idEstufa
-        WHERE v.idEstufa = ${id_estufa}
-          AND v.idSensor = ${id_sensor}
-          AND e.fkEmpresa = ${id_empresa};
+        SELECT * FROM vw_horas_iluminadas_dia_anterior
+        WHERE idEstufa = ${idEstufa}
+            AND idSensor = ${idSensor};
+        
     `;
 
     console.log("Executando SQL buscarFotoperiodoAnterior:\n" + instrucaoSql);

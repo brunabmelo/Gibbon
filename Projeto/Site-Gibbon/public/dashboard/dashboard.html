@@ -131,7 +131,7 @@
                             <div class="box-valores-reais" id="kpi3">
                                 <span class="legenda">Fotoperíodo do dia anterior</span>
                                 <div>
-                                    <span class="medida" id="fotoperiodo-anterior"></span>
+                                    <span class="medida" id="fotoperiodoAnterior"></span>
                                     <p>Horas</p>
                                 </div>
                             </div>
@@ -267,7 +267,8 @@
                                     lista.reverse()
                                     plotarGraficoPPFD(lista, idEstufa, idSensor);
                                     buscarMetricas(idSensor, idEstufa);
-                                    buscarPPFDdia(idSensor, idEstufa)
+                                    buscarPPFDdia(idSensor, idEstufa);
+                                    carregarFotoperiodoAnterior(idSensor, idEstufa)
                                 });
                         }
                         else if (res.status == 204) {
@@ -411,25 +412,35 @@
                 .catch(err => console.error('Erro ao buscar métricas', err));
         }
 
-        // function carregarFotoperiodoAnterior() {
-        //     fetch("/medidas/fotoperiodo-anterior", {
-        //         method: "GET"
-        //     })
-        //         .then(res => res.json())
-        //         .then(dados => {
-        //             // Esperado: [{ idEstufa: 1, idSensor: 1, horas_ilumonadas: 12 }]
-        //             if (dados && dados.length > 0) {
-        //                 var horas = dados[0].horas_ilumonadas;
-        //                 document.getElementById("fotoperiodo-anterior").innerText = horas + " h";
-        //             } else {
-        //                 document.getElementById("fotoperiodo-anterior").innerText = "0 h";
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.error("Erro ao buscar fotoperíodo do dia anterior:", err);
-        //             document.getElementById("fotoperiodo-anterior").innerText = "--";
-        //         });
-        // }
+        function carregarFotoperiodoAnterior(idSensor, idEstufa) {
+            const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+
+            if (!idEmpresa || !idEstufa || !idSensor || idEstufa === "0" || idSensor === "0") {
+                console.warn("carregarFotoperiodoAnterior: ids inválidos — abortando fetch.");
+                return;
+            }
+
+            fetch(`/dashboard/fotoperiodo/anterior/empresa/${idEmpresa}/estufa/${idEstufa}/sensor/${idSensor}`, {
+                method: "GET"
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro ao buscar fotoperíodo anterior");
+                    return res.json();
+                })
+                .then(dados => {
+                    console.log(dados[0])
+                    if (dados && dados.length > 0 && dados[0].horas_iluminadas != null) {
+                        var horas = dados[0].horas_iluminadas;
+                        document.getElementById("fotoperiodoAnterior").innerText = horas + "h";
+                    } else {
+                        document.getElementById("fotoperiodoAnterior").innerText = "0 h";
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro ao buscar fotoperíodo do dia anterior:", err);
+                    document.getElementById("fotoperiodoAnterior").innerText = "--";
+                });
+        }
 
 
         // Não mexer

@@ -15,11 +15,10 @@ router.get("/sensores/:idEstufa", function (req, res) {
     dashboardController.listarSensores(req, res);
 });
 
-// router.get("/fotoperiodo/anterior/empresa/:id_empresa/estufa/:id_estufa/sensor/:id_sensor",
-//     function (req, res) {
-//         dashboardController.buscarFotoperiodoAnterior(req, res);
-//     }
-// );
+router.get("/fotoperiodo/anterior/empresa/:idEmpresa/estufa/:idEstufa/sensor/:idSensor", function (req, res) {
+    dashboardController.buscarFotoperiodoAnterior(req, res);
+}
+);
 
 router.get("/ideais/estufa/:idEstufa/sensor/:idSensor/empresa/:idEmpresa", function (req, res) {
     dashboardController.obterIdeais(req, res);

@@ -74,7 +74,7 @@ fkSensor INT,
 FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor),
 PRIMARY KEY (idRegistro, fkSensor)
 );
-
+select * from funcionario;
 -- INSERTS 
 INSERT INTO empresa (razaoSocial, cnpj) VALUES 
 ('Tomatech', '45896320147895'),
@@ -116,10 +116,3 @@ INSERT INTO acessoFuncionario (fkFuncionario, fkEmpresa, fkNivelAcesso) VALUES
 (7, 1, 4),
 (7, 1, 5),
 (7, 1, 6);
-
-	
-
-
-
-
-

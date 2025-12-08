@@ -60,11 +60,10 @@ function listarSensores(req, res) {
 }
 
 function buscarFotoperiodoAnterior(req, res) {
-    var id_estufa = req.params.id_estufa;
-    var id_sensor = req.params.id_sensor;
-    var id_empresa = req.params.id_empresa;
+    const { idEstufa, idSensor, idEmpresa } = req.params;
 
-    dashboardModel.buscarFotoperiodoAnterior(id_estufa, id_sensor, id_empresa)
+
+    dashboardModel.buscarFotoperiodoAnterior(idEstufa, idSensor, idEmpresa)
         .then(function (resultado) {
             console.log(`Fotoperíodo anterior encontrados: ${resultado.length}`);
             if (resultado.length > 0) {
@@ -74,7 +73,7 @@ function buscarFotoperiodoAnterior(req, res) {
             }
         })
         .catch(function (erro) {
-            console.log(erro);
+            console.log("Erro no controller:", erro);
             res.status(500).json(erro.sqlMessage);
         });
 }
