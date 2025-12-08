@@ -55,9 +55,8 @@
             </div>
 
             <div id="resposta" class="resposta-form">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et totam non quam ab corporis natus
-                    assumenda, odio nam voluptas laborum rem ea. Expedita, repellendus! Libero perferendis cumque iusto
-                    deleniti ipsa!</p>
+                <p>Aqui terá a resposta do BobIA. Espere um pouco ao clicar no botão para gerar a resposta, ele pode
+                    demorar um pouco para processar...</p>
             </div>
         </div>
         </div>
@@ -78,14 +77,19 @@
                 body: JSON.stringify({ pergunta })
             });
 
-            const data = await req.json();
+            if (req.status != 500) {
 
-            document.getElementById("resposta").innerText = data.resultado;
+                const data = await req.json();
 
+                document.getElementById("resposta").innerHTML = `<p>${data.resultado}</p>`;
+            }
+            else {
+                throw new Error('Erro ao gerar resposta')
+            }
         } catch (error) {
             console.error(error);
-            document.getElementById("resposta").innerText =
-                "Erro ao gerar resposta.";
+            document.getElementById("resposta").innerHTML =
+                "<p>Erro ao gerar resposta.</p>";
         }
     }
 
