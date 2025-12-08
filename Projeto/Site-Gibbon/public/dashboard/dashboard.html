@@ -103,14 +103,14 @@
                                     alt="triângulo apontado para cima">
                                 <div class="texto-container">
                                     <span>Maior valor do dia</span>
-                                    <p class="valor" id="maior-valor-dia"></p>
+                                    <p class="valor" id="maiorValorDia"></p>
                                     <p>umol/m²/s</p>
                                 </div>
                             </div>
                             <div class="valores-dia">
                                 <div class="texto-container">
                                     <span>Menor valor do dia</span>
-                                    <p class="valor" id="menor-valor-dia"></p>
+                                    <p class="valor" id="menorValorDia"></p>
                                     <p>umol/m²/s</p>
                                 </div>
                                 <img src="../assets/images/icons/indicador-menor.png"
@@ -267,6 +267,7 @@
                                     lista.reverse()
                                     plotarGraficoPPFD(lista, idEstufa, idSensor);
                                     buscarMetricas(idSensor, idEstufa);
+                                    buscarPPFDdia(idSensor, idEstufa)
                                 });
                         }
                         else if (res.status == 204) {
@@ -363,21 +364,30 @@
             proximaAtualizacao = setTimeout(() => atualizarGrafico(grafico, idEstufa, idSensor), 1000000000)
         }
 
-
-
-
-
-        /*function buscarPPFDdia() {
-            // fetch(`/dashboard/buscar/registros/10/empresa/${sessionStorage.getItem('ID_EMPRESA')}/estufa/${idEstufa}/sensor/${idSensor}`)
-            //     .then(res => res.json())
-            //     .then(dados => {
-                //         document.getElementById("maior-valor-dia").innerHTML = dados.ppfdMax + "-";
-                //         document.getElementById("menor-valor-dia").innerHTML = dados.ppfdMin +"-";
-                //     })
-                //     .catch(err => console.error(err));
-                } */
         /*KPIs --------------------------------------------------------------------------------------------------------------- */
 
+        // Função buscar PPFD maior e menor dia funcional
+        function buscarPPFDdia(idSensor, idEstufa) {
+            const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
+
+            if (!idEmpresa || idEstufa === "0" || idSensor === "0" || idEstufa === "" || idSensor === "") {
+                console.warn("buscarPPFDdia: ids inválidos — abortando fetch.");
+                return;
+            }
+
+            fetch(`/dashboard/ppfd-dia/estufa/${idEstufa}/sensor/${idSensor}/empresa/${idEmpresa}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Erro ao buscar métricas");
+                    return res.json();
+                })
+                .then(dados => {
+                    document.getElementById("maiorValorDia").innerHTML = Number(dados.ppfdMax).toFixed(0);
+                    document.getElementById("menorValorDia").innerHTML = Number(dados.ppfdMin).toFixed(0);
+                })
+                .catch(err => console.error(err));
+        }
+
+        // Função busacar metricas funcional
         function buscarMetricas(idSensor, idEstufa) {
             const idEmpresa = sessionStorage.getItem("ID_EMPRESA");
 
@@ -386,7 +396,7 @@
                 console.warn("buscarMetricas: ids inválidos — abortando fetch.");
                 return;
             }
-            alert("tentei")
+
             fetch(`/dashboard/ideais/estufa/${idEstufa}/sensor/${idSensor}/empresa/${idEmpresa}`)
                 .then(res => {
                     if (!res.ok) throw new Error("Erro ao buscar métricas");
@@ -401,25 +411,25 @@
                 .catch(err => console.error('Erro ao buscar métricas', err));
         }
 
-        function carregarFotoperiodoAnterior() {
-            fetch("/medidas/fotoperiodo-anterior", {
-                method: "GET"
-            })
-                .then(res => res.json())
-                .then(dados => {
-                    // Esperado: [{ idEstufa: 1, idSensor: 1, horas_ilumonadas: 12 }]
-                    if (dados && dados.length > 0) {
-                        var horas = dados[0].horas_ilumonadas;
-                        document.getElementById("fotoperiodo-anterior").innerText = horas + " h";
-                    } else {
-                        document.getElementById("fotoperiodo-anterior").innerText = "0 h";
-                    }
-                })
-                .catch(err => {
-                    console.error("Erro ao buscar fotoperíodo do dia anterior:", err);
-                    document.getElementById("fotoperiodo-anterior").innerText = "--";
-                });
-        }
+        // function carregarFotoperiodoAnterior() {
+        //     fetch("/medidas/fotoperiodo-anterior", {
+        //         method: "GET"
+        //     })
+        //         .then(res => res.json())
+        //         .then(dados => {
+        //             // Esperado: [{ idEstufa: 1, idSensor: 1, horas_ilumonadas: 12 }]
+        //             if (dados && dados.length > 0) {
+        //                 var horas = dados[0].horas_ilumonadas;
+        //                 document.getElementById("fotoperiodo-anterior").innerText = horas + " h";
+        //             } else {
+        //                 document.getElementById("fotoperiodo-anterior").innerText = "0 h";
+        //             }
+        //         })
+        //         .catch(err => {
+        //             console.error("Erro ao buscar fotoperíodo do dia anterior:", err);
+        //             document.getElementById("fotoperiodo-anterior").innerText = "--";
+        //         });
+        // }
 
 
         // Não mexer

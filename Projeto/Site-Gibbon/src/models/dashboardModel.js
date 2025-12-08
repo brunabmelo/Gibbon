@@ -75,8 +75,8 @@ function buscarIdeais(idEstufa, idSensor, idEmpresa) {
 function buscarPpfdDia(idEstufa, idSensor, idEmpresa) {
     const instrucao = `
     SELECT
-        MAX(r.ppfd) AS ppfdMax,
-        MIN(r.ppfd) AS ppfdMin
+        MAX(r.nivelLuz) AS ppfdMax,
+        MIN(r.nivelLuz) AS ppfdMin
     FROM registro r
         JOIN sensor s ON s.idSensor = r.fkSensor
         JOIN estufa e ON e.idEstufa = s.fkEstufa

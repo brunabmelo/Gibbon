@@ -26,9 +26,9 @@ router.get("/ideais/estufa/:idEstufa/sensor/:idSensor/empresa/:idEmpresa", funct
 });
 
 
-// router.get("/ppfd-dia/:idEstufa/:idSensor/:idEmpresa", function (req, res) {
-//     dashboardController.ppfdDia(req, res);
-// });
+router.get("/ppfd-dia/estufa/:idEstufa/sensor/:idSensor/empresa/:idEmpresa", function (req, res) {
+    dashboardController.ppfdDia(req, res);
+});
 
 
 module.exports = router;
