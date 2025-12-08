@@ -441,6 +441,7 @@
                 .catch(err => {
                     console.error("Erro ao buscar fotoperíodo do dia anterior:", err);
                     document.getElementById("fotoperiodoAnterior").innerText = "--";
+                    document.getElementById("dli-anterior").innerText = "--";
                 });
         }
 
@@ -451,9 +452,9 @@
                     return res.json();
                 })
                 .then(dados => {
-                    console.log(dados[0])
-                    if (dados && dados.length > 0 && dados[0].media_ppfd != null) {
-                        let mediaPPFD = dados[0].media_ppfd
+                    console.log(dados)
+                    if (dados && dados.media_ppfd != null) {
+                        let mediaPPFD = dados.media_ppfd
                         let dli = mediaPPFD * horas * 3600 / 1000000
                         document.getElementById("dli-anterior").innerText = dli;
                     } else {
