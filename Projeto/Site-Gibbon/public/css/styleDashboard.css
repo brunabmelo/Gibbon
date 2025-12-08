@@ -565,7 +565,7 @@ main {
     align-items: flex-start;
     background-color: #ffffff;
     border-radius: 8px;
-    padding-right: 530px;
+    /* padding-right: 530px; */
     box-shadow: 2px 5px 9px grey;
 }
 
@@ -964,6 +964,13 @@ textarea:focus {
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.forma-ferramenta a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     background-color: #FBB03B;
     border: none;
     border-radius: 8px;
@@ -971,14 +978,10 @@ textarea:focus {
     font-size: 18px;
     cursor: pointer;
     transition: .2s ease-in-out;
-    font-weight: 500;
-}
-
-.forma-ferramenta a {
     font-weight: 400;
 }
 
-.forma-ferramenta:hover {
+.forma-ferramenta a:hover {
     background-color: #ffce7f;
     color: #474747;
 }

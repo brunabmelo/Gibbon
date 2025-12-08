@@ -17,14 +17,16 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/styleDashboard.css">
     <link rel="stylesheet" href="../css/responsive.css">
+
+    <script src="../js/dashboard.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao()">
     <nav class="sidebar">
         <div class="sidebar-container">
             <div class="perfil">
                 <div class="perfil-card">
-                    <h2>Nome Usuário</h2>
+                    <h2 id="nome_usuario_sidebar">Nome Usuário</h2>
                 </div>
                 <a href="./perfil.html">Perfil</a>
                 <button onclick="abrirSuporte()">Suporte</button>
@@ -66,9 +68,8 @@
                     <label>Nível de acesso*</label>
                     <div class="nivel-acesso-container">
                         <div class="ipt-nivel-container">
-                             <input type="checkbox" name="admin" id="admin" value="1">
+                            <input type="checkbox" name="admin" id="admin" value="1">
                             <label for="admin">Administrador</label>
-                           
                         </div>
                         <div class="ipt-nivel-container">
                             <input type="checkbox" name="editor" id="editor" value="2">
@@ -107,8 +108,6 @@
         </section>
 
     </main>
-
-    <script src="../js/dashboard.js"></script>
 </body>
 
 </html>
@@ -187,7 +186,7 @@
                 alert("Erro ao conectar com o servidor");
             });
     }
-    
+
     function abrirSuporte() {
         let vt_niveis_acesso = []
 
@@ -198,7 +197,7 @@
         console.log(vt_niveis_acesso.includes('Suporte N1'));
         console.log(vt_niveis_acesso.includes('Suporte N2'));
         console.log(vt_niveis_acesso.includes('Suporte N3'));
-        
+
 
         if (vt_niveis_acesso.includes('Suporte N3') || vt_niveis_acesso.includes('Suporte N2') || vt_niveis_acesso.includes('Suporte N1')) {
             window.location.href = "./suporte.html";

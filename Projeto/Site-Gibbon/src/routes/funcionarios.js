@@ -8,7 +8,7 @@ router.get("/listar/:id_empresa", function (req, res) {
 });
 
 router.post("/niveisAcesso", function(req, res) {
-    funcionarioController.buscarNiveisAcesso(req, res)
+    funcionarioController.buscarNiveisAcesso(req, res);
 })
 
 router.post("/cadastrar", function (req, res) {
@@ -18,5 +18,9 @@ router.post("/cadastrar", function (req, res) {
 router.post("/acessoFuncionario", function (req, res) {
     funcionarioController.cadastrarAcessoFuncionario(req, res);
 });
+
+router.put("/atualizar", function(req, res) {
+    funcionarioController.atualizar(req, res);
+})
 
 module.exports = router;
