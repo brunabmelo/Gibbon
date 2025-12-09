@@ -41,9 +41,7 @@ app.use("/avisos", avisosRouter);
 
 const { GoogleGenAI } = require("@google/genai");
 
-const chatIA = new GoogleGenAI({
-    apiKey: process.env.MINHA_CHAVE
-});
+const chatIA = new GoogleGenAI({ apiKey: process.env.MINHA_CHAVE });
 
 app.post("/perguntar", async (req, res) => {
     const pergunta = req.body.pergunta;
