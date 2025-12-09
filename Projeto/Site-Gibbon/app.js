@@ -60,7 +60,7 @@ app.post("/perguntar", async (req, res) => {
 async function gerarResposta(mensagem) {
     try {
         const modeloIA = chatIA.models.generateContent({
-            model: "gemini-2.0-flash",
+            model: "gemini-2.5-flash",
             contents: `Responda de forma clara: ${mensagem}`
         });
 
