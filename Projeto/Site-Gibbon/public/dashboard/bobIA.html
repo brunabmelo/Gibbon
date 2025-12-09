@@ -69,7 +69,7 @@
         const pergunta = document.getElementById("inputPergunta").value;
 
         try {
-            const req = await fetch("http://localhost:3333/perguntar", {
+            const req = await fetch("/perguntar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
